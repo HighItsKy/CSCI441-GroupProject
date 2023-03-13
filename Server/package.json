@@ -1,0 +1,23 @@
+{
+  "name": "transportapp",
+  "version": "4.0.0",
+  "description": "Transport App for Trucks Direct Transport",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "Eugene Bertman",
+  "license": "All Rights Reserved",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "date-fns": "^2.23.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
