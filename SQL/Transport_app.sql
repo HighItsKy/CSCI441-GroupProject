@@ -2,46 +2,46 @@ CREATE TABLE Truck (
     Truck_ID INT PRIMARY KEY NOT NULL,
     Truck_VIN VARCHAR(17),
     Truck_Max_Load FLOAT,
-    Truck_Capacity FLOAT  NOT NULL,
+    Truck_Capacity INT NOT NULL,
     Truck_Mileage INT
 );
 
 /* Vehicle damage report. For damage types refere to read me */
 
-CREATE TABLE Damage_Record (
-    Damage_Record_ID INT PRIMARY KEY NOT NULL,
+CREATE TABLE Car_Line_Item (
+    Car_Line_Item_ID INT PRIMARY KEY NOT NULL,
     Vehicle_ID INT NOT NULL,
     Invoice_ID INT NOT NULL,
-    Damage VARCHAR(255),
     Line_drawing BLOB, /*might need some modification*/
-    Amount_$ DECIMAL(10,2)  NOT NULL,
-    Payment_Date DATE NOT NULL,
+    Shipping_Cost DECIMAL(10,2)  NOT NULL,
+    Notes VARCHAR(2000),
     FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle(Vehicle_ID),
     FOREIGN KEY (Invoice_ID) REFERENCES Job(Invoice_ID)
 );
 
 /*Transported vehicle information */
+/* Everything is NOT NULL in this category */
 
 CREATE TABLE Vehicle (
     Vehicle_ID INT PRIMARY KEY NOT NULL,
-    VIN VARCHAR(17),
-    Vehicle_Make VARCHAR(255),
-    Vehicle_Model VARCHAR(255),
-    Vehicle_Year INT,
-    Vehicle_Color VARCHAR(255)
+    VIN VARCHAR(17) NOT NULL,
+    Vehicle_Make VARCHAR(255) NOT NULL,
+    Vehicle_Model VARCHAR(255) NOT NULL,
+    Vehicle_Year INT NOT NULL,
+    Vehicle_Color VARCHAR(255) NOT NULL
 );
 
 /* Employee information including Admin, Assigner and driver information */
 
 CREATE TABLE Employee(
     Employee_ID INT PRIMARY KEY NOT NULL,
-    Is_It_Admin BOOL NOT NULL,
-    Is_it_Driver BOOL NOT NULL,
+    Is_Admin BOOL NOT NULL,
+    Is_Driver BOOL NOT NULL,
     Employee_First_Name VARCHAR(255) NOT NULL,
     Employee_Last_Name VARCHAR(255) NOT NULL,
-    Employee_Username VARCHAR(20),
-    Employee_Password VARCHAR(20),
-    Employee_Contact_No INT NOT NULL,
+    Employee_Username VARCHAR(20) NOT NULL,
+    Employee_Password VARCHAR(20) NOT NULL,
+    Employee_Contact_No VARCHAR(20) NOT NULL,
     Employee_Street_Address VARCHAR(255),
     Employee_City VARCHAR(255),
     Employee_State VARCHAR(13),
@@ -67,11 +67,12 @@ CREATE TABLE Customer (
 
 CREATE TABLE Job (
     Invoice_ID INT PRIMARY KEY NOT NULL,
+    Job_Date DATE NOT NULL,
     Shipper_ID INT NOT NULL,
     Receiver_ID INT NOT NULL,
     Truck_ID INT NOT NULL,
-    Driver_ID INT ,
-    Assigner_ID INT  ,
+    Driver_ID INT,
+    Intake_ID INT NOT NULL ,
     Driver_signature BLOB, 
     Shipper_Signature BLOB,
     Receiver_Signature BLOB,
@@ -84,29 +85,38 @@ CREATE TABLE Job (
     FOREIGN KEY (Assigner_ID) REFERENCES Employee(Employee_ID) 
 );
 
+/* Record of payments received */
+CREATE TABLE Payment (
+	Payment_ID INT PRIMARY KEY NOT NULL,
+    Invoice_ID INT NOT NULL,
+    Payment_Date DATE NOT NULL,
+    Payment_Amount DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (Invoice_ID) REFERENCES Job(Invoice_ID)
+);
+
 /* To save photos in the system as url text */
 
 CREATE TABLE Photo_Record (
     Photo_ID INT PRIMARY KEY NOT NULL,
-    Damage_Record_ID INT  NOT NULL,
+    Car_Line_Item_ID INT  NOT NULL,
     URL VARCHAR(4096)  NOT NULL,
-    FOREIGN KEY (Damage_Record_ID) REFERENCES Damage_Record(Damage_Record_ID)
+    FOREIGN KEY (Car_Line_Item_ID) REFERENCES Car_Line_Item(Car_Line_Item_ID)
 );
 
 /*To save companies details*/
 
-CREATE TABLE Companies (
+CREATE TABLE Company (
 Company_ID INT PRIMARY KEY NOT NULL,
 Company_Name VARCHAR(255) UNIQUE NOT NULL
 );
 
 /*To save company branches incase we are transfaring from one branch to an other for the same company*/
 
-CREATE TABLE Company_Branches (
-Company_Branches_ID INT PRIMARY KEY NOT NULL,
-Company_ID INT  NOT NULL,
+CREATE TABLE Company_Branch (
+Company_Branch_ID INT PRIMARY KEY NOT NULL,
+Company_ID INT NOT NULL,
 Branch_Name VARCHAR(255) UNIQUE NOT NULL,
-FOREIGN KEY (Company_ID) REFERENCES Companies(Company_ID)
+FOREIGN KEY (Company_ID) REFERENCES Company(Company_ID)
 );
 
 
