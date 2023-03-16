@@ -1,24 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+// import any components you want to use in this file:
+import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* Here is how we use the component in our html */}
+      <Navbar />
+      <div className="App">
+        here is the app
+      </div>
     </div>
+    
   );
 }
 
