@@ -8,6 +8,9 @@ router.route('/')
     .put(transportController.updateJob)
     .delete(transportController.deleteJob);
 
+router.route('/:DriverID')
+    .get(transportController.GetDriverJobs)
+
 router.route('/:Job')
     .get(transportController.getJob);
 
