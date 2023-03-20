@@ -7,9 +7,9 @@ import About from './components/About';
 import Login from './components/Login';
 
 
-// use state instead of variables
-let isUserLoggedIn = true;
-let currentPath = isUserLoggedIn ? <Home /> : <Login />
+// // use state instead of variables
+// let isUserLoggedIn = true;
+// let currentPath = isUserLoggedIn ? <Home /> : <Login />
 
 
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={ currentPath }></Route>
+        <Route path="/" element={<Home/>}></Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="about" element={<About />}></Route>
       </Routes>

@@ -1,3 +1,4 @@
+import { useState }from 'react';
 // import any components you want to use in this file:
 import Navbar from './Navbar';
 import JobList from './JobList';
@@ -6,6 +7,8 @@ import JobList from './JobList';
 
 
 function Home() {
+
+
 
     const adminUser = {
         id: 101,
@@ -36,18 +39,20 @@ function Home() {
         email: "rocket@email.com"
     }
 
-    
+    // change this to change which user info shows up
+    const [ currentUser, setCurrentUser] = useState(driverUser)
 
+    
 
 
     return (
         <div>
-            <Navbar />
+            <Navbar key={currentUser.id} user={ currentUser } />
             <main>
                 This is the Home page
             </main>
             {/* pass adminUser data if you want to see what the admin would show */}
-            <JobList key={driverUser.id} user={ driverUser }/>
+            <JobList key={currentUser.id} user={currentUser }/>
         </div>
 
     );

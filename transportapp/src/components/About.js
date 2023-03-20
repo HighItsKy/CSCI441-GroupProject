@@ -5,7 +5,6 @@ import Navbar from './Navbar';
 function About() {
     return (
         <div>
-            <Navbar />
             <main>
                 This is the About page
             </main>
