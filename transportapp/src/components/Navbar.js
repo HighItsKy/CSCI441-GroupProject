@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 
 // in the function the return will show what the html will look like
 function Navbar( {user} ) {
@@ -11,12 +13,11 @@ function Navbar( {user} ) {
     return (
         // made sure there is only one html tag at the top level of the return statement
         <nav>
-            <ul>
+                <Link to="about">About</Link>
                 {/* loop through our array and create a <li> element for each item */}
                 {linksToUse.map((link) => (
-                    <li>{link}</li>
+                    <Link>{link}</Link>
                 ))}
-            </ul>
         </nav>
 
         // if i add another html tag here, then there would be two html tags at the top
