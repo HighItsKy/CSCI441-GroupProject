@@ -5,7 +5,6 @@ function Login() {
                 This is the Login page.
             </main>
         </div>
-
     );
 }
 
