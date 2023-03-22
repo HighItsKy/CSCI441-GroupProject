@@ -73,6 +73,13 @@ CREATE TABLE Car_Line_Item (
     FOREIGN KEY (Invoice_ID) REFERENCES Job(Invoice_ID)
 );
 
+CREATE TABLE Payment (
+    Payment_ID SERIAL PRIMARY KEY NOT NULL,
+    Invoice_ID INT NOT NULL,
+    Payment_Date DATE NOT NULL,
+    Payment_Amount DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (Invoice_ID) REFERENCES Job(Invoice_ID)
+);
 
 CREATE TABLE Photo_Record (
     Photo_ID SERIAL PRIMARY KEY NOT NULL,
