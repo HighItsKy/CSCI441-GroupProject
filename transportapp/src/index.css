@@ -56,47 +56,26 @@ html, body{
 }
 
 /*NAV*/
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 20px 50px; /*Makes the nav bar a little thicker*/
-  overflow: hidden;
-  background-color: #333; /*Makes the entire nav bar black*/ 
+/*Background color of the nav bar*/
+.bg-navBackground{
+	background-color: #333;
 }
 
-nav{
-	position: relative;
-	overflow: hidden;
+/*Text color of nav links*/
+.nav-link{
+	color: #638797 !important;
+	background-color: #333;
+	text-align: center; /*Makes text centered in nav when screen sizes are smaller*/
 }
 
-nav a {
-    background-color: #333; /*Makes the background for each button black*/
-	color: #acc6cb;
-	text-align: center;
-	padding: 14px 50px;
-	text-decoration: none;
-	font-family: 'London Tube', 'Times New Roman', sans-serif; 
-	font-size: 25px;
+/*Makes text appear white upon hovering*/
+.nav-link:hover{
+	color: white !important;
 }
 
-/* Change the link color to #2e3540 on hover */
-li a:hover {
-  color: white;
-  transition: all 0.7s ease;
-}
-
-/* Centered section inside the top navigation */
-.centerNav a {
-  float: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* Right-aligned section inside the top navigation */
-.rightNav {
-  float: right;
+/*Makes the rest of the nav bar #333*/
+.container{
+	background-color: #333;
 }
 
 /*BODY*/
