@@ -1,13 +1,16 @@
-const mysql = require("mysql");
+const { Pool } = require("pg");
+
 const dbConfig = require("../config/db.config.js");
 
 // Create a connection to the database
-const connection = mysql.createConnection({
-    host: dbConfig.HOST,
-    user: dbConfig.USER,
-    password: dbConfig.PASSWORD,
-    database: dbConfig.DB,
-});
+const connection = new Pool({
+    user: dbConfig.PGUSER,
+    host: dbConfig.PGHOST,
+    database: dbConfig.PGDATABASE,
+    password: dbConfig.PGPASSWORD,
+    port: dbConfig.PGPORT,
+})
+
 // open the MySQL connection
 connection.connect((error) => {
     if (error) throw error;

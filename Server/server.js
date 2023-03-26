@@ -6,17 +6,19 @@ const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const errorHandler = require("./middleware/errorHandler");
-const cookieParser = require("cookie-parser");
-const credentials = require("./middleware/credentials");
 const exp = require("constants");
+const db = require("./model/db");
 const PORT = process.env.PORT || 3500;
+
+//connect to database - we will eventuially need to remove this - but I wanted to run it here to show a connection.
+db.connect();
+//query to show that the server is connected
+db.query('SELECT NOW()', (err, res) => {
+    console.log(err, res);
+})
 
 // custom middleware logger
 app.use(logger);
-
-// Handle options credentials check - before CORS!
-// and fetch cookies credentials requirement
-//app.use(credentials);
 
 // Cross Origin Resource Sharing
 app.use(cors(corsOptions));
@@ -29,12 +31,12 @@ app.use(express.json({ limit: "200mb" }));
 
 //serve static files
 app.use("/", express.static(path.join(__dirname, "/public")));
-app.use("/static", express.static(path.join(__dirname, "/transportapp/build/static")));
+//app.use("/static", express.static(path.join(__dirname, "/transportapp/build/static")));
 
 // routes
 app.use("/", require("./routes/root"));
-app.use("/TransportApp/TransportData", require("./routes/api/transportjobs"));
-app.use("TransportApp", express.static(path.join(__dirname, "/views")));
+//app.use("/TransportApp/TransportData", require("./routes/api/transportjobs"));
+//app.use("TransportApp", express.static(path.join(__dirname, "/views")));
 
 app.all("*", (req, res) => {
     res.status(404);
