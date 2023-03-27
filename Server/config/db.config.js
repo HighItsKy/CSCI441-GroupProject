@@ -19,4 +19,4 @@ PSQL Command : PPGPASSWORD=pOavrpCPXO30gh3T8eHaRYThhWyGaNnC psql -h dpg-cgchbjke
 */
 
 /* To access the Datebase from "connect URL" through Postbird use this URL "postgres://transport_app_9zwr_user:pOavrpCPXO30gh3T8eHaRYThhWyGaNnC@dpg-cgchbjkeoogljtomqfh0-a.ohio-postgres.render.com/transport_app_9zwr?ssl=true"
-
+*/
