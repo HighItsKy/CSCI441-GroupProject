@@ -56,8 +56,8 @@ html, body{
 }
 
 /*NAV*/
-/*Background color of the nav bar*/
-.bg-navBackground{
+/*Background color fixed*/
+.navbar-collapse, .container-fluid, .bg-navBackground, .navbar-toggler-icon, .container{
 	background-color: #333;
 }
 
@@ -71,11 +71,6 @@ html, body{
 /*Makes text appear white upon hovering*/
 .nav-link:hover{
 	color: white !important;
-}
-
-/*Makes the rest of the nav bar #333*/
-.container{
-	background-color: #333;
 }
 
 /*BODY*/
