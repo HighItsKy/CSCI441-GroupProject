@@ -12,18 +12,28 @@ function Navbar( {user} ) {
     // use adminLinks if isAdmin is true, use driverLinks otherwise
     let linksToUse = user.isAdmin ? adminLinks : driverLinks
 
+    const expandBreakpoint = "md"; /* Change this to update breakpoint*/
+    
     return (
         // made sure there is only one html tag at the top level of the return statement
         <>
-        <Navbar bg="navBackground" variant="dark" expand="lg">
-            <Container>
-                <Nav className='m-auto'>
-                    <Nav.Link href="#about">About</Nav.Link>
+        <Navbar bg="navBackground" variant="dark" expand={expandBreakpoint}>
+            <Container fluid>
+                <div 
+                    style={{width: "56px"}}
+                    className={`d-block d-${expandBreakpoint}-none`}>
+                </div>
+                <Nav.Link href="#about" className={`m-auto d-block d-${expandBreakpoint}-none`>About</Nav.Link>
+                <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className='m-auto'>
+                        <Nav.Link href="#about" className={`d-none d-${expandBreakpoint}-block`>About</Nav.Link>
                         {/* loop through our array and create a <li> element for each item */}
                         {linksToUse.map((link) => (
                             <Nav.Link>{link}</Nav.Link>
                         ))}
-                </Nav>
+                    </Nav>
+                </Navbar.Collapse>
             </Container>
         </Navbar>
         </>        
