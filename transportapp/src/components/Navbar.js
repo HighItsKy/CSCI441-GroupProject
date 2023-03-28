@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 // in the function the return will show what the html will look like
-function Navbar( {user} ) {
+function TransportNavbar( {user} ) {
 
     let adminLinks = ["View Jobs", "Add Job", "Edit Job", "Manage Users", "Account Settings"]
     let driverLinks = ["View Jobs", "Edit Job", "Account Settings"]
@@ -23,11 +23,11 @@ function Navbar( {user} ) {
                     style={{width: "56px"}}
                     className={`d-block d-${expandBreakpoint}-none`}>
                 </div>
-                <Nav.Link href="#about" className={`m-auto d-block d-${expandBreakpoint}-none`>About</Nav.Link>
+                <Nav.Link href="#about" className={`m-auto d-block d-${expandBreakpoint}-none`}>About </Nav.Link>
                 <Navbar.Toggle aria-controls='basic-navbar-nav'/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className='m-auto'>
-                        <Nav.Link href="#about" className={`d-none d-${expandBreakpoint}-block`>About</Nav.Link>
+                        <Nav.Link href="#about" className={`d-none d-${expandBreakpoint}-block`}>About</Nav.Link>
                         {/* loop through our array and create a <li> element for each item */}
                         {linksToUse.map((link) => (
                             <Nav.Link>{link}</Nav.Link>
@@ -45,4 +45,4 @@ function Navbar( {user} ) {
 }
 
 // export the component so it can be used outside of this file
-export default NavigationBar;
+export default TransportNavbar;
