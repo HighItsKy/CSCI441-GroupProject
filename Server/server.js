@@ -11,11 +11,17 @@ const db = require("./model/db");
 const PORT = process.env.PORT || 3500;
 
 //connect to database - we will eventuially need to remove this - but I wanted to run it here to show a connection.
-db.connect();
+//db.connect();
 //query to show that the server is connected
-db.query('SELECT NOW()', (err, res) => {
-    console.log(err, res);
-})
+/*db.query('SELECT NOW()')
+    .then((res) => console.log(res.rows))
+    .catch((err) => console.log(err.stack));
+*/
+
+db.query('SELECT * from truck')
+    .then((res) => console.log(res.rows))
+    .catch((err) => console.log("HERE"));
+
 
 // custom middleware logger
 app.use(logger);
