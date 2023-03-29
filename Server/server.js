@@ -10,24 +10,27 @@ const exp = require("constants");
 const db = require("./model/db");
 const PORT = process.env.PORT || 3500;
 
-db.connect((err, clients) => {
-    if (err) console.log(err);
-    clients.query('SELECT * FROM truck', [], (err, res) => {
-        if (err) {
-            console.log(err.stack)
-        } else {
-            console.log(res.rows[0])
-        }
-    })
-});
 
-db.query('SELECT * FROM TRUCK', [], (err, res) => {
-    if (err) {
-        console.log(err.stack)
+async function databaselookup() {
+    let client = await db.connect();
+    if (client.error) console.log(client);
+    let data1 = await client.query('SELECT * FROM truck', []);
+    if (data1.err) {
+        console.log(data1.err)
     } else {
-        console.log(res.rows[0])
+        console.log(data1.rows[0])
     }
-});
+    client.release();
+
+    const data3 = await db.query('SELECT * FROM TRUCK', []);
+    if (data3.err) {
+        console.log(data3.err.stack)
+    } else {
+        console.log(data3.rows[0])
+    }
+}
+
+databaselookup();
 
 // custom middleware logger
 app.use(logger);
