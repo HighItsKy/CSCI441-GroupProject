@@ -10,18 +10,24 @@ const exp = require("constants");
 const db = require("./model/db");
 const PORT = process.env.PORT || 3500;
 
-//connect to database - we will eventuially need to remove this - but I wanted to run it here to show a connection.
-//db.connect();
-//query to show that the server is connected
-/*db.query('SELECT NOW()')
-    .then((res) => console.log(res.rows))
-    .catch((err) => console.log(err.stack));
-*/
+db.connect((err, clients) => {
+    if (err) console.log(err);
+    clients.query('SELECT * FROM truck', [], (err, res) => {
+        if (err) {
+            console.log(err.stack)
+        } else {
+            console.log(res.rows[0])
+        }
+    })
+});
 
-db.query('SELECT * from truck')
-    .then((res) => console.log(res.rows))
-    .catch((err) => console.log("HERE"));
-
+db.query('SELECT * FROM TRUCK', [], (err, res) => {
+    if (err) {
+        console.log(err.stack)
+    } else {
+        console.log(res.rows[0])
+    }
+});
 
 // custom middleware logger
 app.use(logger);

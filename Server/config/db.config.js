@@ -1,6 +1,6 @@
 module.exports = {
     PGUSER: "transport_app_9zwr_user",
-    PGHOST: "dpg-cgchbjkeoogljtomqfh0-a",
+    PGHOST: "dpg-cgchbjkeoogljtomqfh0-a.ohio-postgres.render.com",
     PGPASSWORD: "pOavrpCPXO30gh3T8eHaRYThhWyGaNnC",
     PGDATABASE: "transport_app_9zwr",
     PGPORT: 5432,
