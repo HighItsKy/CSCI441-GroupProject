@@ -12,7 +12,7 @@ const connection = new Pool({
     port: dbConfig.PGPORT,
 });
 
-console.log(dbConfig.CONNECTIONSTRING);
+
 const client = new Client(
     dbConfig.CONNECTIONSTRING,
 )
