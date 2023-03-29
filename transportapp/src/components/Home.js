@@ -2,6 +2,7 @@ import { useState }from 'react';
 // import any components you want to use in this file:
 import Navbar from './Navbar';
 import JobList from './JobList';
+import TransportHeader from './header';
 
 
 
@@ -47,6 +48,7 @@ function Home() {
 
     return (
         <div>
+            <TransportHeader/>
             <Navbar key={currentUser.id} user={ currentUser } />
             <main>
                 This is the Home page
