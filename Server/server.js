@@ -12,21 +12,21 @@ const PORT = process.env.PORT || 3500;
 
 
 async function databaselookup() {
-    let client = await db.connect();
-    if (client.error) console.log(client);
-    let data1 = await client.query('SELECT * FROM truck', []);
-    if (data1.err) {
-        console.log(data1.err)
-    } else {
-        console.log(data1.rows[0])
-    }
-    client.release();
+    try {
+        let client = await db.connect();
 
-    const data3 = await db.query('SELECT * FROM TRUCK', []);
-    if (data3.err) {
-        console.log(data3.err.stack)
-    } else {
+        let data1 = await client.query('SELECT * FROM truck');
+        console.log(data1.rows[0]);
+        client.release();
+    }
+    catch (err) {
+        console.log(err.error);
+    }
+    try {
+        const data3 = await db.query('SELECT * FROM TRUCKs');
         console.log(data3.rows[0])
+    } catch (err) {
+        console.log(err);
     }
 }
 
