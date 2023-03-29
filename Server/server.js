@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 3500;
 
 
 async function databaselookup() {
+
+    //use this for INSERT, UPDATE and DELETE - this supports transactions - YOU CAN DO MUTIPLE QUERIES IN ONE CONNECTION
     try {
         let client = await db.connect();
 
@@ -22,6 +24,8 @@ async function databaselookup() {
     catch (err) {
         console.log(err.error);
     }
+
+    //USE THIS FOR SELECTS - THIS USES ONE CONNECTION THEN RELEASES IT
     try {
         const data3 = await db.query('SELECT * FROM TRUCKs');
         console.log(data3.rows[0])

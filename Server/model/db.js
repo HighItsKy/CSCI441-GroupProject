@@ -2,7 +2,6 @@ const { Pool, Client } = require("pg");
 
 const dbConfig = require("../config/db.config.js");
 
-// Create a connection to the database
 const connection = new Pool({
     host: dbConfig.PGHOST,
     user: dbConfig.PGUSER,
@@ -11,5 +10,6 @@ const connection = new Pool({
     port: dbConfig.PGPORT,
     ssl: true,
 });
+console.log("Database Pool Configured");
 
 module.exports = connection;
