@@ -4,9 +4,10 @@ import JobInfo from './JobForm';
 import TransportHeader from './header';
 import JobList from './JobList';
 import { useState }from 'react';
+import React from 'react';
 
 
-function JobViewer({  }) {
+function JobViewer({user}) {
 
     const adminUser = {
         id: 101,
@@ -22,6 +23,7 @@ function JobViewer({  }) {
         state: "state",
         email: "email@mail.com"
     }
+
     const driverUser = {
         id: 501,
         isAdmin: false,
@@ -37,35 +39,42 @@ function JobViewer({  }) {
         email: "rocket@email.com"
     }
 
+
     // change this to change which user info shows up
-    const [ currentUser, setCurrentUser] = useState(driverUser)
+    const [currentUser, setCurrentUser] = useState(adminUser);
 
     return (
             
         <main>
 
-            
-
             <TransportHeader/>
 
-            <Navbar key={currentUser.id} user={ currentUser } />
+            <Navbar key={currentUser.id} user={currentUser} />
             
+            {currentUser == adminUser ? (
+
+            <React.Fragment>
+
             <div className="row">
-
                 <div className="col-md-6">
-
-                    <JobInfo />
-
+                    <JobInfo key={currentUser.id} user={currentUser}/>
                 </div>
-
                 <div className="col-md-6">
-
-                    <JobList key={currentUser.id} user={currentUser }/>
-
+                    <JobList key={currentUser.id} user={currentUser}/>
                 </div>
-
-                
             </div>
+            </React.Fragment>
+
+            ) : (  
+
+            <div className="row">
+                <div className="col-md-6">
+                    <JobList key={currentUser.id} user={currentUser}/>
+                </div>
+            </div>
+
+            )}
+
         </main>
 
     )
