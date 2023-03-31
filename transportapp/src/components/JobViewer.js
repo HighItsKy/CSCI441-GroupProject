@@ -46,11 +46,15 @@ function JobViewer({user}) {
     return (
             
         <main>
-
+            
             <TransportHeader/>
 
             <Navbar key={currentUser.id} user={currentUser} />
             
+            {/*If the user is an admin user then it shows the Form to create the job
+               Otherwise the user just sees the jobs for them
+              */}
+              
             {currentUser == adminUser ? (
 
             <React.Fragment>
