@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function JobInfo() {
+function JobForm() {
  
     return (
 
@@ -109,4 +109,4 @@ function JobInfo() {
     )
 }
 
-export default JobInfo
+export default JobForm;
