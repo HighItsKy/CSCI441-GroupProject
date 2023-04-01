@@ -8,7 +8,7 @@ class Truck {
         this.truck_vin = truck.truck_vin;
         this.truck_max_load = truck.truck_max_load;
         this.truck_capacity = truck.truck_capacity;
-        this.mileage = truck.truck_mileage;
+        this.truck_mileage = truck.truck_mileage;
     }
 
     static async getAll(result) {
