@@ -7,9 +7,7 @@ const corsOptions = require("./config/corsOptions");
 const { logger } = require("./middleware/logEvents");
 const errorHandler = require("./middleware/errorHandler");
 const exp = require("constants");
-const db = require("./model/db");
 const PORT = process.env.PORT || 3500;
-const comp = require('./controllers/companyController')
 
 
 async function databaselookup() {
@@ -28,13 +26,13 @@ async function databaselookup() {
 
     //USE THIS FOR SELECTS - THIS USES ONE CONNECTION THEN RELEASES IT
     try {
-        const data3 = await db.query('SELECT * FROM TRUCK');
+        const data3 = await db.query('SELECT * FROM TRUCKs');
         console.log(data3.rows[0])
     } catch (err) {
         console.log(err);
     }
 }
-console.log('database lookup')
+
 databaselookup();
 
 // custom middleware logger
@@ -55,7 +53,6 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 
 // routes
 app.use("/", require("./routes/root"));
-app.use("/companies", require('./routes/api/companies'))
 //app.use("/TransportApp/TransportData", require("./routes/api/transportjobs"));
 //app.use("TransportApp", express.static(path.join(__dirname, "/views")));
 
