@@ -1,10 +1,10 @@
 const sql = require("./db.js");
 
 class Company {
-    constructor(company) {
-        this.company_id = company.company_id;
-        this.compnay_name = company.company_name;
-    }
+    // constructor(company) {
+    //     this.company_id = company.company_id;
+    //     this.company_name = company.company_name;
+    // }
 
     static async getAll() {
         try {

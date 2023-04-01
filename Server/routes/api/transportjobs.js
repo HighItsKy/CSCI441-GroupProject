@@ -3,15 +3,15 @@ const router = express.Router();
 const transportController = require('../../controllers/transportjobController');
 
 router.route('/')
-    .get(transportController.getAllJobs)
-    .post(transportController.createNewJob)
-    .put(transportController.updateJob)
-    .delete(transportController.deleteJob);
+    .get(transportController.getAll)
+    // .post(transportController.createNewJob)
+    // .put(transportController.updateJob)
+    // .delete(transportController.deleteJob);
 
-router.route('/:DriverID')
-    .get(transportController.GetDriverJobs)
+// router.route('/:DriverID')
+//     .get(transportController.GetDriverJobs)
 
-router.route('/:Job')
-    .get(transportController.getJob);
+// router.route('/:Job')
+//     .get(transportController.getJob);
 
 module.exports = router;
