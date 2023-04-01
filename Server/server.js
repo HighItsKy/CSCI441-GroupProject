@@ -28,6 +28,7 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 // routes
 app.use("/", require("./routes/root"));
 app.use("/truck", require("./routes/api/truck"));
+app.use("/company", require("./routes/api/companies"))
 //app.use("/TransportApp/TransportData", require("./routes/api/transportjobs"));
 //app.use("TransportApp", express.static(path.join(__dirname, "/views")));
 

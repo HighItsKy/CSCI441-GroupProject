@@ -3,7 +3,7 @@ const router = express.Router();
 const companyController = require('../../controllers/companyController');
 
 router.route("/")
-    .get(companyController.getAll);
+    .get(companyController.getCompanies);
 
 router.route("/:companyId")
     .get(companyController.getCompany);
