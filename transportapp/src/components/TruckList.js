@@ -1,7 +1,7 @@
-import JobList from './JobList';
 import { useState, useEffect } from 'react';
 import React from 'react';
 import axios from '../api/axios';
+import TruckForm from './TruckForm';
 
 
 function TruckList({ user }) {
@@ -9,6 +9,8 @@ function TruckList({ user }) {
     const [trucks, setTrucks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errMsg, setErrMsg] = useState("");
+    const [truckId, setTruckId] = useState();
+    const [showTruckForm, setShowTruckForm] = useState(false);
 
     useEffect(() => {
 
@@ -33,6 +35,11 @@ function TruckList({ user }) {
 
     }, [])
 
+    function handleClick() {
+        setShowTruckForm(true);
+    }
+
+
     return (
         <>
             {isLoading ?
@@ -49,8 +56,12 @@ function TruckList({ user }) {
                 </>
                 :
                 <>
+                    <TruckForm
+                        showTruckForm={showTruckForm}
+                        setShowTruckForm={setShowTruckForm}
+                    />
                     <div className="container">
-                        <div className="text-center mt-5">
+                        <div className="text-center">
                             <h1>TRUCKS</h1>
                             <table className="table table-sm table-striped">
                                 <colgroup>
@@ -82,7 +93,7 @@ function TruckList({ user }) {
                                 </thead>
                                 <tbody>
                                     {trucks.map((truck) => (
-                                        <tr>
+                                        <tr onClick={handleClick}>
                                             <td>
                                                 {truck.truck_id}
                                             </td>
@@ -93,7 +104,7 @@ function TruckList({ user }) {
                                                 {truck.truck_max_load}
                                             </td>
                                             <td>
-                                                {truck.truck_capcity}
+                                                {truck.truck_capacity}
                                             </td>
                                             <td>
                                                 {truck.truck_mileage}
