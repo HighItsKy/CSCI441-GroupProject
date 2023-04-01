@@ -60,3 +60,6 @@
 20230331	22:58:58	3196162b-7b2a-4d65-9edf-ac35f3512367	PUT	undefined	/truck
 20230331	22:59:03	03ed1c96-8816-4069-a790-188270bdfd73	GET	undefined	/truck
 20230331	22:59:08	8051c783-e9de-4396-9a66-7a68c628bb8d	GET	undefined	/truck/4
+20230331	23:39:20	5aa910b6-266c-4452-b57a-242bd6774c38	GET	http://localhost:3000	/truck
+20230331	23:39:43	f13fda85-1038-4419-b7ca-a3fcba818197	GET	http://localhost:3000	/truck
+20230331	23:39:43	8fef0bed-5968-4490-898c-94fbacaa9557	GET	http://localhost:3000	/truck

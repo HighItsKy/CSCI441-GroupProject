@@ -5,35 +5,35 @@ import Navbar from 'react-bootstrap/Navbar';
 import React from 'react';
 
 // in the function the return will show what the html will look like
-function TransportNavbar( {user} ) {
+function TransportNavbar({ user }) {
 
     let adminLinks = ["View Jobs", "Add Job", "Edit Job", "Manage Users", "Account Settings"]
-    let driverLinks = ["View Jobs", "Edit Job", "Account Settings"]
+    let driverLinks = ["View Jobs", "Edit Job", "View Trucks", "Account Settings"]
 
     // use adminLinks if isAdmin is true, use driverLinks otherwise
     let linksToUse = user.isAdmin ? adminLinks : driverLinks
 
     const expandBreakpoint = "md"; /* Change this to update breakpoint*/
-    
+
     return (
         // made sure there is only one html tag at the top level of the return statement
         <>
-        <Navbar bg="navBackground" variant="dark" expand={expandBreakpoint}>
-            <Container fluid>
-                <div 
-                    style={{width: "56px"}}
-                    className={`d-block d-${expandBreakpoint}-none`}>
-                </div>
-                
-                <Navbar.Toggle aria-controls='basic-navbar-nav'/>
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className='m-auto'>
+            <Navbar bg="navBackground" variant="dark" expand={expandBreakpoint}>
+                <Container fluid>
+                    <div
+                        style={{ width: "56px" }}
+                        className={`d-block d-${expandBreakpoint}-none`}>
+                    </div>
 
-                    {/*Allows for Nav bar links to work
+                    <Navbar.Toggle aria-controls='basic-navbar-nav' />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className='m-auto'>
+
+                            {/*Allows for Nav bar links to work
                        Just an idea that I was working on - Justin
                     */}
 
-                    {/*
+                            {/*
                     {user.isAdmin ? (
 
                             <React.Fragment>
@@ -59,20 +59,20 @@ function TransportNavbar( {user} ) {
                         )}
 
                         */}
-                        
-                        {/* loop through our array and create a <li> element for each item */}
 
-                        {linksToUse.map((link) => (
-                            <Nav.Link>{link}</Nav.Link>
-                        ))}
+                            {/* loop through our array and create a <li> element for each item */}
 
-                       
+                            {linksToUse.map((link) => (
+                                <Nav.Link>{link}</Nav.Link>
+                            ))}
 
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
-        </>        
+
+
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </>
 
         // if i add another html tag here, then there would be two html tags at the top
         // level and we would get an error
