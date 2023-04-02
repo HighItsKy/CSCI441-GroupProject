@@ -3,13 +3,15 @@ const router = express.Router();
 const companyController = require('../../controllers/companyController');
 
 router.route("/")
-    .get(companyController.getCompanies);
+    .get(companyController.getCompanies)
+    .post(companyController.createCompany);
 
 router.route("/:companyId")
     .get(companyController.getCompany);
 
 router.route("/:companyId/branches")
-    .get(companyController.getCompanyBranches);
+    .get(companyController.getCompanyBranches)
+    .post(companyController.createBranch);
 
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const db = require('../model/db')
-const Company = require("../model/companyModel")
+const {Branch, Company} = require("../model/companyModel")
+
 
 const getCompanies = async (req, res) => {
     try {
@@ -37,42 +38,63 @@ const getCompanyBranches = async (req, res) => {
     }
 }
 
-// class Company {
-//     static async getAll() {
-//         let sqlString = `select * FROM Company`;
-//         try {
-//             let res = await db.query(sqlString);
-//             console.log(res.rows);
-//         } catch (err) {
-//             console.error(err)
-//         }
-//     }
+const createCompany = async (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+    }
+    const newComp = new Company(req.body)
+    try {
+        let data = await Company.create(newComp);
+        res.send(data);
+    }
+    catch (err) {
+        res.status(500).send({
+            error: err,
+            message:
+                err.message ||
+                "Some error occurred while creating the company."
+        });
+    }
 
-//     static async getCompany(req) {
-//         if (!req?.params?.companyId) return res.status(400).json({'message': 'CompanyId required.'});
-//         let sqlString = `SELECT * FROM Company WHERE Company_ID = ${req.params.companyId}`
-//         try {
-//             let res = await db.query(sqlString);
-//             console.log(res.rows);
-//         } catch (err) {
-//             console.error(err);
-//         }
-//     }
+}
 
-//     static async getCompanyBranches(req) {
-//         if (!req?.params?.companyId) return res.status(400).json({ 'message': 'CompanyId required.' });
-//         let sqlString = `SELECT * FROM Company_Branch WHERE Company_ID = ${req.params.companyId}`;
-//         try {
-//             let res = await db.query(sqlString);
-//             console.log(res.rows);
-//         } catch (err) {
-//             console.error(err);
-//         }
-//     }
-// }
+const createBranch= async (req, res) => {
+    // Validate request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+    }
+    if (!req?.params?.companyId) {
+        res.status(400).send({
+            message: "companyId required to create new branch."
+        })
+    }
+    
+    const newBranch = new Branch(req.body);
+    newBranch.company_id = req.params.companyId;
+
+    try {
+        let data = await Branch.create(newBranch);
+        res.send(data);
+    }
+    catch (err) {
+        res.status(500).send({
+            error: err,
+            message:
+                err.message ||
+                "Some error occurred while creating the company branch."
+        });
+    }
+};
+
 
 module.exports = {
     getCompanies,
     getCompany,
-    getCompanyBranches
+    getCompanyBranches,
+    createBranch,
+    createCompany
 };
