@@ -57,7 +57,6 @@ const createCompany = async (req, res) => {
                 "Some error occurred while creating the company."
         });
     }
-
 }
 
 const createBranch= async (req, res) => {
