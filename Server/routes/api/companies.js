@@ -13,5 +13,8 @@ router.route("/:companyId/branches")
     .get(companyController.getCompanyBranches)
     .post(companyController.createBranch);
 
+router.route("/:companyId/branches/:branchId")
+    .get(companyController.getBranch)
+
 
 module.exports = router;

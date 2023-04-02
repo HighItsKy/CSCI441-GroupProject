@@ -65,6 +65,15 @@ class Branch {
         this.branch_email = branch.branch_email;
     }
 
+    static async getBranch(branchId) {
+        try {
+            const res = await sql.query('SELECT * FROM Company_Branch WHERE company_branch_id = $1', [branchId]);
+            return res.rows;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     static async create(branch) {
 
         try {

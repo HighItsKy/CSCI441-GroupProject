@@ -139,3 +139,11 @@
 20230401	21:08:31	ce8396f5-a857-4100-86e5-98ca8dfb40b1	GET	undefined	/employee/
 20230401	21:08:39	2a18701b-24d1-45ac-922b-37234b7ad510	GET	undefined	/employee/4
 20230401	21:08:44	8e4ef8d4-bb70-4035-bbe4-a476b27346d3	GET	undefined	/employee/5
+20230402	07:12:12	0aff6e54-a099-4238-9d51-ec2e37cdbbe6	GET	undefined	/customer
+20230402	07:12:18	41dbb02d-e715-4758-8d0c-72ca3e914866	GET	undefined	/customer/4
+20230402	07:23:37	5e2af80b-b134-4538-b06a-fe0cee64c30c	GET	undefined	/company
+20230402	07:23:42	1ee9ea7f-830c-4c3c-8377-1763d1371742	GET	undefined	/company/1
+20230402	07:23:47	d323b7c0-49ef-4e79-801c-535a70adef00	GET	undefined	/company/1/branches
+20230402	07:23:53	01739dd4-fee9-425a-a572-32c1c47bbe39	GET	undefined	/company/1/branches/2
+20230402	07:32:29	0a6fa323-cb0f-4815-8003-7a542ac2fbe6	GET	undefined	/employee
+20230402	07:32:38	bf746ab3-6122-4395-b614-f1bdc97a5793	GET	undefined	/customer
