@@ -27,6 +27,15 @@ class TransportJob {
         }
     }
 
+    static async getJob(jobId) {
+        try {
+            const res = await sql.query('SELECT * FROM Job WHERE invoice_id = $1', [jobId]);
+            return res.rows;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     static async create(job) {
         try {
             let client = await sql.connect();

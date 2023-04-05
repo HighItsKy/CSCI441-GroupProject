@@ -11,7 +11,7 @@ router.route('/')
 // router.route('/:DriverID')
 //     .get(transportController.GetDriverJobs)
 
-// router.route('/:Job')
-//     .get(transportController.getJob);
+router.route('/:jobId')
+    .get(transportController.getJob);
 
 module.exports = router;

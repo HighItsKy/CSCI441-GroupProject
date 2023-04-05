@@ -14,6 +14,17 @@ const getAll = async (req, res) => {
     }
 }
 
+const getJob = async (req, res) => {
+    try {
+        data = await Job.getJob(req.params.jobId);
+        res.send(data);
+    } catch (err) {
+        res.status(500).send({
+            message: "Error retrieving Job with id " + req.params.jobId + " " + err.message
+        });
+    }
+}
+
 const createNewJob = async (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -43,13 +54,12 @@ const updateJob = (req, res) => {
 const deleteJob = (req, res) => {
 };
 
-const getJob = (req, res) => {
-};
+
 
 module.exports = {
     getAll,
+    getJob,
     createNewJob,
     updateJob,
     deleteJob,
-    getJob,
 };
