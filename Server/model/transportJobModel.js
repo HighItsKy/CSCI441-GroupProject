@@ -15,12 +15,17 @@ class TransportJob {
         this.date_complete = job.date_complete;
         this.job_status = job.job_status;
         this.special_instructions = job.special_instructions
+
+        this.driverName = job.driverName;
+        this.shipperName = job.shipperName;
+        this.receiverName = job.receiverName;
+        this.driverFullName = job.driverFullName;
     }
 
 
     static async getAll() {
         try {
-            const res = await sql.query(`SELECT * FROM Job`);
+            const res = await sql.query(`SELECT j.invoice_id, j.shipper_id, j.driver_id, j.Job_status, j.date_of_order, concat(e.employee_first_name, ' ', e.employee_last_name) as full_name FROM Job j INNER JOIN Employee e ON j.driver_id = e.employee_id`);
             return res.rows;
         } catch (err) {
             throw err
