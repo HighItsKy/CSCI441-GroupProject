@@ -7,6 +7,7 @@ import About from './components/About';
 import Login from './components/Login';
 import JobViewer from './components/JobViewer';
 import TruckViewer from './components/TruckViewer';
+import ManageUsers from './components/ManageUsers';
 
 
 // // use state instead of variables
@@ -24,6 +25,7 @@ function App() {
                 <Route path="about" element={<About />}></Route>
                 <Route path="JobViewer" element={<JobViewer />}></Route>
                 <Route path="TruckViewer" element={<TruckViewer />}></Route>
+                <Route path="ManageUsers" element={<ManageUsers />}></Route>
             </Routes>
         </BrowserRouter>
     );
