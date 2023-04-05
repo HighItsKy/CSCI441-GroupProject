@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import axios from '../api/axios';
+import { Link } from 'react-router-dom';
 
 
 function JobList( {user} ) {
@@ -84,7 +85,10 @@ function JobList( {user} ) {
                     <tbody>
                             {jobs.map((job) => (
                                 <tr>
-                                    <td>{job.invoice_id}</td>
+
+                                    {/*"Currently linked to TruckViewer until we have the job"*/}
+
+                                    <td><Link to = "" className="btn btn-primary">{job.invoice_id}</Link></td>
                                     <td>{job.shipper_id}</td>
                                     <td>{job.driver_id}</td>
                                     <td>{job.full_name}</td>
