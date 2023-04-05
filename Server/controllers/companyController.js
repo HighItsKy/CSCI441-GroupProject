@@ -49,6 +49,17 @@ const getBranch = async (req, res) => {
     }
 }
 
+const getBranchCustomers = async (req, res) => {
+    try {
+        data = await Branch.getBranchCustomers(req.params.companyId);
+        res.send(data);
+    } catch (err) {
+        res.status(500).send({
+            message: "Error retrieving branches for Company with id " + req.params.companyId + " " + err.message
+        })
+    }
+}
+
 const createCompany = async (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -105,6 +116,7 @@ module.exports = {
     getCompanies,
     getCompany,
     getCompanyBranches,
+    getBranchCustomers,
     getBranch,
     createBranch,
     createCompany

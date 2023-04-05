@@ -16,7 +16,7 @@ router.route('/:customerId')
 // customers that work for that branch. 
 // If a user then wants to add a new customer, they would
 // already pass the companyId and branchId to that customer
-router.route('/company/:companyId/branches/:branchId')
-    .post(customerController.createCustomer)
+// router.route('/company/:companyId/branches/:branchId')
+//     .post(customerController.createCustomer)
 
 module.exports = router;

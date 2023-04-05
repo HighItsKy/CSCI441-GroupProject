@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const companyController = require('../../controllers/companyController');
+const customerController = require('../../controllers/customerController')
 
 router.route("/")
     .get(companyController.getCompanies)
@@ -15,6 +16,10 @@ router.route("/:companyId/branches")
 
 router.route("/:companyId/branches/:branchId")
     .get(companyController.getBranch)
+    .post(customerController.createCustomer)
+
+router.route("/:companyId/branches/:branchId/customers")
+    .get(companyController.getBranchCustomers)
 
 
 module.exports = router;

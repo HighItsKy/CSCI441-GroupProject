@@ -74,8 +74,16 @@ class Branch {
         }
     }
 
-    static async create(branch) {
+    static async getBranchCustomers(branchId) {
+        try {
+            const res = await sql.query(`SELECT * FROM Customer WHERE branch_id = $1`, [branchId])
+            return res.rows;
+        } catch (err) {
+            throw err;
+        }
+    }
 
+    static async create(branch) {
         try {
             let client = await sql.connect();
             let data1 = await client.query(

@@ -29,17 +29,10 @@ class Customer {
 
     // this needs to be tested. It assumes customer has a FK branch_id
     static async create(customer) {
-        if (!req?.params?.branchId) {
-            res.status(400).send({
-                message: "branchId required to create new branch."
-            })
-        }
-        customer.branchId = req.params.branchId
-
         try {
             let client = await sql.connect();
             let data1 = await client.query(
-                'INSERT INTO Customer(customer_first_name, customer_last_name, branch_id) VALUES ($1) RETURNING Company_ID',
+                'INSERT INTO Customer(customer_first_name, customer_last_name, branch_id) VALUES ($1, $2, $3) RETURNING Customer_ID',
                 [customer.customer_first_name, customer.customer_last_name, customer.branchId]
             );
             client.release();
