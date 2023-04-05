@@ -1,14 +1,16 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  	margin: 0;
+  	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  	-webkit-font-smoothing: antialiased;
+ 	-moz-osx-font-smoothing: grayscale;
+	background-color: #a2b6c8!important;
+  	overflow-y: scroll; /*Makes the scroll always visible*/
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -17,18 +19,16 @@ html, body{
 	height:100%;
 }
 
+/*Sets the entire background color to #a2b6c8*/
 *{
-	background-color: #638797; /*Sets the background color to the same blue color*/
+	background-color: #a2b6c8  ; /*Sets the background color to the same blue color*/
 }
 
 /*HEADER*/
 .headerImage{
 	background-repeat: no-repeat;
 	background-size: contain; 
-	
-	/* Adds the blur effect to the image */
-	filter: blur(2px); 
-	-webkit-filter: blur(2px); 
+	width: 100%;
 }
 
 /*Text for Header*/
@@ -51,7 +51,7 @@ html, body{
 
 /*Text color of nav links*/
 .nav-link{
-	color: #638797 !important;
+	color: #acc6cb !important;
 	background-color: #333;
 	text-align: center; /*Makes text centered in nav when screen sizes are smaller*/
 }
@@ -61,6 +61,117 @@ html, body{
 	color: white !important;
 }
 
+/*Vertical bar for Manage Users section KEEP?*/
+.vl {
+	border-left: 6px solid green;
+	height: 500px;
+  }
+
+
+/*Customizes the form styles for Manage Users, etc*/
+.form-control{
+	border: 3px solid #333!important;
+	background-color: rgba(255, 255, 255, 0.373)!important;
+	transition: border-color .15s ease-in-out,box-shadow .15s ;
+  }
+
+  
+  .form-group input:focus, .employee-id input:focus{
+		box-shadow: none!important; /*Makes the blue outline go away when the form is clicked*/
+		background-color:rgba(255, 255, 255, 0.597)!important;
+		transition: background-color .20s ease-in-out;
+  }
+
+  /*Makes the border in the form black*/
+  .form-group input:hover, .employee-id input:hover{
+	border-color: black!important;
+  }
+  
+
+  /*Manage Users form*/
+  .form-container{
+	display: flex;
+	flex-direction: row;
+	padding-left: 25%; /*Adjusts location of form on page*/
+  }
+  
+  /*Creates a vertical bar to separate data*/
+  .employee-id{
+	display: flex;
+	flex-direction: column;
+	border-right: 6px solid #333;
+	margin-right: 10px;
+	padding-right: 10px;
+  }
+  
+  .employee-details .form-group{
+	display: flex;
+	flex-direction: column;
+  } 
+
+  /*Changes the color of all buttons*/
+  .btn{
+	color: #acc6cb!important;
+	background: linear-gradient(#717171, black, #333);
+  }
+
+  /*Changes the border color of all buttons*/
+  .btn-primary{
+	border-color: #333!important;
+  }
+
+  .btn-primary:hover{
+	border-color: #638797!important;
+  }
+
+  /*Adjusts the spacing between the button and the text at the top of the page's body*/
+  .bodyHeading button{
+	margin-right: 30px;
+	margin-left: 30px;
+  }
+
+  
+/*Makes the form's text bold and #333*/
+  label{
+	color: #333;
+	font-weight: bold;
+  }
+
+  /*Searchbar*/
+  .bodyHeading input[type=text]{
+	width: 16%;
+	border-color: #333;
+	border-style: solid;
+	text-align: left;
+	color: #333 !important;
+	font-size: 30px;
+	background-color: rgba(255, 255, 255, 0.373);
+  }
+
+  /*Makes the text in the placeholder of the search bar #333*/
+  .bodyHeading input::placeholder{
+	color: black;
+	font-weight: 500;
+  }
+
+  /*Shifts the header and all elements to the right a smidge*/
+  .bodyHeading h1{
+	padding-left: 1.9%;
+  }
+
+  /*Makes the border in the search bar #333*/
+  .bodyHeading input[type=text]:hover{
+	border-color: black;
+  }
+
+  /*Changes the searchbar's appearance when clicked on*/
+  .bodyHeading input[type=text]:focus{
+	background-color:rgba(255, 255, 255, 0.597);
+	outline: none;
+	transition: background-color .20s ease-in-out;
+  }
+
+
 /*BODY*/
 body h2{
 	font-size: 60px;
@@ -69,15 +180,20 @@ body h2{
 	color: #333;
 }
 
-body h1{
+body h1, body h3{
 	text-align: center;
 	font-family: 'London Tube', 'Times New Roman', sans-serif; 
 	color: #333;
+	font-weight: bold;
+	padding-top: 2%;
 }
+
+
 
 body h1 a{
 	color: #333;
 }
+
 
 
 /* On all screen types with a window width of between 1024px and 1280px:
@@ -125,4 +241,15 @@ Samsung Galaxy A51/71*/
 body h1{
 	font-size: 275%;
 }
+	/*Fills the extra space from an iPad Air with the same background color*/
+	body{
+		background-color: #638797!important;
+	}
+	 /*Manage Users form*/
+	 .form-container{
+		display: flex;
+		flex-direction: row;
+		padding-left: 1px; /*Adjusts location of form on page*/
+		padding-right: 1px;
+	}
 }
