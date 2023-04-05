@@ -19,7 +19,8 @@ CREATE TABLE Customer (
     Customer_ID SERIAL PRIMARY KEY NOT NULL,
     Customer_First_Name VARCHAR(255) NOT NULL,
     Customer_Last_Name VARCHAR(255) NOT NULL,
-    Branch_Name VARCHAR(255) NOT NULL
+    Branch_ID INTEGER NOT NULL,
+    FOREIGN KEY (Branch_ID) REFERENCES Company_Branch(Company_Branch_ID)
 );
 
 
