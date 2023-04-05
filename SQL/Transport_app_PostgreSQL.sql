@@ -59,7 +59,8 @@ CREATE TABLE Job (
     FOREIGN KEY (Shipper_ID) REFERENCES Customer(Customer_ID),
     FOREIGN KEY (Receiver_ID) REFERENCES Customer(Customer_ID),
     FOREIGN KEY (Truck_ID) REFERENCES Truck(Truck_ID),
-    FOREIGN KEY (Driver_ID) REFERENCES Employee(Employee_ID)
+    FOREIGN KEY (Driver_ID) REFERENCES Employee(Employee_ID),
+    FOREIGN KEY (Intake_ID) REFERENCES Employee(Employee_ID
 );
 
 
