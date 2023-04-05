@@ -25,6 +25,17 @@ const getEmployee = async (req, res) => {
     }
 };
 
+const getDriverJobs = async (req, res) => {
+    try {
+        data = await Employee.getDriverJobs(req.params.driverId);
+        res.send(data);
+    } catch (err) {
+        res.status(500).send({
+            message: "Error retrieving Employee with id " + req.params.driverId + " " + err.message
+        });
+    }
+};
+
 const createEmployee = async (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -49,5 +60,6 @@ const createEmployee = async (req, res) => {
 module.exports = {
     getAll,
     getEmployee,
+    getDriverJobs,
     createEmployee
 }

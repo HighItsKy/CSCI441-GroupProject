@@ -9,4 +9,9 @@ router.route('/')
 router.route("/:employeeId")
     .get(employeeController.getEmployee);
 
+router.route("/:driverId/jobs")
+    // returns all jobs where employeeId is the driver of the job
+    // note if you need all jobs for an admin user, use axios.get("/job")
+    .get(employeeController.getDriverJobs) 
+
 module.exports = router;

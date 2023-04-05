@@ -35,6 +35,17 @@ class Employee {
         }
     }
 
+    static async getDriverJobs(empID) {
+        try {
+            const res = await sql.query(`SELECT j.invoice_id, j.shipper_id, j.driver_id, j.Job_status, j.date_of_order, concat(e.employee_first_name, ' ', e.employee_last_name) as full_name 
+                                        FROM Job j INNER JOIN Employee e ON j.driver_id = e.employee_id 
+                                        WHERE j.driver_id = $1`, [empID]);
+            return res.rows;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     static async create(newEmp) {
 
         try {
