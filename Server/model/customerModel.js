@@ -27,7 +27,6 @@ class Customer {
     }
 
 
-    // this needs to be tested. It assumes customer has a FK branch_id
     static async create(customer) {
         try {
             let client = await sql.connect();

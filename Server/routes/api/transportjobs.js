@@ -4,7 +4,7 @@ const transportController = require('../../controllers/transportjobController');
 
 router.route('/')
     .get(transportController.getAll)
-    // .post(transportController.createNewJob)
+    .post(transportController.createNewJob)
     // .put(transportController.updateJob)
     // .delete(transportController.deleteJob);
 

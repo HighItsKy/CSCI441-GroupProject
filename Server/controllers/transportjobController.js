@@ -14,7 +14,27 @@ const getAll = async (req, res) => {
     }
 }
 
-const createNewJob = (req, res) => {
+const createNewJob = async (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+    }
+    const newJob = new Job(req.body)
+    //newJob.date_of_order = Date.now().toISOString();
+    newJob.job_status = "Pending";
+    try {
+        let data = await Job.create(newJob);
+        res.send(data);
+    }
+    catch (err) {
+        res.status(500).send({
+            error: err,
+            message:
+                err.message ||
+                "Some error occurred while creating the company."
+        });
+    }
 };
 
 const updateJob = (req, res) => {
