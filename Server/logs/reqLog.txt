@@ -300,3 +300,5 @@
 20230405	14:17:22	eae334dc-0256-4142-95e9-e2a28049e44b	GET	undefined	/employee/34/jobs
 20230405	14:17:28	9b5dc80c-b023-4c55-a3d6-f285ff0a3f76	GET	undefined	/employee/4/jobs
 20230405	14:17:34	e0480fe7-2ec0-426d-a25c-00d9163b677e	GET	undefined	/employee/5/jobs
+20230405	14:16:43	e1b0955b-69fd-427c-a811-37646b7dc038	GET	http://localhost:3000	/job
+20230405	14:16:47	5cdd2510-a0dd-47e6-8bcb-5b4bf47d73d8	GET	http://localhost:3000	/job
