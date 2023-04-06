@@ -14,4 +14,7 @@ router.route('/')
 router.route('/:jobId')
     .get(transportController.getJob);
 
+router.route('/:jobId/carLineItems')
+    .get(transportController.getCarLineItems)
+
 module.exports = router;

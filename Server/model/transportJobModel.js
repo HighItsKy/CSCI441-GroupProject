@@ -41,6 +41,15 @@ class TransportJob {
         }
     }
 
+    static async getCarLineItems(jobId) {
+        try {
+            const res = await sql.query('SELECT * FROM Car_Line_Item cli LEFT JOIN Vehicle veh ON cli.Vehicle_Id = veh.Vehicle_Id WHERE invoice_id = $1', [jobId]);
+            return res.rows;
+        } catch (err) {
+            throw err;
+        }
+    }
+
     static async create(job) {
         try {
             let client = await sql.connect();

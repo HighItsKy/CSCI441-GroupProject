@@ -25,6 +25,17 @@ const getJob = async (req, res) => {
     }
 }
 
+const getCarLineItems = async (req, res) => {
+    try {
+        data = await Job.getCarLineItems(req.params.jobId);
+        res.send(data);
+    } catch (err) {
+        res.status(500).send({
+            message: "Error retrieving Job with id " + req.params.jobId + " " + err.message
+        });
+    }
+}
+
 const createNewJob = async (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -59,6 +70,7 @@ const deleteJob = (req, res) => {
 module.exports = {
     getAll,
     getJob,
+    getCarLineItems,
     createNewJob,
     updateJob,
     deleteJob,
