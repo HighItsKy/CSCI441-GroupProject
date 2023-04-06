@@ -17,7 +17,7 @@ router.route('/:jobId')
 router.route('/:jobId/carLineItems')
     .get(transportController.getCarLineItems)
 
-router.route('/job/updateJobStatus')
+router.route('/updateJobStatus')
     .put(transportController.updateJobStatus) // Not yet tested. takes in an invoice_id and current_job_status and updates the job to the next job_status
 
 module.exports = router;
