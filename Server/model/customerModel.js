@@ -19,7 +19,11 @@ class Customer {
 
     static async getCustomer(customerId) {
         try {
-            const res = await sql.query('SELECT * FROM Customer WHERE customer_id = $1', [customerId]);
+            const stmt = `SELECT * FROM Customer cu 
+            LEFT JOIN Company_Branch br ON cu.Branch_ID = br.Company_Branch_ID
+            LEFT JOIN Company co ON br.Company_ID = co.Company_ID WHERE cu.customer_ID = $1`;
+            // /'SELECT * FROM Customer c LEFT JOIN Company_Branch b ON c.Branch_ID = b.Company_Branch_ID WHERE customer_id = $1'
+            const res = await sql.query(stmt, [customerId]);
             return res.rows;
         } catch (err) {
             throw err;

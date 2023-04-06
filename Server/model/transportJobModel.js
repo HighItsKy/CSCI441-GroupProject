@@ -34,7 +34,23 @@ class TransportJob {
 
     static async getJob(jobId) {
         try {
-            const res = await sql.query('SELECT * FROM Job WHERE invoice_id = $1', [jobId]);
+            const stmt = `SELECT j.invoice_id, j.shipper_id, j.receiver_id, j.truck_id, j.driver_id, j.intake_id, j.driver_signature, j.shipper_signature, j.date_of_order, j.date_complete, j.job_status, j.special_instructions,
+                            t.truck_vin, t.truck_capacity, t.truck_mileage, 
+                            s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name, s.branch_id AS shipper_branch_id, sc.Company_Name AS shipper_company,
+                            sb.branch_name AS shipper_branch_name, sb.branch_contact_no AS shipper_contact_no, sb.branch_street_address AS shipper_street, sb.branch_city AS shipper_city, sb.branch_state AS shipper_state, sb.branch_email AS shipper_email,
+                            r.customer_first_name AS receiver_first_name, r.customer_last_name AS receiver_last_name, r.branch_id AS receiver_branch_id, rc.Company_Name AS receiver_company,
+                            rb.branch_name AS receiver_branch_name, rb.branch_contact_no AS receiver_contact_no, rb.branch_street_address AS receiver_street, rb.branch_city AS receiver_city, rb.branch_state AS receiver_state, rb.branch_email AS receiver_email
+                            FROM Job j
+                            LEFT JOIN Truck t ON j.Truck_Id = t.Truck_Id
+                            LEFT JOIN Customer s ON j.Shipper_ID = s.Customer_ID
+                            LEFT JOIN Customer r ON j.Receiver_ID = r.Customer_ID
+                            LEFT JOIN Company_Branch sb on s.branch_id = sb.company_branch_id
+                            LEFT JOIN Company_Branch rb on r.branch_id = rb.company_branch_id
+                            LEFT JOIN Company sc on sb.Company_ID = sc.Company_ID
+                            LEFT JOIN Company rc on rb.Company_ID = rc.Company_ID
+                            WHERE j.invoice_id = $1`
+            //'SELECT * FROM Job WHERE invoice_id = $1'
+            const res = await sql.query(stmt, [jobId]);
             return res.rows;
         } catch (err) {
             throw err;
