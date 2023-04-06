@@ -62,6 +62,43 @@ const createNewJob = async (req, res) => {
 const updateJob = (req, res) => {
 };
 
+const updateJobStatus = async (req, res) => {
+    // Validate Request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+    }
+    if (!req.body.invoice_id){
+        res.status(400).send({
+            message: "Content must include an invoice_id"
+        })
+    }
+    if (!req.body.current_job_status){
+        res.status(400).send({
+            message: "Content must include a current_job_status"
+        })
+    }
+    try {
+        const jobId = req.body.invoice_id;
+        const currentJobStatus = req.body.current_job_status;
+        const newJobStatus = currentJobStatus == 'Pending' ? 'Loading' :
+                currentJobStatus == 'Loading' ? 'Arrived' :
+                currentJobStatus == 'Arrived' ? 'Unloaded' : 'Complete';
+        let data = await Job.updateJobStatus(jobId, newJobStatus);        
+        if (data === 0)
+            res.status(404).send({
+                message: `Not found Job with id ${jobId}.`
+            });
+        else
+            res.send('{"message": "success"}');
+    } catch (err) {
+        res.status(500).send({
+            message: `Error updating Job with id ${jobId}`
+        });
+    }
+};
+
 const deleteJob = (req, res) => {
 };
 
@@ -73,5 +110,6 @@ module.exports = {
     getCarLineItems,
     createNewJob,
     updateJob,
+    updateJobStatus,
     deleteJob,
 };

@@ -81,6 +81,21 @@ class TransportJob {
         }
     }
 
+    static async updateJobStatus(jobId, newJobStatus) {
+        try {
+            let client = await sql.connect();
+            let data1 = await client.query(
+                'UPDATE Job SET job_status = $1 WHERE invoice_id = $2',
+                [newJobStatus, jobId]
+            );
+            client.release();
+            return data1.rows;
+        }
+        catch (err) {
+            throw err;
+        }
+    }
+
 }
 
 module.exports = TransportJob;
