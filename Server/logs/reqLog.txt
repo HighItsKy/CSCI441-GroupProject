@@ -335,3 +335,12 @@
 20230405	19:39:43	62dc0ba9-bb87-47fa-b843-83b6cfdfb1d2	GET	undefined	/job/2
 20230405	19:40:38	fc18f48e-5727-4cfb-9ba1-51783c14a9e5	GET	undefined	/employee/
 20230405	19:41:08	80d75425-b2c2-4a1b-a7c1-ff1e7a5c00d3	GET	undefined	/employee/4
+20230405	19:56:05	63d5b0a5-e81a-42fa-a818-9b210c8b6f83	GET	undefined	/carLineItem
+20230405	19:56:42	a86f1f92-c706-481c-9f29-4a4cc0a5cd1f	GET	undefined	/vehicle
+20230405	19:56:54	7d8de805-86b4-47f2-81dd-8ca2c5f7ae54	GET	undefined	/job
+20230405	19:57:13	33766c0b-0e50-45bd-a3ce-2dfc439a3fb2	GET	undefined	/carLineItem
+20230405	19:58:40	1ac72a1e-baa2-4b73-9a6c-40777f55c7a6	POST	undefined	/carLineItem
+20230405	19:59:01	3dfbe5f5-ac02-4eae-a04b-78002e5bd29e	GET	undefined	/carLineItem
+20230405	19:59:37	dca63da9-a1b8-4a65-812f-2c800d9d3115	POST	undefined	/carLineItem
+20230405	19:59:44	7629616a-4466-41d4-b129-90e0b057f961	GET	undefined	/carLineItem
+20230405	19:59:58	c66ec13a-26bf-4f02-81c4-30d12566f89e	GET	undefined	/carLineItem/1

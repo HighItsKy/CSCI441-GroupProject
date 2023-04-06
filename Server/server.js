@@ -33,6 +33,7 @@ app.use("/job", require("./routes/api/transportjobs"))
 app.use("/vehicle", require("./routes/api/vehicle"))
 app.use("/customer", require("./routes/api/customer"))
 app.use("/employee", require("./routes/api/employee"))
+app.use("/carLineItem", require("./routes/api/carLineItem"))
 //app.use("/TransportApp/TransportData", require("./routes/api/transportjobs"));
 //app.use("TransportApp", express.static(path.join(__dirname, "/views")));
 
