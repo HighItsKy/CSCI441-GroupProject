@@ -99,6 +99,38 @@ const updateJobStatus = async (req, res) => {
     }
 };
 
+const updateDriver = async (req, res) => {
+    // Validate Request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+    }
+    if (!req.body.invoice_id) {
+        res.status(400).send({
+            message: "Content must include an invoice_id"
+        })
+    }
+    if (!req.body.employee_id) {
+        res.status(400).send({
+            message: "Content must include an employee_id"
+        })
+    }
+    try {
+        let data = await Job.updateDriver(req.body.invoice_id, req.body.employee_id);
+        if (data === 0)
+            res.status(404).send({
+                message: `Not found Job with id ${req.body.invoice_id}.`
+            });
+        else
+            res.send('{"message": "success"}');
+    } catch (err) {
+        res.status(500).send({
+            message: `Error updating Job with id ${req.body.invoice_id}`
+        });
+    }
+};
+
 const deleteJob = (req, res) => {
 };
 
@@ -111,5 +143,6 @@ module.exports = {
     createNewJob,
     updateJob,
     updateJobStatus,
+    updateDriver,
     deleteJob,
 };

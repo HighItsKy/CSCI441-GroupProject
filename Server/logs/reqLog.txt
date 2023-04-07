@@ -422,3 +422,15 @@
 20230406	14:44:24	fa8d08e4-d73e-47d9-b0b3-a4da3e71b6c5	GET	http://localhost:3000	/job
 20230406	14:44:53	8fbfdaed-be34-417c-a02b-fc2daf455697	GET	http://localhost:3000	/truck
 20230406	14:44:54	e0771915-fad7-4f98-bab1-5f80de6bfeab	GET	http://localhost:3000	/truck
+20230406	20:58:04	f94ef4ed-0037-4e96-ab79-33a707bc76cb	GET	undefined	/job/2
+20230406	20:58:31	5e9f78ae-4aaf-4421-9898-11bb188ab920	PUT	undefined	/job/updateJobStatus
+20230406	20:58:40	4b11c99a-e5b8-4e8c-98a3-ed852d8422cc	GET	undefined	/job/updateJobStatus
+20230406	20:58:50	7be051ff-1edb-49e2-b5dc-61a47b627df9	GET	undefined	/job/2
+20230406	21:05:59	4f1dc6d1-2f6c-4f28-8bd4-8a3b06281044	GET	undefined	/job/
+20230406	21:06:05	f20dd871-0174-4389-b5a5-58813f2063ae	GET	undefined	/job/3
+20230406	21:06:52	a74c5cd2-0fb4-41ff-b540-be6356bd149f	PUT	undefined	/job/updateDriver
+20230406	21:07:12	caee5e8d-d621-4af3-ae8d-a342153086ff	PUT	undefined	/job/updateDriver
+20230406	21:08:55	3e8453bb-0bc1-47b9-8ef8-1e985f58b2ab	PUT	undefined	/job/updateDriver
+20230406	21:09:12	279c800a-a0d5-4e15-9726-65a7d2a81cde	GET	undefined	/job/3
+20230406	21:09:36	2a2f2eef-1a18-4997-b46f-98d0face8393	PUT	undefined	/job/updateDriver
+20230406	21:09:45	ac5d344f-1adc-41f7-b718-62ac41b7801e	GET	undefined	/job/3

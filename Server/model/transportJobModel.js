@@ -81,12 +81,48 @@ class TransportJob {
         }
     }
 
+    static async update(updateJob) {
+        try {
+            let client = await sql.connect();
+            let data1 = await client.query(
+                `UPDATE Job 
+                SET 
+                    Shipper_ID = $1, Receiver_ID = $2, Truck_ID = $3, Driver_ID = $4, Intake_ID = $5, 
+                    Driver_signature = $6, Shipper_Signature = $7, Receiver_Signature = $8, Job_Status = $9, 
+                    Special_Instructions = $10, Date_of_Order = $11 WHERE invoice_id = $12`,
+                [updateJob.shipper_id, updateJob.receiver_id, updateJob.truck_id, updateJob.driver_id, updateJob.intake_id,
+                updateJob.driver_signature, updateJob.shipper_signature, updateJob.receiver_signature, updateJob.job_status,
+                updateJob.special_instructions, updateJob.date_of_order, updateJob.invoice_id]
+            );
+            client.release();
+            return data1.rowCount;
+        }
+        catch (err) {
+            throw err;
+        }
+    }
+
     static async updateJobStatus(jobId, newJobStatus) {
         try {
             let client = await sql.connect();
             let data1 = await client.query(
                 'UPDATE Job SET job_status = $1 WHERE invoice_id = $2',
                 [newJobStatus, jobId]
+            );
+            client.release();
+            return data1.rows;
+        }
+        catch (err) {
+            throw err;
+        }
+    }
+
+    static async updateDriver(jobId, newDriverId) {
+        try {
+            let client = await sql.connect();
+            let data1 = await client.query(
+                'UPDATE Job SET driver_id = $1 WHERE invoice_id = $2',
+                [newDriverId, jobId]
             );
             client.release();
             return data1.rows;
