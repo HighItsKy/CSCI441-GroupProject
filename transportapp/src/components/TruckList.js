@@ -20,7 +20,6 @@ function TruckList({ user }) {
 
             try {
                 const response = await axios.get(`/truck`);
-                console.log(response);
                 setTrucks(response.data);
 
             } catch (err) {
@@ -35,10 +34,10 @@ function TruckList({ user }) {
 
     }, [])
 
-    function handleClick() {
+    function handleClick(truckIdVal) {
+        setTruckId(truckIdVal);
         setShowTruckForm(true);
     }
-
 
     return (
         <>
@@ -56,10 +55,7 @@ function TruckList({ user }) {
                 </>
                 :
                 <>
-                    <TruckForm
-                        showTruckForm={showTruckForm}
-                        setShowTruckForm={setShowTruckForm}
-                    />
+
                     <div className="container">
                         <div className="text-center">
                             <h1>TRUCKS</h1>
@@ -93,7 +89,7 @@ function TruckList({ user }) {
                                 </thead>
                                 <tbody>
                                     {trucks.map((truck) => (
-                                        <tr onClick={handleClick}>
+                                        <tr onClick={() => handleClick(truck.truck_id)}>
                                             <td>
                                                 {truck.truck_id}
                                             </td>
@@ -114,7 +110,14 @@ function TruckList({ user }) {
                                 </tbody>
                             </table>
                         </div>
+                        <TruckForm
+                            showTruckForm={showTruckForm}
+                            setShowTruckForm={setShowTruckForm}
+                            truckId={truckId}
+                            setTruckId={setTruckId}
+                        />
                     </div>
+
                 </>
             }
         </>
