@@ -48,7 +48,7 @@ function ManageUsers() {
     const [employee, setEmployee] = useState({});
 
     /*Determines whether the user wants to search for a user instead*/
-    let [searchStatus, search] = useState("false")
+    let [searchStatus, search] = useState("false");
 
     return (
         <div>
@@ -70,6 +70,7 @@ function ManageUsers() {
             <div>
                 <UserList
                     changeBtnState={changeBtnState}
+                    employee={employee}
                     setEmployee={setEmployee}
                 />
 

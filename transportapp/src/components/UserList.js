@@ -2,21 +2,19 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import axios from '../api/axios';
 
-function UserList(changeBtnState, setEmployee) {
+function UserList(changeBtnState, employee, setEmployee) {
 
     const [employees, setEmployees] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errMsg, setErrMsg] = useState("");
-    const [userId, setUserId] = useState(0);
 
-
-    const fetchItem = async () => {
-
-        if (userId > 0) {
+    const fetchItem = async (userIdVal) => {
+        if (userIdVal > 0) {
             try {
-                const response = await axios.get('/employee/' + userId);
+                console.log(userIdVal);
+                const response = await axios.get('/employee/' + userIdVal);
+                console.log(response);
                 setEmployee(response.data[0]);
-
             } catch (err) {
                 setErrMsg(JSON.stringify(err));
                 return;
@@ -25,7 +23,7 @@ function UserList(changeBtnState, setEmployee) {
 
     }
     const handleClick = (userIdVal) => {
-        setUserId(userIdVal);
+        fetchItem(userIdVal);
         changeBtnState("open");
     };
 
