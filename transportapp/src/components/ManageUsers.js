@@ -40,12 +40,10 @@ function ManageUsers() {
     // change this to change which user info shows up
     const [currentUser, setCurrentUser] = useState(adminUser);
 
-
-
     /* Determines whether the user wants to create a new user*/
-    let [newButtonState, changeBtnState] = useState("closed");
+    const [newButtonState, changeBtnState] = useState("closed");
 
-    const [employee, setEmployee] = useState({});
+    const [user, setUser] = useState({});
 
     /*Determines whether the user wants to search for a user instead*/
     let [searchStatus, search] = useState("false");
@@ -66,40 +64,38 @@ function ManageUsers() {
                     <input type="text" placeholder="Search for user.." name="search" />
                     <Button onClick={() => search("true")} variant="primary" size="lg">SEARCH</Button>
                 </h1>
-            </div>
-            <div>
                 <UserList
                     changeBtnState={changeBtnState}
-                    employee={employee}
-                    setEmployee={setEmployee}
+                    setUser={setUser}
+                    user={user}
                 />
-
             </div>
-
-            {newButtonState == "open" ? (  /*If the admin is trying to create a new user*/
-                <UserForm
-                    employee={employee}
-                    setEmployee={setEmployee}
-                />
-            )
-                : (
-                    <React.Fragment>
-                        {searchStatus == "false"
-                            ? (
-                                <React.Fragment>{
+            <div>
+                {newButtonState === "open" ? (  /*If the admin is trying to create a new user*/
+                    <>
+                        <UserForm
+                            user={user}
+                            setUser={setUser}
+                        />
+                    </>
+                )
+                    : (
+                        <>
+                            {searchStatus === "false"
+                                ?
+                                <>
                                     /*If the admin has not clicked "NEW USER" or used the search bar*/
                                     <h3> Please choose an action.</h3>
-                                }</React.Fragment>
-                            ) : (
-                                <React.Fragment>{
+                                </>
+                                :
+                                <>
                                     /*If the admin is trying to search for a new user*/
 
-                                }
-                                </React.Fragment>
-                            )}
-                    </React.Fragment>
-                )}
-
+                                </>
+                            }
+                        </>
+                    )}
+            </div>
         </div>
 
     );
