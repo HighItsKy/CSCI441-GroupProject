@@ -61,14 +61,9 @@ function ManageUsers() {
                             changeBtnState("open"); /*Shows the NEW USER form*/
                         }
                     }} variant="primary" size="lg">NEW USER</Button>
-                    <input type="text" placeholder="Search for user.." name="search" />
-                    <Button onClick={() => search("true")} variant="primary" size="lg">SEARCH</Button>
+                    {/*<input type="text" placeholder="Search for user.." name="search" />*/}
+                    <Button onClick={() => search("true")} variant="primary" size="lg">USER SEARCH</Button>
                 </h1>
-                <UserList
-                    changeBtnState={changeBtnState}
-                    setUser={setUser}
-                    user={user}
-                />
             </div>
             <div>
                 {newButtonState === "open" ? (  /*If the admin is trying to create a new user*/
@@ -81,16 +76,19 @@ function ManageUsers() {
                 )
                     : (
                         <>
-                            {searchStatus === "false"
+                            {searchStatus === "false" /*If the admin has not clicked "NEW USER" or used the search bar*/
                                 ?
                                 <>
-                                    /*If the admin has not clicked "NEW USER" or used the search bar*/
                                     <h3> Please choose an action.</h3>
                                 </>
                                 :
                                 <>
-                                    /*If the admin is trying to search for a new user*/
-
+                                    <UserList
+                                    changeBtnState={changeBtnState}
+                                    setUser={setUser}
+                                    user={user}
+                                    />
+                                    {/*If the admin is trying to search for a new user*/}
                                 </>
                             }
                         </>
