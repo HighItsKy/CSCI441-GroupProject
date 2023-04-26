@@ -1,4 +1,5 @@
 CREATE TABLE Truck (
+    Is_Disabled_Truck BOOLEAN NOT NULL,
     Truck_ID SERIAL PRIMARY KEY NOT NULL,
     Truck_VIN VARCHAR(17),
     Truck_Max_Load REAL,
@@ -28,6 +29,7 @@ CREATE TABLE Employee (
     Employee_ID SERIAL PRIMARY KEY NOT NULL,
     Is_Admin BOOLEAN NOT NULL,
     Is_Driver BOOLEAN NOT NULL,
+    Is_Disabled_Empolyee BOOLEAN NOT NULL,
     Employee_First_Name VARCHAR(255) NOT NULL,
     Employee_Last_Name VARCHAR(255) NOT NULL,
     Employee_Username VARCHAR(20) NOT NULL,
