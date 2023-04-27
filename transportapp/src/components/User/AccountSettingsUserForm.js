@@ -37,8 +37,8 @@ function AccountSettingsUserForm({ user, setUser }) {
                     <button type="reset" className={"btn btn-primary"}>RESET</button>
                     <button type="deleteUser" className={"btn btn-primary"}>DELETE USER</button>
                 </form>
-                </div>
-                </React.Fragment>
+            </div>
+        </React.Fragment>
     )
 }
 
