@@ -4,7 +4,13 @@ import Car from './Car';
 
 
 function JobForm({ job, setJob }) {
-
+    /* Converts the date into the format mm/dd/yyy as a string*/
+    const dateObj = new Date(job.date_of_order);
+    const dateOfOrder = dateObj.toLocaleDateString('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric'
+    });
     return (
 
         <Form>
@@ -20,8 +26,8 @@ function JobForm({ job, setJob }) {
                 <Form.Label htmlFor="TransportDate">Date</Form.Label>
                 <Form.Control
                     id="TransportDate"
-                    type="date"
-                    value={job.date_of_order}
+                    type="text"
+                    value={dateOfOrder}
                     placeholder=""
                     disabled
                     autoFocus
