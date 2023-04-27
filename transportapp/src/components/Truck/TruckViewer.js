@@ -1,6 +1,6 @@
 // import any components you want to use in this file:
-import Navbar from './Navbar';
-import TransportHeader from './header';
+import Navbar from '../Navbar';
+import TransportHeader from '../header';
 import TruckList from './TruckList';
 import { useState } from 'react';
 import React from 'react';

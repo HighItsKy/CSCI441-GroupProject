@@ -1,16 +1,32 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import axios from '../api/axios';
-import TruckForm from './TruckForm';
+import axios from '../../api/axios';
 
+function UserList({ changeBtnState, setUser, user }) {
 
-function TruckList({ user }) {
-
-    const [trucks, setTrucks] = useState([]);
+    const [employees, setEmployees] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errMsg, setErrMsg] = useState("");
-    const [truckId, setTruckId] = useState();
-    const [showTruckForm, setShowTruckForm] = useState(false);
+
+    const fetchItem = async (userIdVal) => {
+
+        if (userIdVal > 0) {
+
+            try {
+                const response = await axios.get(`/employee/${userIdVal}`);
+                setUser(response.data[0]);
+
+            } catch (err) {
+                setErrMsg(JSON.stringify(err));
+                return;
+            }
+        }
+    }
+
+    const handleClick = (userIdVal) => {
+        fetchItem(userIdVal);
+        changeBtnState("open");
+    };
 
     useEffect(() => {
 
@@ -19,25 +35,20 @@ function TruckList({ user }) {
             setIsLoading(true);
 
             try {
-                const response = await axios.get(`/truck`);
-                setTrucks(response.data);
+                const response = await axios.get(`/employee`);
+                setEmployees(response.data);
 
             } catch (err) {
                 setErrMsg(JSON.stringify(err));
                 return;
             }
+            setIsLoading(false);
+
         }
 
         fetchItems();
 
-        setIsLoading(false);
-
-    }, [])
-
-    function handleClick(truckIdVal) {
-        setTruckId(truckIdVal);
-        setShowTruckForm(true);
-    }
+    }, []);
 
     return (
         <>
@@ -58,7 +69,7 @@ function TruckList({ user }) {
 
                     <div className="container">
                         <div className="text-center">
-                            <h1>TRUCKS</h1>
+                            <h1>Users</h1>
                             <table className="table table-sm table-striped">
                                 <colgroup>
                                     <col style={{ width: '20%' }}></col>
@@ -73,49 +84,44 @@ function TruckList({ user }) {
                                             ID
                                         </td>
                                         <td>
-                                            VIN
+                                            Username
                                         </td>
                                         <td>
-                                            Max Load
+                                            First Name
                                         </td>
 
                                         <td>
-                                            Capacity
+                                            Last Name
                                         </td>
                                         <td>
-                                            Mileage
+                                            Is Driver?
                                         </td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {trucks.map((truck) => (
-                                        <tr onClick={() => handleClick(truck.truck_id)}>
+                                    {employees.map((employee) => (
+                                        <tr onClick={() => handleClick(employee.employee_id)}>
                                             <td>
-                                                {truck.truck_id}
+                                                {employee.employee_id}
                                             </td>
                                             <td>
-                                                {truck.truck_vin}
+                                                {employee.employee_username}
                                             </td>
                                             <td>
-                                                {truck.truck_max_load}
+                                                {employee.employee_first_name}
                                             </td>
                                             <td>
-                                                {truck.truck_capacity}
+                                                {employee.employee_last_name}
                                             </td>
+
                                             <td>
-                                                {truck.truck_mileage}
+                                                {employee.is_driver}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         </div>
-                        <TruckForm
-                            showTruckForm={showTruckForm}
-                            setShowTruckForm={setShowTruckForm}
-                            truckId={truckId}
-                            setTruckId={setTruckId}
-                        />
                     </div>
 
                 </>
@@ -125,4 +131,4 @@ function TruckList({ user }) {
     )
 }
 
-export default TruckList;
+export default UserList;

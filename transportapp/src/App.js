@@ -1,13 +1,12 @@
 import './App.css';
 import { BrowserRouter, Route, Routes, redirect, Switch } from 'react-router-dom'
 // import any components you want to use in this file:
-import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
 import Login from './components/Login';
-import JobViewer from './components/JobViewer';
-import TruckViewer from './components/TruckViewer';
-import ManageUsers from './components/ManageUsers';
+import JobViewer from './components/Jobs/JobViewer';
+import TruckViewer from './components/Truck/TruckViewer';
+import ManageUsers from './components/Employees/ManageUsers';
 
 
 // // use state instead of variables

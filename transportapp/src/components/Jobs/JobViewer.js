@@ -1,7 +1,7 @@
 // import any components you want to use in this file:
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 import JobForm from './JobForm';
-import TransportHeader from './header';
+import TransportHeader from '../header';
 import JobList from './JobList';
 import { useState } from 'react';
 import React from 'react';

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import React from 'react';
 // import any components you want to use in this file:
-import Navbar from './Navbar';
-import TransportHeader from './header';
+import Navbar from '../Navbar';
+import TransportHeader from '../header';
 import UserList from './UserList';
 import UserForm from './UserForm';
 import { Button } from 'react-bootstrap';
@@ -84,9 +84,9 @@ function ManageUsers() {
                                 :
                                 <>
                                     <UserList
-                                    changeBtnState={changeBtnState}
-                                    setUser={setUser}
-                                    user={user}
+                                        changeBtnState={changeBtnState}
+                                        setUser={setUser}
+                                        user={user}
                                     />
                                     {/*If the admin is trying to search for a new user*/}
                                 </>

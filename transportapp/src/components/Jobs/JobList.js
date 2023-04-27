@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import axios from '../api/axios';
+import axios from '../../api/axios';
 import { Button } from 'react-bootstrap';
 
 function JobList({ user, job, setJob }) {
@@ -40,7 +40,6 @@ function JobList({ user, job, setJob }) {
             return;
         }
     }
-
 
     return (
         <section>

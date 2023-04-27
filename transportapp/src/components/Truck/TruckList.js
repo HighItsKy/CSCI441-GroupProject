@@ -1,32 +1,16 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import axios from '../api/axios';
+import axios from '../../api/axios';
+import TruckForm from './TruckForm';
 
-function UserList({ changeBtnState, setUser, user }) {
 
-    const [employees, setEmployees] = useState([]);
+function TruckList({ user }) {
+
+    const [trucks, setTrucks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errMsg, setErrMsg] = useState("");
-
-    const fetchItem = async (userIdVal) => {
-
-        if (userIdVal > 0) {
-
-            try {
-                const response = await axios.get(`/employee/${userIdVal}`);
-                setUser(response.data[0]);
-
-            } catch (err) {
-                setErrMsg(JSON.stringify(err));
-                return;
-            }
-        }
-    }
-
-    const handleClick = (userIdVal) => {
-        fetchItem(userIdVal);
-        changeBtnState("open");
-    };
+    const [truckId, setTruckId] = useState();
+    const [showTruckForm, setShowTruckForm] = useState(false);
 
     useEffect(() => {
 
@@ -35,20 +19,25 @@ function UserList({ changeBtnState, setUser, user }) {
             setIsLoading(true);
 
             try {
-                const response = await axios.get(`/employee`);
-                setEmployees(response.data);
+                const response = await axios.get(`/truck`);
+                setTrucks(response.data);
 
             } catch (err) {
                 setErrMsg(JSON.stringify(err));
                 return;
             }
-            setIsLoading(false);
-
         }
 
         fetchItems();
 
-    }, []);
+        setIsLoading(false);
+
+    }, [])
+
+    function handleClick(truckIdVal) {
+        setTruckId(truckIdVal);
+        setShowTruckForm(true);
+    }
 
     return (
         <>
@@ -69,7 +58,7 @@ function UserList({ changeBtnState, setUser, user }) {
 
                     <div className="container">
                         <div className="text-center">
-                            <h1>Users</h1>
+                            <h1>TRUCKS</h1>
                             <table className="table table-sm table-striped">
                                 <colgroup>
                                     <col style={{ width: '20%' }}></col>
@@ -84,44 +73,49 @@ function UserList({ changeBtnState, setUser, user }) {
                                             ID
                                         </td>
                                         <td>
-                                            Username
+                                            VIN
                                         </td>
                                         <td>
-                                            First Name
+                                            Max Load
                                         </td>
 
                                         <td>
-                                            Last Name
+                                            Capacity
                                         </td>
                                         <td>
-                                            Is Driver?
+                                            Mileage
                                         </td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {employees.map((employee) => (
-                                        <tr onClick={() => handleClick(employee.employee_id)}>
+                                    {trucks.map((truck) => (
+                                        <tr onClick={() => handleClick(truck.truck_id)}>
                                             <td>
-                                                {employee.employee_id}
+                                                {truck.truck_id}
                                             </td>
                                             <td>
-                                                {employee.employee_username}
+                                                {truck.truck_vin}
                                             </td>
                                             <td>
-                                                {employee.employee_first_name}
+                                                {truck.truck_max_load}
                                             </td>
                                             <td>
-                                                {employee.employee_last_name}
+                                                {truck.truck_capacity}
                                             </td>
-
                                             <td>
-                                                {employee.is_driver}
+                                                {truck.truck_mileage}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
                         </div>
+                        <TruckForm
+                            showTruckForm={showTruckForm}
+                            setShowTruckForm={setShowTruckForm}
+                            truckId={truckId}
+                            setTruckId={setTruckId}
+                        />
                     </div>
 
                 </>
@@ -131,4 +125,4 @@ function UserList({ changeBtnState, setUser, user }) {
     )
 }
 
-export default UserList;
+export default TruckList;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 // import any components you want to use in this file:
 import Navbar from './Navbar';
-import JobList from './JobList';
+import JobList from './Jobs/JobList';
 import TransportHeader from './header';
 
 function Home() {

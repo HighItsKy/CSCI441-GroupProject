@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import axios from '../api/axios';
+import axios from '../../api/axios';
 import { useState } from 'react';
 
 
@@ -22,7 +22,7 @@ function TruckForm({ showTruckForm, setShowTruckForm, truckId, setTruckId }) {
         setShowTruckForm(false);
 
         /*Refreshes the web page once, so the table is up to date after changes have been made and close has been invoked*/
-        if(!refreshed){
+        if (!refreshed) {
             window.location.reload();
             setRefreshed(true);
         }
