@@ -3,9 +3,11 @@ import Navbar from '../Navbar';
 import JobForm from './JobForm';
 import TransportHeader from '../header';
 import JobList from './JobList';
-import { useState } from 'react';
+import JobSearch from './JobSearch';
+import { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import React from 'react';
+import axios from "../../api/axios";
 
 function JobViewer({ user }) {
 
@@ -42,11 +44,40 @@ function JobViewer({ user }) {
 
     // change this to change which user info shows up
     const [currentUser, setCurrentUser] = useState(adminUser);
-
     const [job, setJob] = useState({});
+    const [jobs, setJobs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [errMsg, setErrMsg] = useState("");
+
+    useEffect(() => {
+
+        const fetchItems = async () => {
+
+            setIsLoading(true);
+
+            try {
+                const response = await axios.get(`/job`);
+                console.log(response);
+                setJobs(response.data);
+
+            } catch (err) {
+                setErrMsg(JSON.stringify(err));
+                return;
+            }
+        }
+
+        fetchItems();
+
+        setIsLoading(false);
+
+    }, [])
+
+    const filterJobs = (job) => {
+        return job.full_name.includes(searchTerm);
+    }
 
     return (
-
         <main>
 
             <TransportHeader />
@@ -60,16 +91,29 @@ function JobViewer({ user }) {
             <Row>
                 <Col xs={1}></Col>
                 <Col md={5}>
-                    <JobForm job={job} setJob={setJob} />
+                    <JobForm key={currentUser.id} user={currentUser} job={job} setJob={setJob} />
                 </Col>
                 <Col md={5}>
-                    <JobList key={currentUser.id} user={currentUser} job={job} setJob={setJob} />
+                    <>        {isLoading ? <>
+                        < h1 > Loading ....</h1 >
+                    </>
+                        : <>
+                            <JobSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                            <JobList
+                                key={currentUser.id}
+                                user={currentUser}
+                                jobs={jobs.filter(job => filterJobs(job))}
+                                job={job} setJob={setJob}
+                                setErrMsg={setErrMsg}
+                            />
+                        </>
+                    }</>
                 </Col>
                 <Col xs={1}></Col>
+
             </Row>
 
         </main>
-
     )
 }
 
