@@ -7,12 +7,6 @@ import React from 'react';
 // in the function the return will show what the html will look like
 function TransportNavbar({ user }) {
 
-    let adminLinks = ["View Jobs", "Add Job", "Edit Job", "Manage Users", "Account Settings"]
-    let driverLinks = ["View Jobs", "Edit Job", "View Trucks", "Account Settings"]
-
-    // use adminLinks if isAdmin is true, use driverLinks otherwise
-    let linksToUse = user.isAdmin ? adminLinks : driverLinks
-
     const expandBreakpoint = "md"; /* Change this to update breakpoint*/
 
     return (
@@ -25,51 +19,50 @@ function TransportNavbar({ user }) {
                         className={`d-block d-${expandBreakpoint}-none`}>
                     </div>
 
-                    <Navbar.Toggle aria-controls='basic-navbar-nav' />
+                    <Nav.Link
+                        href="./JobViewer"
+                        className={`m-auto d-block d-${expandBreakpoint}-none`}
+                        >
+                        View Jobs
+                    </Nav.Link>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className='m-auto'>
-
-                            {/*Allows for Nav bar links to work
-                       Just an idea that I was working on - Justin
-                    */}
-
-
-                            {user.isAdmin ? (
-
-                                <React.Fragment>
-
-                                    <Nav.Link href="./JobViewer" className={`d-none d-${expandBreakpoint}-block`}>View Jobs</Nav.Link>
-                                    <Nav.Link href="./JobViewer" className={`d-none d-${expandBreakpoint}-block`}>Add Job</Nav.Link>
-                                    <Nav.Link href="./JobViewer" className={`d-none d-${expandBreakpoint}-block`}>Edit Job</Nav.Link>
-                                    <Nav.Link href="./ManageUsers" className={`d-none d-${expandBreakpoint}-block`}>Manage Users</Nav.Link>
-                                    <Nav.Link href="./TruckViewer" className={`d-none d-${expandBreakpoint}-block`}>Trucks</Nav.Link>
-                                    <Nav.Link href="./AccountSettings" className={`d-none d-${expandBreakpoint}-block`}>Account Settings</Nav.Link>
-
-                                </React.Fragment>
-
-                            ) : (
-
-                                <React.Fragment>
-
-                                    <Nav.Link href="./JobViewer" className={`d-none d-${expandBreakpoint}-block`}>View Jobs</Nav.Link>
-                                    <Nav.Link href="#" className={`d-none d-${expandBreakpoint}-block`}>Edit Job</Nav.Link>
-                                    <Nav.Link href="./AccountSettings" className={`d-none d-${expandBreakpoint}-block`}>Account Settings</Nav.Link>
-
-                                </React.Fragment>
-
-                            )}
-
-
-
-                            {/* loop through our array and create a <li> element for each item */}
-
-                            {/*linksToUse.map((link) => (
-                                <Nav.Link>{link}</Nav.Link>
-                            ))*/}
-
-
-
-                        </Nav>
+                    <Nav className="m-auto flex-grow-1 justify-content-evenly">
+                        <Nav.Link
+                            href="./JobViewer"
+                            className={`d-none d-${expandBreakpoint}-block`}
+                            >
+                            View Jobs
+                        </Nav.Link>
+                        {user.isAdmin ? (
+                            <>
+                                <Nav.Link
+                                    href="./ManageUsers"
+                                    >
+                                    Manage Users
+                                </Nav.Link>
+                                <Nav.Link
+                                    href="./TruckViewer"
+                                    >
+                                    Trucks
+                                </Nav.Link>
+                                <Nav.Link
+                                    href="./AccountSettings"
+                                    >
+                                    Account Settings
+                                </Nav.Link>
+                            </>
+                        ) : (
+                            <>
+                                <Nav.Link
+                                    href="./AccountSettings"
+                                    >
+                                    Account Settings
+                                </Nav.Link>
+                            </>
+                        )}
+                        
+                    </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
@@ -82,4 +75,4 @@ function TransportNavbar({ user }) {
 }
 
 // export the component so it can be used outside of this file
-export default TransportNavbar;
+export default TransportNavbar;    
