@@ -1,11 +1,8 @@
-import { useState }from 'react';
+import { useState } from 'react';
 // import any components you want to use in this file:
 import Navbar from './Navbar';
 import JobList from './JobList';
 import TransportHeader from './header';
-
-
-
 
 function Home() {
 
@@ -41,20 +38,20 @@ function Home() {
     }
 
     // change this to change which user info shows up
-    const [ currentUser, setCurrentUser] = useState(driverUser)
+    const [currentUser, setCurrentUser] = useState(driverUser)
 
-    
+
 
 
     return (
         <div>
-            <TransportHeader/>
-            <Navbar key={currentUser.id} user={ currentUser } />
+            <TransportHeader />
+            <Navbar key={currentUser.id} user={currentUser} />
             <main>
                 This is the Home page
             </main>
             {/* pass adminUser data if you want to see what the admin would show */}
-            <JobList key={currentUser.id} user={currentUser }/>
+            <JobList key={currentUser.id} user={currentUser} />
         </div>
 
     );

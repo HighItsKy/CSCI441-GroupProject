@@ -1,13 +1,12 @@
 // import any components you want to use in this file:
 import Navbar from './Navbar';
-import JobInfo from './JobForm';
+import JobForm from './JobForm';
 import TransportHeader from './header';
 import JobList from './JobList';
-import { useState }from 'react';
+import { useState } from 'react';
 import React from 'react';
 
-
-function JobViewer({user}) {
+function JobViewer({ user }) {
 
     const adminUser = {
         id: 101,
@@ -43,41 +42,31 @@ function JobViewer({user}) {
     // change this to change which user info shows up
     const [currentUser, setCurrentUser] = useState(adminUser);
 
+    const [job, setJob] = useState({});
+
     return (
-            
+
         <main>
-            
-            <TransportHeader/>
+
+            <TransportHeader />
 
             <Navbar key={currentUser.id} user={currentUser} />
-            
+
             {/*If the user is an admin user then it shows the Form to create the job
                Otherwise the user just sees the jobs for them
               */}
-              
-            {currentUser == adminUser ? (
 
             <React.Fragment>
 
-            <div className="row">
-                <div className="col-md-6">
-                    <JobInfo key={currentUser.id} user={currentUser}/>
+                <div className="row">
+                    <div className="col-md-6">
+                        <JobForm job={job} setJob={setJob} />
+                    </div>
+                    <div className="col-md-6">
+                        <JobList key={currentUser.id} user={currentUser} job={job} setJob={setJob} />
+                    </div>
                 </div>
-                <div className="col-md-6">
-                    <JobList key={currentUser.id} user={currentUser}/>
-                </div>
-            </div>
             </React.Fragment>
-
-            ) : (  
-
-            <div className="row">
-                <div className="col-md-6">
-                    <JobList key={currentUser.id} user={currentUser}/>
-                </div>
-            </div>
-
-            )}
 
         </main>
 
