@@ -2,7 +2,7 @@ const CLI = require("../model/carLineItemModel")
 
 const getAll = async (req, res) => {
     try {
-        let data = await CLI.getAll();
+        let data = await CLI.getAll(req.query.invoice_id);
         res.send(data);
     }
     catch (err) {

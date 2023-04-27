@@ -1,10 +1,8 @@
-import { useState, useEffect } from 'react';
 import React from 'react';
-import axios from '../../api/axios';
 import JobListItem from './JobListItem';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
-function JobList({ user, jobs, job, setJob, setErrMsg }) {
+function JobList({ user, jobs, getJob }) {
 
 
     return (
@@ -22,7 +20,7 @@ function JobList({ user, jobs, job, setJob, setErrMsg }) {
                 </thead>
                 <tbody>
                     {jobs.map((job) => (
-                        <JobListItem job={job} setJob={setJob} setErrMsg={setErrMsg} />
+                        <JobListItem job={job} getJob={getJob} />
                     ))}
                 </tbody>
             </Table>

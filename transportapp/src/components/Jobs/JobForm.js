@@ -4,13 +4,7 @@ import Car from './Car';
 
 
 function JobForm({ job, setJob }) {
-    /* Converts the date into the format mm/dd/yyy as a string*/
-    const dateObj = new Date(job.date_of_order);
-    const dateOfOrder = dateObj.toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric'
-    });
+
     return (
 
         <Form>
@@ -26,8 +20,8 @@ function JobForm({ job, setJob }) {
                 <Form.Label htmlFor="TransportDate">Date</Form.Label>
                 <Form.Control
                     id="TransportDate"
-                    type="text"
-                    value={dateOfOrder}
+                    type="date"
+                    value={job.orderDate}
                     placeholder=""
                     disabled
                     autoFocus
@@ -150,7 +144,18 @@ function JobForm({ job, setJob }) {
                 </Form.Control>
             </Form.Group>
 
-            <Car />
+
+
+            <>        {job.cars ?
+                <>
+                    {job.cars.map((car, index) => (<Car car={car} index={index + 1} />))}
+                </>
+                :
+                <>
+                </>}
+            </>
+
+
 
             <Form.Group>
                 <Form.Label>Driver's Signature: </Form.Label>
@@ -173,9 +178,9 @@ function JobForm({ job, setJob }) {
                     MADE SUCH EXCEPTIONS ON INSPECTION SHEETS</p>
             </Form.Group>
 
-            <Button Primary>Submit</Button>
-            <Button Primary >Reset</Button>
-            <Button Primary>Print Invoice</Button>
+            <Button varient="primary">Submit</Button>
+            <Button varient="primary" >Reset</Button>
+            <Button varient="primary">Print Invoice</Button>
 
         </Form >
     )

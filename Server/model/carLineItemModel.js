@@ -10,9 +10,9 @@ class CarLineItem {
         this.notes = cli.notes;
     }
 
-    static async getAll() {
+    static async getAll(invId) {
         try {
-            const res = await sql.query(`SELECT * FROM Car_Line_Item`);
+            const res = await sql.query(`SELECT * FROM Car_Line_Item WHERE Invoice_ID = $1`, [invId]);
             return res.rows;
         } catch (err) {
             throw err

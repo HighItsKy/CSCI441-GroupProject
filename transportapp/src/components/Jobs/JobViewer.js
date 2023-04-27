@@ -5,7 +5,7 @@ import TransportHeader from '../header';
 import JobList from './JobList';
 import JobSearch from './JobSearch';
 import { useState, useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import React from 'react';
 import axios from "../../api/axios";
 
@@ -46,6 +46,9 @@ function JobViewer({ user }) {
     const [currentUser, setCurrentUser] = useState(adminUser);
     const [job, setJob] = useState({});
     const [jobs, setJobs] = useState([]);
+    const [employees, setEmployees] = useState([]);
+    const [trucks, setTrucks] = useState([]);
+
     const [isLoading, setIsLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [errMsg, setErrMsg] = useState("");
@@ -55,16 +58,35 @@ function JobViewer({ user }) {
         const fetchItems = async () => {
 
             setIsLoading(true);
-
+            //get jobs
             try {
                 const response = await axios.get(`/job`);
-                console.log(response);
                 setJobs(response.data);
 
             } catch (err) {
                 setErrMsg(JSON.stringify(err));
                 return;
             }
+            //get Trucks
+            try {
+                const response = await axios.get(`/truck`);
+                setTrucks(response.data);
+
+            } catch (err) {
+                setErrMsg(JSON.stringify(err));
+                return;
+            }
+
+            //get Employees
+            try {
+                const response = await axios.get(`/employee`);
+                setEmployees(response.data);
+
+            } catch (err) {
+                setErrMsg(JSON.stringify(err));
+                return;
+            }
+
         }
 
         fetchItems();
@@ -75,6 +97,55 @@ function JobViewer({ user }) {
 
     const filterJobs = (job) => {
         return job.full_name.includes(searchTerm);
+    }
+
+    const getJob = async (id) => {
+        let jobVal = {};
+        //get job
+        try {
+            const response = await axios.get(`/job/${id}`);
+            jobVal = response.data[0];
+        } catch (err) {
+            setErrMsg(JSON.stringify(err));
+            return;
+        }
+        /* Converts the date into the format mm/dd/yyy as a string*/
+        const dateObj = new Date(jobVal.date_of_order);
+        const dateOfOrder = dateObj.toLocaleDateString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+        });
+
+        jobVal.orderDate = dateOfOrder;
+
+        try {
+            const response = await axios.get(`/carLineItem?invoice_id=${jobVal.invoice_id}`);
+            if (response.data.length > 0)
+                jobVal.cars = response.data;
+            else
+                jobVal.cars = [];
+        } catch (err) {
+            setErrMsg(JSON.stringify(err));
+            return;
+        }
+
+        jobVal.cars.map(async (car) => {
+            try {
+                console.log(car.vehicle_id);
+                const response = await axios.get(`/vehicle/${car.vehicle_id}`);
+                if (response.data.length > 0)
+                    car.vehicle = response.data[0];
+                else
+                    jobVal.vehicle = {};
+            } catch (err) {
+                setErrMsg(JSON.stringify(err));
+                return;
+            }
+        });
+
+        console.log(jobVal);
+        setJob(jobVal);
     }
 
     return (
@@ -103,14 +174,12 @@ function JobViewer({ user }) {
                                 key={currentUser.id}
                                 user={currentUser}
                                 jobs={jobs.filter(job => filterJobs(job))}
-                                job={job} setJob={setJob}
-                                setErrMsg={setErrMsg}
+                                getJob={getJob}
                             />
                         </>
                     }</>
                 </Col>
                 <Col xs={1}></Col>
-
             </Row>
 
         </main>
