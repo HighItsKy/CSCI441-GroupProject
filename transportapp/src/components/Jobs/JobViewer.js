@@ -4,6 +4,7 @@ import JobForm from './JobForm';
 import TransportHeader from '../header';
 import JobList from './JobList';
 import { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import React from 'react';
 
 function JobViewer({ user }) {
@@ -56,17 +57,16 @@ function JobViewer({ user }) {
                Otherwise the user just sees the jobs for them
               */}
 
-            <React.Fragment>
-
-                <div className="row">
-                    <div className="col-md-6">
-                        <JobForm job={job} setJob={setJob} />
-                    </div>
-                    <div className="col-md-6">
-                        <JobList key={currentUser.id} user={currentUser} job={job} setJob={setJob} />
-                    </div>
-                </div>
-            </React.Fragment>
+            <Row>
+                <Col xs={1}></Col>
+                <Col md={5}>
+                    <JobForm job={job} setJob={setJob} />
+                </Col>
+                <Col md={5}>
+                    <JobList key={currentUser.id} user={currentUser} job={job} setJob={setJob} />
+                </Col>
+                <Col xs={1}></Col>
+            </Row>
 
         </main>
 
