@@ -4,6 +4,7 @@ import TransportHeader from '../header';
 import TruckList from './TruckList';
 import { useState } from 'react';
 import React from 'react';
+import { Row, Col } from 'react-bootstrap';
 
 function TruckViewer({ user }) {
 
@@ -47,11 +48,13 @@ function TruckViewer({ user }) {
 
             <Navbar key={currentUser.id} user={currentUser} />
 
-            <div className="row">
-                <div className="col-md-6">
+            <Row>
+                <Col xs={1}></Col>
+                <Col md={10}>
                     <TruckList />
-                </div>
-            </div>
+                </Col>
+                <Col xs={1}></Col>
+            </Row>
 
         </main>
 

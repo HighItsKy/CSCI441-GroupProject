@@ -2,7 +2,9 @@ import { useState } from 'react';
 // import any components you want to use in this file:
 import Navbar from './Navbar';
 import JobList from './Jobs/JobList';
+import JobForm from './Jobs/JobForm';
 import TransportHeader from './header';
+import { Col, Row } from 'react-bootstrap';
 
 function Home() {
 
@@ -44,16 +46,23 @@ function Home() {
 
 
     return (
-        <div>
+        <>
             <TransportHeader />
             <Navbar key={currentUser.id} user={currentUser} />
             <main>
-                This is the Home page
+                {/* pass adminUser data if you want to see what the admin would show */}
+                <Row>
+                    <Col xs={1}></Col>
+                    <Col md={5}>
+                        <JobForm job={job} setJob={setJob} />
+                    </Col>
+                    <Col md={5}>
+                        <JobList key={currentUser.id} user={currentUser} job={job} setJob={setJob} />
+                    </Col>
+                    <Col xs={1}></Col>
+                </Row>
             </main>
-            {/* pass adminUser data if you want to see what the admin would show */}
-            <JobList key={currentUser.id} user={currentUser} />
-        </div>
-
+        </>
     );
 }
 
