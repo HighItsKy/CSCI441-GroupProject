@@ -16,7 +16,17 @@ function TruckForm({ showTruckForm, setShowTruckForm, truckId, setTruckId }) {
     const [isLoading, setIsLoading] = useState(true);
     const [errMsg, setErrMsg] = useState("");
 
-    const handleClose = () => setShowTruckForm(false);
+    const [refreshed, setRefreshed] = useState(false);
+
+    const handleClose = () => {
+        setShowTruckForm(false);
+
+        /*Refreshes the web page once, so the table is up to date after changes have been made and close has been invoked*/
+        if(!refreshed){
+            window.location.reload();
+            setRefreshed(true);
+        }
+    };
 
     const handleForm = async () => {
         if (truckId > 0) {
