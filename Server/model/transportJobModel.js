@@ -49,9 +49,17 @@ class TransportJob {
                             LEFT JOIN Company sc on sb.Company_ID = sc.Company_ID
                             LEFT JOIN Company rc on rb.Company_ID = rc.Company_ID
                             WHERE j.invoice_id = $1`
+            const stmt2 = `SELECT 
+                                cli.Car_Line_Item_ID, cli.Vehicle_ID, cli.Invoice_ID, cli.Line_drawing, cli.Shipping_Cost, cli.Notes,
+                                v.VIN, v.Vehicle_Make, V.Vehicle_Model, V.Vehicle_Year, v.Vehicle_color
+                                FROM Car_Line_Item cli
+                                LEFT JOIN Vehicle v on v.Vehicle_ID = cli.Vehicle_ID
+                                WHERE Invoice_ID = $1`
+            
             //'SELECT * FROM Job WHERE invoice_id = $1'
             const res = await sql.query(stmt, [jobId]);
-            return res.rows;
+            const res2 = await sql.query(stmt2, [jobId])
+            return res.rows.concat(res2.rows);
         } catch (err) {
             throw err;
         }
