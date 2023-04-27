@@ -42,8 +42,8 @@ function TransportNavbar({ user }) {
                                     <Nav.Link href="./JobViewer" className={`d-none d-${expandBreakpoint}-block`}>Add Job</Nav.Link>
                                     <Nav.Link href="./JobViewer" className={`d-none d-${expandBreakpoint}-block`}>Edit Job</Nav.Link>
                                     <Nav.Link href="./ManageUsers" className={`d-none d-${expandBreakpoint}-block`}>Manage Users</Nav.Link>
-                                    <Nav.Link href="#" className={`d-none d-${expandBreakpoint}-block`}>Account Settings</Nav.Link>
                                     <Nav.Link href="./TruckViewer" className={`d-none d-${expandBreakpoint}-block`}>Trucks</Nav.Link>
+                                    <Nav.Link href="./AccountSettings" className={`d-none d-${expandBreakpoint}-block`}>Account Settings</Nav.Link>
 
                                 </React.Fragment>
 
@@ -53,7 +53,7 @@ function TransportNavbar({ user }) {
 
                                     <Nav.Link href="./JobViewer" className={`d-none d-${expandBreakpoint}-block`}>View Jobs</Nav.Link>
                                     <Nav.Link href="#" className={`d-none d-${expandBreakpoint}-block`}>Edit Job</Nav.Link>
-                                    <Nav.Link href="#" className={`d-none d-${expandBreakpoint}-block`}>Account Settings</Nav.Link>
+                                    <Nav.Link href="./AccountSettings" className={`d-none d-${expandBreakpoint}-block`}>Account Settings</Nav.Link>
 
                                 </React.Fragment>
 
