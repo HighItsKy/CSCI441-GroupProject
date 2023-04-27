@@ -37,7 +37,7 @@ html, body{
   	background-color: rgba(0,0,0, 0); /* Black w/opacity/see-through */
   	color: #acc6cb;
   	font-family: 'Eczar', 'Times New Roman', sans-serif;
-	text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000; /*Lines the text with black to create a shadow effect*/
+	text-shadow: -3px -3px 0 #000, 0   -3px 0 #000, 3px -3px 0 #000, 3px 0 0 #000, 3px  3px 0 #000, 0 3px 0 #000, -3px  3px 0 #000, -3px  0   0 #000; /*Lines the text with black to create a shadow effect*/
 	font-weight: bolder;
 	font-size: 50px;
 }
@@ -61,12 +61,9 @@ html, body{
 	color: white !important;
 }
 
-/*Vertical bar for Manage Users section KEEP?*/
-.vl {
-	border-left: 6px solid green;
-	height: 500px;
-  }
-
+Nav div{
+	background-color: #333 !important;
+}
 
 /*Customizes the form styles for Manage Users, etc*/
 .form-control{
@@ -187,8 +184,6 @@ body h1, body h3{
 	padding-top: 2%;
 }
 
-
-
 body h1 a{
 	color: #333;
 }
@@ -198,12 +193,12 @@ body h1 a{
 	justify-content: center;
 }
 
-
 /* On all screen types with a window width of between 1024px and 1280px:
 Nest Hub, Nest Hub Max*/
 @media all and (min-width: 1024px) and (max-width: 1280px){
 	.overlay-text{
 		font-size: 50px;
+		color: red; 
 	}
 	nav a{
 		font-size: 250%;
@@ -226,7 +221,9 @@ Samsung Galaxy A51/71*/
 @media all and (orientation: portrait){
 	.overlay-text{
 		color: yellow;
-		font-size: 20px;
+		font-size: 110%;
+		text-align: center;
+		text-shadow: -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000; /*Lines the text with black to create a shadow effect*/
 	}
 	ul{
 		padding: 50px 50px; /*Makes the nav bar a little thicker*/
@@ -239,11 +236,10 @@ Samsung Galaxy A51/71*/
 	padding-left: 50px;
 	padding-right: 50px;
 	font-size: 400%;
-}
-
-body h1{
-	font-size: 275%;
-}
+	}
+	body h1{
+		font-size: 275%;
+	}
 	/*Fills the extra space from an iPad Air with the same background color*/
 	body{
 		background-color: #a2b6c8 !important;
@@ -254,5 +250,19 @@ body h1{
 		flex-direction: row;
 		padding-left: 1px; /*Adjusts location of form on page*/
 		padding-right: 1px;
+	}
+}
+
+@media all and (min-width: 600px) and (max-width: 1024px){
+	.overlay-text{
+		font-size: 40px;
+		color: green;
+	}
+}
+
+@media all and (min-width: 0px) and (max-width: 280px){
+	.overlay-text{
+		font-size: 15px;
+		color: pink;
 	}
 }
