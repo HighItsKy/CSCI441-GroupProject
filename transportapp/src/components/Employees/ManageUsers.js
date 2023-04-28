@@ -59,6 +59,7 @@ function ManageUsers() {
                             changeBtnState("closed");
                         else {
                             changeBtnState("open"); /*Shows the NEW USER form*/
+                            search("false");
                         }
                     }} variant="primary" size="lg">NEW USER</Button>
                     {/*<input type="text" placeholder="Search for user.." name="search" />*/}
