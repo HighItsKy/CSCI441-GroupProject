@@ -42,6 +42,7 @@ CREATE TABLE Employee (
     Employee_Email VARCHAR (255)
 );
 
+CREATE TYPE e_job_status AS ENUM ('Pending', 'Loading', 'Enroute', 'Arrived', 'Unloaded', 'Complete');
 
 CREATE TABLE Job (
     Invoice_ID SERIAL PRIMARY KEY NOT NULL,
@@ -55,8 +56,7 @@ CREATE TABLE Job (
     Receiver_Signature BYTEA,
     Date_of_Order DATE NOT NULL,
     Date_Complete DATE,
-    Job_Status VARCHAR(255) 
-    CHECK (Job_Status IN ('Pending','Loading','Enroute','Arrived','Unloaded','Complete')),
+    enum_job_status e_job_status,
     Special_Instructions VARCHAR (2000),
     FOREIGN KEY (Shipper_ID) REFERENCES Customer(Customer_ID),
     FOREIGN KEY (Receiver_ID) REFERENCES Customer(Customer_ID),
