@@ -67,7 +67,7 @@ function UserList({ changeBtnState, setUser, user }) {
                 :
                 <>
 
-                    <div className="container">
+                    <div className="container usersList">
                         <div className="text-center">
                             <h1>Users</h1>
                             <table className="table table-sm table-striped">
