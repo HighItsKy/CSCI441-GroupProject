@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Form, Button, ListGroup } from 'react-bootstrap';
 import Car from './Car';
-import { useState } from 'react';
 
 
 function JobForm({ job, cars, addCar, changeVal }) {

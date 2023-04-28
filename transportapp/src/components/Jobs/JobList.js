@@ -11,11 +11,10 @@ function JobList({ user, jobs, getJob }) {
                 <thead>
                     <tr>
                         <td>Invoice#</td>
-                        <td>Shipper#</td>
-                        <td>Driver ID</td>
-                        <td>Driver Name</td>
                         <td>Job Status</td>
                         <td>Date</td>
+                        <td>Shipper</td>
+                        <td>Receiver</td>
                     </tr>
                 </thead>
                 <tbody>

@@ -97,7 +97,13 @@ function JobViewer({ user }) {
     }, [])
 
     const filterJobs = (job) => {
-        return job.full_name.includes(searchTerm);
+        //add search terms with an or
+        return (
+            job.full_name.includes(searchTerm) ||
+            job.job_status.includes(searchTerm) ||
+            job.shipper_company.includes(searchTerm) ||
+            job.receiver_company.includes(searchTerm)
+        );
     }
 
     const getJob = async (id) => {
@@ -110,10 +116,6 @@ function JobViewer({ user }) {
             setErrMsg(`getJob error: ` + JSON.stringify(err));
             return;
         }
-        /* Converts the date into the format mm/dd/yyy as a string*/
-        const dateObj = new Date(jobVal.date_of_order);
-
-        jobVal.orderDate = `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()}`;
 
         let carHold;
         try {
