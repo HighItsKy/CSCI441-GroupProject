@@ -56,7 +56,7 @@ function TruckList({ user }) {
                 :
                 <>
 
-                    <div className="container">
+                    <div className="container trucksList">
                         <div className="text-center">
                             <h1>TRUCKS</h1>
                             <table className="table table-sm table-striped">
