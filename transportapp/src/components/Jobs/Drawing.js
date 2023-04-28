@@ -21,7 +21,7 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage }) {
         const bgImage = new Image();
 
         if (backgroundImage) {
-            bgImage.src = 'http://localhost:3500/img/CarDiagram.jpeg';
+            bgImage.src = backgroundImage;
             console.log(bgImage);
             bgImage.onload = () => { context.drawImage(bgImage, 0, 0) };
         }
@@ -74,7 +74,9 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage }) {
     const exitPaint = useCallback(() => {
         setIsPainting(false);
         setMousePosition(undefined);
-        //setImageData(canvasRef.current.toDataURL());
+        if (setImageData) {
+            setImageData(canvasRef.current.toDataURL());
+        }
     }, [setImageData]);
 
     useEffect(() => {
