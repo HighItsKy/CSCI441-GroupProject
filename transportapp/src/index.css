@@ -1,17 +1,25 @@
+html  {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
 body {
   	margin: 0;
   	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    	sans-serif;
   	-webkit-font-smoothing: antialiased;
  	-moz-osx-font-smoothing: grayscale;
 	background-color: #a2b6c8!important;
   	overflow-y: scroll; /*Makes the scroll always visible*/
+	overflow-x: hidden;
 }
 
 code {
   	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    	monospace;
 }
 
 html, body{
@@ -193,6 +201,28 @@ body h1 a{
 	justify-content: center;
 }
 
+/*Centers the truck list*/
+.row{
+	justify-content: center;
+}
+
+/*Border around tables*/
+.usersList{
+	border-top: 12px solid #333!important;
+	border-bottom: 1px solid #333!important;
+}
+
+/*Makes the table column names bold*/
+.table thead{
+	font-weight: bold;
+}
+
+/*Border around bottom of trucks table*/
+.trucksList{
+	border-bottom: 1px solid #333 !important;
+}
+
+
 /* On all screen types with a window width of between 1024px and 1280px:
 Nest Hub, Nest Hub Max*/
 @media all and (min-width: 1024px) and (max-width: 1280px){
@@ -204,15 +234,15 @@ Nest Hub, Nest Hub Max*/
 		font-size: 250%;
 	}
 	body h2{
-	padding-top: 45px;
-	padding-left: 50px;
-	padding-right: 50px;
-	font-size: 200%;
-}
+		padding-top: 45px;
+		padding-left: 50px;
+		padding-right: 50px;
+		font-size: 200%;
+	}
 
-body h1{
-	font-size: 175%;
-}
+	body h1{
+		font-size: 175%;
+	}
 }
 
 /* On all vertically oriented types of screens 
@@ -221,48 +251,151 @@ Samsung Galaxy A51/71*/
 @media all and (orientation: portrait){
 	.overlay-text{
 		color: yellow;
-		font-size: 110%;
+		font-size: 20px;
 		text-align: center;
 		text-shadow: -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000; /*Lines the text with black to create a shadow effect*/
 	}
-	ul{
-		padding: 50px 50px; /*Makes the nav bar a little thicker*/
-	}
-	nav a{
-		font-size: 275%;
-	}
-	body h2{
-	padding-top: 45px;
-	padding-left: 50px;
-	padding-right: 50px;
-	font-size: 400%;
-	}
 	body h1{
-		font-size: 275%;
+		font-size: 40px;
 	}
-	/*Fills the extra space from an iPad Air with the same background color*/
-	body{
-		background-color: #a2b6c8 !important;
-	}
-	 /*Manage Users form*/
+	/*Manage Users form*/
 	 .form-container{
 		display: flex;
 		flex-direction: row;
 		padding-left: 1px; /*Adjusts location of form on page*/
 		padding-right: 1px;
 	}
+	/*Changes the size of all buttons*/
+	button.btn{
+		font-size: 15px;
+	  }
+	  /*Adjusts the spacing between the button and the text at the top of the page's body*/
+	.bodyHeading button{
+		margin-left: 10px;
+		margin-right: 10px;
+		font-size: 19px;
+	}		 
 }
 
-@media all and (min-width: 600px) and (max-width: 1024px){
+@media all and (min-width: 520px) and (max-width: 555px){
+	/*Changes the font size for these particular screen sizes*/
+	.overlay-text{
+		font-size: 30px;
+		color: indianred;
+	}
+	body h1{
+		font-size: 30px;
+	}
+	/*Changes the size of all buttons*/
+	button.btn{
+		font-size: 17px;
+	}
+	/*Changes all buttons using the bodyHeading class*/
+	.bodyHeading button{
+		font-size: 15px;
+	}
+	/*Manage Users form*/
+	.form-container{
+		justify-content: center;
+		font-size: 17px;
+	}
+}
+
+@media all and (min-width: 600px) and (max-width: 1000px){
+	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
 		font-size: 40px;
 		color: green;
 	}
+	body h1{
+		font-size: 45px;
+	}
+	/*Manage Users form*/
+	.form-container{
+		justify-content: center;
+		font-size: 25px;
+	}
+	/*Changes the size of all buttons*/
+	button.btn{
+		font-size: 25px;
+	}
+	/*Changes all buttons using the bodyHeading class*/
+	.bodyHeading button{
+		font-size: 24px;
+	}
+}
+
+@media all and (min-width: 770px) and (max-width: 1000px){
+	/*Changes the font size for these particular screen sizes*/
+	.overlay-text{
+		font-size: 40px;
+		color: darkblue;
+	}
+	/*Manage Users form*/
+	.form-container{
+		font-size: 30px;
+	}
+}
+
+@media all and (min-width: 880px) and (max-width: 1000px){
+	/*Changes the font size for these particular screen sizes*/
+	.overlay-text{
+		font-size: 50px;
+		color: darkolivegreen;
+	}
+	body h1{
+		font-size: 48px;
+	}
+	/*Manage Users form*/
+	.form-container{
+		font-size: 40px;
+	}
+	/*Changes the size of all buttons*/
+	button.btn{
+		font-size: 28px;
+	}
+	/*Changes all buttons using the bodyHeading class*/
+	.bodyHeading button{
+		font-size: 26px;
+	}
+	/*Makes the table entries bigger*/
+	.table{
+		font-size: 25px;
+	}
+	/*Makes the table column names bigger*/
+	.table thead{
+		font-size: 25px;
+	}
 }
 
 @media all and (min-width: 0px) and (max-width: 280px){
+	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
 		font-size: 15px;
 		color: pink;
 	}
+	body h1{
+		font-size: 30px;
+	}
+	/*Manage Users form*/
+	.form-container{
+		font-size: 13px;
+	}
+	/*Changes the size of all buttons*/
+	button.btn{
+		font-size: 14px;
+	}
+	/*Changes all buttons using the bodyHeading class*/
+	.bodyHeading button{
+		font-size: 14px;
+	}
+	/*Makes the table entries bigger*/
+	.table{
+		font-size: 10px;
+	}
+	/*Makes the table column names bigger*/
+	.table thead{
+		font-size: 12px;
+	}
+
 }
