@@ -25,7 +25,23 @@ class TransportJob {
 
     static async getAll() {
         try {
-            const res = await sql.query(`SELECT j.invoice_id, j.shipper_id, j.driver_id, j.date_of_order, concat(e.employee_first_name, ' ', e.employee_last_name) as full_name FROM Job j INNER JOIN Employee e ON j.driver_id = e.employee_id`);
+            const res = await sql.query(
+                `SELECT
+                    j.invoice_id, j.shipper_id, j.driver_id, j.date_of_order, j.sort_job_status AS job_status,
+                    concat(e.employee_first_name, ' ', e.employee_last_name) as full_name,
+                    s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name,
+                    sc.Company_Name AS shipper_company,
+                    rc.Company_Name AS receiver_company                    
+                FROM 
+                    Job j 
+                INNER JOIN Employee e ON j.driver_id = e.employee_id
+                JOIN Customer s ON j.Shipper_ID = s.Customer_ID
+                JOIN Company_Branch sb on s.branch_id = sb.company_branch_id
+                JOIN Company sc on sb.Company_ID = sc.Company_ID
+                JOIN Customer r ON j.Receiver_ID = r.Customer_ID
+                JOIN Company_Branch rb on r.branch_id = rb.company_branch_id
+                JOIN Company rc on rb.Company_ID = rc.Company_ID
+                ORDER BY j.sort_job_status, j.Invoice_id`);
             return res.rows;
         } catch (err) {
             throw err
