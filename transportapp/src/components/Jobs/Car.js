@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, Accordion } from 'react-bootstrap';
 import Drawing from "./Drawing";
+import carImage from "./CarDiagram.jpeg";
 
 function Car({ car, index, changeCarVal }) {
     const [imageData, setImageData] = useState({});
@@ -57,7 +58,7 @@ function Car({ car, index, changeCarVal }) {
                             value={car.shipping_cost}
                         ></Form.Control>
                         <Form.Label >Damage: </Form.Label>
-                        <Drawing height="350" width="500" imageData={imageData} setImageData={setImageData} />
+                        <Drawing height="350" width="500" backgroundImage={carImage} setImageData={setImageData} />
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
