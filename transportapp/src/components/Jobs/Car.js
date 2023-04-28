@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { Form, Accordion } from 'react-bootstrap';
 import Drawing from "./Drawing";
 import carImage from "./CarDiagram.jpeg";
 
-function Car({ car, index, changeCarVal }) {
-    const [imageData, setImageData] = useState({});
+function Car({ car, index, changeCarVal, updateLineDrawing }) {
 
     return (
         <>
@@ -15,50 +13,50 @@ function Car({ car, index, changeCarVal }) {
                         <Form.Label htmlFor={`vehicle_year`}>Year</Form.Label>
                         <Form.Control
                             id={`vehicle_year`}
-                            indexNo={index - 1}
                             type="input"
                             value={car.vehicle_year}
-                            onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, e.currentTarget.indexNo)}
+                            onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, index)}
                         ></Form.Control>
-                        <Form.Label htmlFor={`Car${index}Make`}>Make</Form.Label>
+                        <Form.Label htmlFor={`vehicle_make`}>Make</Form.Label>
                         <Form.Control
-                            id={`Car${index}Make`}
+                            id={`vehicle_make`}
                             type="input"
                             value={car.vehicle_make}
+                            onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, index)}
                         ></Form.Control>
-                        <Form.Label htmlFor={`Car${index}Model`}>Model</Form.Label>
+                        <Form.Label htmlFor={`vehicle_model`}>Model</Form.Label>
                         <Form.Control
-                            id={`Car${index}Model`}
+                            id={`vehicle_model`}
                             type="input"
                             value={car.vehicle_model}
 
                         ></Form.Control>
-                        <Form.Label htmlFor={`Car${index}Color`}>Color</Form.Label>
+                        <Form.Label htmlFor={`vehicle_color`}>Color</Form.Label>
                         <Form.Control
-                            id={`Car${index}Color`}
+                            id={`vehicle_color`}
                             type="input"
                             value={car.vehicle_color}
                         ></Form.Control>
-                        <Form.Label htmlFor={`Car${index}Serial`}>Serial No. (Last 8)</Form.Label>
+                        <Form.Label htmlFor={`vin`}>Serial No. (Last 8)</Form.Label>
                         <Form.Control
-                            id={`Car${index}Serial`}
+                            id={`vin`}
                             type="input"
                             value={car.vin}
                         ></Form.Control>
-                        <Form.Label htmlFor={`Car${index}Notes`}>Notes</Form.Label>
+                        <Form.Label htmlFor={`notes`}>Notes</Form.Label>
                         <Form.Control
-                            id={`Car${index}Stock`}
+                            id={`notes`}
                             type="input"
                             value={car.notes}
                         ></Form.Control>
-                        <Form.Label htmlFor={`Car${index}Price`}>Price</Form.Label>
+                        <Form.Label htmlFor={`shipping_cost`}>Price</Form.Label>
                         <Form.Control
-                            id={`Car${index}Price`}
+                            id={`shipping_cost`}
                             type="input"
                             value={car.shipping_cost}
                         ></Form.Control>
                         <Form.Label >Damage: </Form.Label>
-                        <Drawing height="350" width="500" backgroundImage={carImage} setImageData={setImageData} />
+                        <Drawing height="350" width="500" backgroundImage={carImage} imageDate={car.line_drawing} setImageData={updateLineDrawing} index={index} />
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>

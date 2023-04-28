@@ -3,7 +3,7 @@ import { Form, Button, ListGroup } from 'react-bootstrap';
 import Car from './Car';
 
 
-function JobForm({ job, cars, addCar, changeVal, changeCarVal }) {
+function JobForm({ job, cars, addCar, changeVal, changeCarVal, updateLineDrawing }) {
 
     return (
 
@@ -40,7 +40,7 @@ function JobForm({ job, cars, addCar, changeVal, changeCarVal }) {
                 </Form.Control>
                 <Form.Label htmlFor="shipper_first_name">Contact First Name</Form.Label>
                 <Form.Control
-                    id="TransportFromContactFName"
+                    id="shipper_first_name"
                     type="input"
                     value={job.shipper_first_name}
                     onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
@@ -159,7 +159,7 @@ function JobForm({ job, cars, addCar, changeVal, changeCarVal }) {
             </Form.Group>
 
             {cars ?
-                <> {cars.map((car, index) => <Car car={car} index={index + 1} changeCarVal={changeCarVal} />)} </>
+                <> {cars.map((car, index) => <Car car={car} index={index + 1} changeCarVal={changeCarVal} updateLineDrawing={updateLineDrawing} />)} </>
                 : <>  </>
             }
 

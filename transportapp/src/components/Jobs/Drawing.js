@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Button, Row, Col, Container } from 'react-bootstrap';
 
-function Drawing({ height, width, imageData, setImageData, backgroundImage }) {
+function Drawing({ height, width, imageData, setImageData, backgroundImage, index }) {
 
     const canvasRef = useRef(null);
     const canvasBackgroundRef = useRef(null);
@@ -22,7 +22,6 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage }) {
 
         if (backgroundImage) {
             bgImage.src = backgroundImage;
-            console.log(bgImage);
             bgImage.onload = () => { context.drawImage(bgImage, 0, 0) };
         }
 
@@ -75,7 +74,11 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage }) {
         setIsPainting(false);
         setMousePosition(undefined);
         if (setImageData) {
-            setImageData(canvasRef.current.toDataURL());
+            if (index) {
+                setImageData(canvasRef.current.toDataURL(), index);
+            } else {
+                setImageData(canvasRef.current.toDataURL());
+            }
         }
     }, [setImageData]);
 

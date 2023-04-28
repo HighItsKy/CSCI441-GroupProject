@@ -85,8 +85,6 @@ function JobViewer({ user }) {
 
             });
 
-            console.log(jobsVal);
-
             setJobs(jobsVal);
 
             //get Trucks
@@ -164,9 +162,17 @@ function JobViewer({ user }) {
     }
 
     const changeCarVal = (key, value, index) => {
-        const carHold = job.
-            setCar(job => ({ ...job, [key]: value }));
-        console.log(job);
+        let newArr = [...cars];
+        newArr[index - 1] = ({ ...newArr[index - 1], [key]: value });
+        setCars(newArr);
+    }
+
+    const updateLineDrawing = (data, index) => {
+        let newArr = [...cars];
+        newArr[index - 1] = ({ ...newArr[index - 1], line_drawing: data });
+        setCars(newArr);
+
+        console.log(newArr);
     }
 
     return (
@@ -183,7 +189,7 @@ function JobViewer({ user }) {
             <Row>
                 <Col xs={1}></Col>
                 <Col md={5}>
-                    <JobForm key={currentUser.id} user={currentUser} job={job} cars={cars} setJob={setJob} changeVal={changeVal} addCar={addCar} />
+                    <JobForm key={currentUser.id} user={currentUser} job={job} cars={cars} setJob={setJob} changeCarVal={changeCarVal} changeVal={changeVal} addCar={addCar} updateLineDrawing={updateLineDrawing} />
                 </Col>
                 <Col md={5}>
                     <>
