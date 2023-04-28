@@ -45,6 +45,7 @@ function JobViewer({ user }) {
     // change this to change which user info shows up
     const [currentUser, setCurrentUser] = useState(adminUser);
     const [job, setJob] = useState({});
+    const [cars, setCars] = useState([]);
     const [jobs, setJobs] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [trucks, setTrucks] = useState([]);
@@ -64,7 +65,7 @@ function JobViewer({ user }) {
                 setJobs(response.data);
 
             } catch (err) {
-                setErrMsg(JSON.stringify(err));
+                setErrMsg(`getJobs error: ` + JSON.stringify(err));
                 return;
             }
             //get Trucks
@@ -73,7 +74,7 @@ function JobViewer({ user }) {
                 setTrucks(response.data);
 
             } catch (err) {
-                setErrMsg(JSON.stringify(err));
+                setErrMsg(`getTruck error: ` + JSON.stringify(err));
                 return;
             }
 
@@ -83,7 +84,7 @@ function JobViewer({ user }) {
                 setEmployees(response.data);
 
             } catch (err) {
-                setErrMsg(JSON.stringify(err));
+                setErrMsg(`getEmployees error: ` + JSON.stringify(err));
                 return;
             }
 
@@ -106,7 +107,7 @@ function JobViewer({ user }) {
             const response = await axios.get(`/job/${id}`);
             jobVal = response.data[0];
         } catch (err) {
-            setErrMsg(JSON.stringify(err));
+            setErrMsg(`getJob error: ` + JSON.stringify(err));
             return;
         }
         /* Converts the date into the format mm/dd/yyy as a string*/
@@ -114,27 +115,37 @@ function JobViewer({ user }) {
 
         jobVal.orderDate = `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()}`;
 
+        let carHold;
         try {
-            const response = await axios.get(`/carLineItem?invoice_id=${jobVal.invoice_id}`);
-            if (response.data.length > 0)
-                jobVal.cars = response.data;
-            else
-                jobVal.cars = [];
+            const response = await axios.get(`/carLineItem/?invoice_id=${jobVal.invoice_id}`);
+            if (response.data)
+                carHold = [...response.data];
+
         } catch (err) {
-            setErrMsg(JSON.stringify(err));
-            return;
+            setErrMsg(`getCarLineItem error: ` + JSON.stringify(err));
+
         }
 
-        for (let i = 0; i < jobVal.cars.length; i++) {
+        for (let i = 0; i < carHold.length; i++) {
             try {
-                const response = await axios.get(`/vehicle/${jobVal.cars[i].vehicle_id}`);
-                jobVal.cars[i] = { ...jobVal.cars[i], ...response.data[0] };
+                const response = await axios.get(`/vehicle/${carHold[i].vehicle_id}`);
+                carHold[i] = { ...carHold[i], ...response.data[0] };
             } catch (err) {
-                setErrMsg(JSON.stringify(err));
-                return;
+                setErrMsg(`getVehicles error: ` + JSON.stringify(err));
             }
         }
+        setCars(carHold);
         setJob(jobVal);
+    }
+
+    const addCar = () => {
+        const newCar = { vehicle_color: "", vehicle_make: "", vehicle_year: "", vehicle_model: "", vin: "", note: "", shipping_cost: "", };
+        setCars(newCars => ([...cars, newCar]));
+    }
+
+    const changeVal = (key, value) => {
+        setJob(job => ({ ...job, [key]: value }));
+        console.log(job);
     }
 
     return (
@@ -151,22 +162,36 @@ function JobViewer({ user }) {
             <Row>
                 <Col xs={1}></Col>
                 <Col md={5}>
-                    <JobForm key={currentUser.id} user={currentUser} job={job} setJob={setJob} />
+                    <JobForm key={currentUser.id} user={currentUser} job={job} cars={cars} setJob={setJob} changeVal={changeVal} addCar={addCar} />
                 </Col>
                 <Col md={5}>
-                    <>        {isLoading ? <>
-                        < h1 > Loading ....</h1 >
+                    <>
+                        {
+                            !errMsg ?
+                                <>
+                                    {
+                                        isLoading ?
+                                            <>
+                                                <h1> Loading ....</h1>
+                                            </>
+                                            :
+                                            <>
+                                                <JobSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                                                <JobList
+                                                    key={currentUser.id}
+                                                    user={currentUser}
+                                                    jobs={jobs.filter(job => filterJobs(job))}
+                                                    getJob={getJob}
+                                                />
+                                            </>
+                                    }
+                                </>
+                                :
+                                <>
+                                    <h1>{errMsg}</h1>
+                                </>
+                        }
                     </>
-                        : <>
-                            <JobSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                            <JobList
-                                key={currentUser.id}
-                                user={currentUser}
-                                jobs={jobs.filter(job => filterJobs(job))}
-                                getJob={getJob}
-                            />
-                        </>
-                    }</>
                 </Col>
                 <Col xs={1}></Col>
             </Row>

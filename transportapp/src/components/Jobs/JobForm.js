@@ -4,33 +4,26 @@ import Car from './Car';
 import { useState } from 'react';
 
 
-function JobForm({ job, setJob }) {
-
-
-
-    const onAddBtnClick = event => {
-
-    };
+function JobForm({ job, cars, addCar, changeVal }) {
 
     return (
 
         <Form>
             <Form.Group>
-                <Form.Label htmlFor="ID">Invoice No.</Form.Label>
+                <Form.Label htmlFor="invoice_id">Invoice No.</Form.Label>
                 <Form.Control
-                    id="ID"
+                    id="invoice_id"
                     type="text"
                     value={job.invoice_id}
                     placeholder=""
                     disabled
                 />
-                <Form.Label htmlFor="TransportDate">Date</Form.Label>
+                <Form.Label htmlFor="orderDate">Date</Form.Label>
                 <Form.Control
-                    id="TransportDate"
+                    id="orderDate"
                     type="date"
                     value={job.orderDate}
                     placeholder=""
-                    disabled
                     autoFocus
                     required>
                 </Form.Control>
@@ -38,125 +31,140 @@ function JobForm({ job, setJob }) {
 
             <Form.Group>
                 <p>Ship From:</p>
-                <Form.Label htmlFor="TransportFrom">Company</Form.Label>
+                <Form.Label htmlFor="shipper_company">Company</Form.Label>
                 <Form.Control
-                    id="TransportFrom"
-                    type="text"
+                    id="shipper_company"
+                    type="input"
                     value={job.shipper_company}
-                    placeholder=""
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     required>
                 </Form.Control>
-                <Form.Label htmlFor="TransportFromContactFName">Contact First Name</Form.Label>
+                <Form.Label htmlFor="shipper_first_name">Contact First Name</Form.Label>
                 <Form.Control
                     id="TransportFromContactFName"
-                    type="text"
+                    type="input"
                     value={job.shipper_first_name}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
-                    required>
+                >
                 </Form.Control>
-                <Form.Label htmlFor="TransportFromContactLName">Contact Last Name</Form.Label>
+                <Form.Label htmlFor="shipper_last_name">Contact Last Name</Form.Label>
                 <Form.Control
-                    id="TransportFromContactLName"
-                    type="text"
+                    id="shipper_last_name"
+                    type="input"
                     value={job.shipper_last_name}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
-                    required>
+                >
                 </Form.Control>
-                <Form.Label htmlFor="TransportFromAddress">Address</Form.Label>
+                <Form.Label htmlFor="shipper_street">Address</Form.Label>
                 <Form.Control
-                    id="TransportFromAddress"
-                    type="text"
+                    id="shipper_street"
+                    type="input"
                     value={job.shipper_street}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
                     required>
                 </Form.Control>
-                <Form.Label htmlFor="TransportFromCityStateZip">City/State/Zip</Form.Label>
+                <Form.Label htmlFor="shipper_city">City</Form.Label>
                 <Form.Control
-                    id="TransportFromCity"
-                    type="text"
+                    id="shipper_city"
+                    type="input"
                     value={job.shipper_city}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
                     required>
                 </Form.Control>
+                <Form.Label htmlFor="shipper_state">State</Form.Label>
                 <Form.Control
-                    id="TransportFromState"
-                    type="text"
+                    id="shipper_state"
+                    type="input"
                     value={job.shipper_state}
                     placeholder=""
                     required>
                 </Form.Control>
                 <Form.Control
-                    id="TransportFromZip"
-                    type="text"
+                    id="shipper_zip"
+                    type="input"
                     value={job.shipper_zip}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
                     required>
                 </Form.Control>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Ship To:</Form.Label>
-                <Form.Label htmlFor="TransportTo">Company</Form.Label>
+                <Form.Label htmlFor="receiver_company">Company</Form.Label>
                 <Form.Control
-                    id="TransportTo"
-                    type="text"
+                    id="receiver_company"
+                    type="input"
                     value={job.receiver_company}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
                     required>
                 </Form.Control>
-                <Form.Label htmlFor="TransportToContactFName">Contact First Name</Form.Label>
+                <Form.Label htmlFor="receiver_first_name">Contact First Name</Form.Label>
                 <Form.Control
-                    id="TransportToContactFName"
-                    type="text"
+                    id="receiver_first_name"
+                    type="input"
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     value={job.receiver_first_name}
                     placeholder=""
-                    required>
+                >
                 </Form.Control>
-                <Form.Label htmlFor="TransportToContactLName">Contact Last Name</Form.Label>
+                <Form.Label htmlFor="receiver_last_name">Contact Last Name</Form.Label>
                 <Form.Control
-                    id="TransportToContactLName"
-                    type="text"
+                    id="receiver_last_name"
+                    type="input"
                     value={job.receiver_last_name}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
-                    required>
+                >
                 </Form.Control>
-                <Form.Label htmlFor="TransportToAddress">Address</Form.Label>
+                <Form.Label htmlFor="receiver_street">Address</Form.Label>
                 <Form.Control
-                    id="TransportToAddress"
-                    type="text"
+                    id="receiver_street"
+                    type="input"
                     value={job.receiver_street}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
                     required>
                 </Form.Control>
-                <Form.Label htmlFor="TransportToCityStateZip">City/State/Zip</Form.Label>
+                <Form.Label htmlFor="receiver_city">City</Form.Label>
                 <Form.Control
-                    id="TransportToCity"
-                    type="text"
+                    id="receiver_city"
+                    type="input"
                     value={job.receiver_city}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
                     required>
                 </Form.Control>
+                <Form.Label htmlFor="receiver_state">State</Form.Label>
                 <Form.Control
-                    id="TransportToState"
-                    type="text"
+                    id="receiver_state"
+                    type="input"
                     value={job.receiver_state}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
                     required>
                 </Form.Control>
+                <Form.Label htmlFor="receiver_zip">Zip</Form.Label>
                 <Form.Control
-                    id="TransportToZip"
-                    type="text"
+                    id="receiver_zip"
+                    type="input"
                     value={job.receiver_zip}
+                    onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                     placeholder=""
                     required>
                 </Form.Control>
             </Form.Group>
 
-            {job.cars ?
-                <> {job.cars.map((car, index) => <Car car={car} index={index + 1} />)} </>
+            {cars ?
+                <> {cars.map((car, index) => <Car car={car} index={index + 1} />)} </>
                 : <>  </>
             }
 
-            <Button onClick={onAddBtnClick}>Add Car</Button>
+            <Button onClick={addCar}>Add Car</Button>
 
             <Form.Group>
                 <Form.Label>Driver's Signature: </Form.Label>

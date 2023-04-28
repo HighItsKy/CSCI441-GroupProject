@@ -25,7 +25,7 @@ class TransportJob {
 
     static async getAll() {
         try {
-            const res = await sql.query(`SELECT j.invoice_id, j.shipper_id, j.driver_id, j.Job_status, j.date_of_order, concat(e.employee_first_name, ' ', e.employee_last_name) as full_name FROM Job j INNER JOIN Employee e ON j.driver_id = e.employee_id`);
+            const res = await sql.query(`SELECT j.invoice_id, j.shipper_id, j.driver_id, j.date_of_order, concat(e.employee_first_name, ' ', e.employee_last_name) as full_name FROM Job j INNER JOIN Employee e ON j.driver_id = e.employee_id`);
             return res.rows;
         } catch (err) {
             throw err
@@ -34,7 +34,7 @@ class TransportJob {
 
     static async getJob(jobId) {
         try {
-            const stmt = `SELECT j.invoice_id, j.shipper_id, j.receiver_id, j.truck_id, j.driver_id, j.intake_id, j.driver_signature, j.shipper_signature, j.date_of_order, j.date_complete, j.job_status, j.special_instructions,
+            const stmt = `SELECT j.invoice_id, j.shipper_id, j.receiver_id, j.truck_id, j.driver_id, j.intake_id, j.driver_signature, j.shipper_signature, j.date_of_order, j.date_complete, j.special_instructions,
                             t.truck_vin, t.truck_capacity, t.truck_mileage, 
                             s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name, s.branch_id AS shipper_branch_id, sc.Company_Name AS shipper_company,
                             sb.branch_name AS shipper_branch_name, sb.branch_contact_no AS shipper_contact_no, sb.branch_street_address AS shipper_street, sb.branch_city AS shipper_city, sb.branch_state AS shipper_state, sb.branch_email AS shipper_email,
@@ -55,7 +55,7 @@ class TransportJob {
                                 FROM Car_Line_Item cli
                                 LEFT JOIN Vehicle v on v.Vehicle_ID = cli.Vehicle_ID
                                 WHERE Invoice_ID = $1`
-            
+
             //'SELECT * FROM Job WHERE invoice_id = $1'
             const res = await sql.query(stmt, [jobId]);
             const res2 = await sql.query(stmt2, [jobId])
