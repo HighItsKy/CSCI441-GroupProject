@@ -27,7 +27,7 @@ class TransportJob {
         try {
             const res = await sql.query(
                 `SELECT
-                    j.invoice_id, j.shipper_id, j.driver_id, j.date_of_order, j.sort_job_status AS job_status,
+                    j.invoice_id, j.shipper_id, j.driver_id, to_char(j.date_of_order, 'YYYY-MM-DD') AS date_of_order, j.sort_job_status AS job_status,
                     concat(e.employee_first_name, ' ', e.employee_last_name) as full_name,
                     s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name,
                     sc.Company_Name AS shipper_company,
@@ -50,7 +50,7 @@ class TransportJob {
 
     static async getJob(jobId) {
         try {
-            const stmt = `SELECT j.invoice_id, j.shipper_id, j.receiver_id, j.truck_id, j.driver_id, j.intake_id, j.driver_signature, j.shipper_signature, j.date_of_order, j.date_complete, j.special_instructions,
+            const stmt = `SELECT j.invoice_id, j.shipper_id, j.receiver_id, j.truck_id, j.driver_id, j.intake_id, j.driver_signature, j.shipper_signature, to_char(j.date_of_order, 'YYYY-MM-DD') AS date_of_order, j.date_complete, j.special_instructions,
                             t.truck_vin, t.truck_capacity, t.truck_mileage, 
                             s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name, s.branch_id AS shipper_branch_id, sc.Company_Name AS shipper_company,
                             sb.branch_name AS shipper_branch_name, sb.branch_contact_no AS shipper_contact_no, sb.branch_street_address AS shipper_street, sb.branch_city AS shipper_city, sb.branch_state AS shipper_state, sb.branch_email AS shipper_email,

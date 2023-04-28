@@ -39,7 +39,7 @@ class Employee {
         try {
             const res = await sql.query(
                 `SELECT 
-                    j.invoice_id, j.shipper_id, j.driver_id, j.date_of_order, j.sort_job_status AS job_status,
+                    j.invoice_id, j.shipper_id, j.driver_id, to_char(j.date_of_order, 'YYYY-MM-DD') AS date_of_order, j.sort_job_status AS job_status,
                 concat(e.employee_first_name, ' ', e.employee_last_name) as full_name,
                 s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name,
                 sc.Company_Name AS shipper_company,
