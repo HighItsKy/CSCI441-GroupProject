@@ -62,7 +62,14 @@ function ManageUsers() {
                         }
                     }} variant="primary" size="lg">NEW USER</Button>
                     {/*<input type="text" placeholder="Search for user.." name="search" />*/}
-                    <Button onClick={() => search("true")} variant="primary" size="lg">USER SEARCH</Button>
+                    <Button onClick={() => {
+                        if(searchStatus === "true") /*If the user has already clicked the user list, and they click it again, then the list disappears*/
+                            search("false"); 
+                        else{
+                            search("true");
+                            changeBtnState("closed");
+                        }
+                    }} variant="primary" size="lg">USER SEARCH</Button>
                 </h1>
             </div>
             <div>
