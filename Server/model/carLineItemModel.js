@@ -12,7 +12,11 @@ class CarLineItem {
 
     static async getAll(invId) {
         try {
-            const res = await sql.query(`SELECT * FROM Car_Line_Item WHERE Invoice_ID = $1`, [invId]);
+            const res = await sql.query(
+                `SELECT * 
+                FROM Car_Line_Item cli
+                JOIN Vehicle v on v.Vehicle_id = cli.Vehicle_id
+                WHERE Invoice_ID = $1`, [invId]);
             return res.rows;
         } catch (err) {
             throw err
