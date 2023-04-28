@@ -111,13 +111,8 @@ function JobViewer({ user }) {
         }
         /* Converts the date into the format mm/dd/yyy as a string*/
         const dateObj = new Date(jobVal.date_of_order);
-        const dateOfOrder = dateObj.toLocaleDateString('en-US', {
-            month: '2-digit',
-            day: '2-digit',
-            year: 'numeric'
-        });
 
-        jobVal.orderDate = dateOfOrder;
+        jobVal.orderDate = `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDate()}`;
 
         try {
             const response = await axios.get(`/carLineItem?invoice_id=${jobVal.invoice_id}`);
@@ -130,21 +125,15 @@ function JobViewer({ user }) {
             return;
         }
 
-        jobVal.cars.map(async (car) => {
+        for (let i = 0; i < jobVal.cars.length; i++) {
             try {
-                console.log(car.vehicle_id);
-                const response = await axios.get(`/vehicle/${car.vehicle_id}`);
-                if (response.data.length > 0)
-                    car.vehicle = response.data[0];
-                else
-                    jobVal.vehicle = {};
+                const response = await axios.get(`/vehicle/${jobVal.cars[i].vehicle_id}`);
+                jobVal.cars[i] = { ...jobVal.cars[i], ...response.data[0] };
             } catch (err) {
                 setErrMsg(JSON.stringify(err));
                 return;
             }
-        });
-
-        console.log(jobVal);
+        }
         setJob(jobVal);
     }
 

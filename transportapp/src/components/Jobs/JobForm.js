@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, ListGroup } from 'react-bootstrap';
 import Car from './Car';
+import { useState } from 'react';
 
 
 function JobForm({ job, setJob }) {
+
+
+
+    const onAddBtnClick = event => {
+
+    };
 
     return (
 
@@ -144,24 +151,17 @@ function JobForm({ job, setJob }) {
                 </Form.Control>
             </Form.Group>
 
+            {job.cars ?
+                <> {job.cars.map((car, index) => <Car car={car} index={index + 1} />)} </>
+                : <>  </>
+            }
 
-
-            <>        {job.cars ?
-                <>
-                    {job.cars.map((car, index) => (<Car car={car} index={index + 1} />))}
-                </>
-                :
-                <>
-                </>}
-            </>
-
-                {/*To complete*/}
+            <Button onClick={onAddBtnClick}>Add Car</Button>
 
             <Form.Group>
                 <Form.Label>Driver's Signature: </Form.Label>
 
             </Form.Group>
-
 
             <Form.Group>
                 <p>CONSIGNEE AGREES TO THE CONDITION OF THE VEHICLE, RATE, TERMS & CONDITIONS</p>
