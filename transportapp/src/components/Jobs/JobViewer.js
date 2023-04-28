@@ -171,8 +171,42 @@ function JobViewer({ user }) {
         let newArr = [...cars];
         newArr[index - 1] = ({ ...newArr[index - 1], line_drawing: data });
         setCars(newArr);
+    }
 
-        console.log(newArr);
+    const updateJob = async (e) => {
+
+        e.preventDefault();
+
+        const form = e.target;
+
+        if (job.invoice_id) {
+
+        } else {
+
+            try {
+                const jobVal = {};
+                let data = JSON.stringify(jobVal);
+                const response = await axios.put('/job', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                );
+
+            } catch (err) {
+                setErrMsg(JSON.stringify(err));
+                return;
+            }
+        }
+
+        form.reset();
+
+    }
+
+    const resetJob = (e) => {
+        const jobVal = {}
+        setJob(jobVal);
+        setCars([]);
     }
 
     return (
@@ -189,7 +223,17 @@ function JobViewer({ user }) {
             <Row>
                 <Col xs={1}></Col>
                 <Col md={5}>
-                    <JobForm key={currentUser.id} user={currentUser} job={job} cars={cars} setJob={setJob} changeCarVal={changeCarVal} changeVal={changeVal} addCar={addCar} updateLineDrawing={updateLineDrawing} />
+                    <JobForm key={currentUser.id}
+                        user={currentUser}
+                        job={job}
+                        cars={cars}
+                        changeCarVal={changeCarVal}
+                        changeVal={changeVal}
+                        addCar={addCar}
+                        updateLineDrawing={updateLineDrawing}
+                        updateJob={updateJob}
+                        resetJob={resetJob}
+                    />
                 </Col>
                 <Col md={5}>
                     <>
