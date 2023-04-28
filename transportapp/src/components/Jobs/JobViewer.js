@@ -60,14 +60,35 @@ function JobViewer({ user }) {
 
             setIsLoading(true);
             //get jobs
+            let jobsVal;
             try {
                 const response = await axios.get(`/job`);
-                setJobs(response.data);
+                jobsVal = response.data;
 
             } catch (err) {
                 setErrMsg(`getJobs error: ` + JSON.stringify(err));
                 return;
             }
+
+            jobsVal.map(async (jobVal) => {
+
+
+                try {
+                    const response = await axios.get(`/carLineItem/?invoice_id=${jobVal.invoice_id}`);
+                    if (response.data)
+                        jobVal.cars = response.data;
+
+                } catch (err) {
+                    setErrMsg(`getCarLineItem error: ` + JSON.stringify(err));
+
+                }
+
+            });
+
+            console.log(jobsVal);
+
+            setJobs(jobsVal);
+
             //get Trucks
             try {
                 const response = await axios.get(`/truck`);
@@ -96,14 +117,17 @@ function JobViewer({ user }) {
 
     }, [])
 
-    const filterJobs = (job) => {
+    const filterJobs = (jobVal) => {
         //add search terms with an or
         return (
-            job.full_name.includes(searchTerm) ||
-            job.job_status.includes(searchTerm) ||
-            job.shipper_company.includes(searchTerm) ||
-            job.receiver_company.includes(searchTerm)
-        );
+            jobVal.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            jobVal.job_status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            jobVal.shipper_company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            jobVal.receiver_company.includes(searchTerm.toLowerCase()) ||
+            !jobVal.cars.every((aCar) => {
+                aCar.vin.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    aCar.notes.toLowerCase().includes(searchTerm.toLowerCase())
+            }));
     }
 
     const getJob = async (id) => {
@@ -117,26 +141,16 @@ function JobViewer({ user }) {
             return;
         }
 
-        let carHold;
         try {
             const response = await axios.get(`/carLineItem/?invoice_id=${jobVal.invoice_id}`);
             if (response.data)
-                carHold = [...response.data];
+                setCars(response.data);
 
         } catch (err) {
             setErrMsg(`getCarLineItem error: ` + JSON.stringify(err));
 
         }
 
-        for (let i = 0; i < carHold.length; i++) {
-            try {
-                const response = await axios.get(`/vehicle/${carHold[i].vehicle_id}`);
-                carHold[i] = { ...carHold[i], ...response.data[0] };
-            } catch (err) {
-                setErrMsg(`getVehicles error: ` + JSON.stringify(err));
-            }
-        }
-        setCars(carHold);
         setJob(jobVal);
     }
 
@@ -147,6 +161,11 @@ function JobViewer({ user }) {
 
     const changeVal = (key, value) => {
         setJob(job => ({ ...job, [key]: value }));
+    }
+
+    const changeCarVal = (key, value, index) => {
+        const carHold = job.
+            setCar(job => ({ ...job, [key]: value }));
         console.log(job);
     }
 

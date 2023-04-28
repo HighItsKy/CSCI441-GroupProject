@@ -3,7 +3,7 @@ import { Form, Button, ListGroup } from 'react-bootstrap';
 import Car from './Car';
 
 
-function JobForm({ job, cars, addCar, changeVal }) {
+function JobForm({ job, cars, addCar, changeVal, changeCarVal }) {
 
     return (
 
@@ -19,9 +19,9 @@ function JobForm({ job, cars, addCar, changeVal }) {
                 />
                 <Form.Label htmlFor="orderDate">Date</Form.Label>
                 <Form.Control
-                    id="orderDate"
+                    id="date_of_order"
                     type="date"
-                    value={job.orderDate}
+                    value={job.date_of_order}
                     placeholder=""
                     autoFocus
                     required>
@@ -159,7 +159,7 @@ function JobForm({ job, cars, addCar, changeVal }) {
             </Form.Group>
 
             {cars ?
-                <> {cars.map((car, index) => <Car car={car} index={index + 1} />)} </>
+                <> {cars.map((car, index) => <Car car={car} index={index + 1} changeCarVal={changeCarVal} />)} </>
                 : <>  </>
             }
 
