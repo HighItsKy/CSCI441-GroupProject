@@ -4,7 +4,7 @@ import Car from './Car';
 import Drawing from './Drawing';
 
 
-function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal, updateLineDrawing, updateJob, resetJob, updateSignature }) {
+function JobForm({ job, cars, trucks, employees, customers, allCars, addCar, changeVal, changeCarVal, updateLineDrawing, updateJob, resetJob, updateSignature }) {
 
     return (
         <>
@@ -33,13 +33,23 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                 <br />
                 <Form.Group>
                     <h4>Ship From:</h4>
+                    <Form.Label htmlFor="shipper_id">Shipper</Form.Label>
+                    <Form.Select
+                        id="shipper_id"
+                        value={job.shipper_id}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        required
+                    >
+                        <option>Select a Customer</option>
+                        <> {customers.map(customer => <option value={customer.customer_id}>{customer.customer_first_name} {customer.customer_last_name}</option>)} </>
+                    </Form.Select>
                     <Form.Label htmlFor="shipper_company">Company</Form.Label>
                     <Form.Control
                         id="shipper_company"
                         type="input"
                         value={job.shipper_company}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
-                        required>
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_first_name">Contact First Name</Form.Label>
                     <Form.Control
@@ -66,7 +76,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.shipper_street}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_city">City</Form.Label>
                     <Form.Control
@@ -75,7 +85,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.shipper_city}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_state">State</Form.Label>
                     <Form.Control
@@ -83,7 +93,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         type="input"
                         value={job.shipper_state}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_zip">Zip</Form.Label>
                     <Form.Control
@@ -92,12 +102,22 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.shipper_zip}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                 </Form.Group>
                 <br />
                 <Form.Group>
                     <h4>Ship To:</h4>
+                    <Form.Label htmlFor="receiver_id">Receiver</Form.Label>
+                    <Form.Select
+                        id="receiver_id"
+                        value={job.receiver_id}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        required
+                    >
+                        <option>Select a Customer</option>
+                        <> {customers.map(customer => <option value={customer.customer_id}>{customer.customer_first_name} {customer.customer_last_name}</option>)} </>
+                    </Form.Select>
                     <Form.Label htmlFor="receiver_company">Company</Form.Label>
                     <Form.Control
                         id="receiver_company"
@@ -105,7 +125,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.receiver_company}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="receiver_first_name">Contact First Name</Form.Label>
                     <Form.Control
@@ -132,7 +152,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.receiver_street}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="receiver_city">City</Form.Label>
                     <Form.Control
@@ -141,7 +161,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.receiver_city}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="receiver_state">State</Form.Label>
                     <Form.Control
@@ -150,7 +170,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.receiver_state}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                     <Form.Label htmlFor="receiver_zip">Zip</Form.Label>
                     <Form.Control
@@ -159,7 +179,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.receiver_zip}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                 </Form.Group>
                 <Form.Group>
@@ -168,6 +188,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         id="truck_id"
                         value={job.truck_id}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        required
                     >
                         <option>Select a Truck</option>
                         <> {trucks.map(truck => <option value={truck.truck_id}>{truck.truck_vin}</option>)} </>
@@ -177,6 +198,7 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         id="intake_id"
                         value={job.intake_id}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        required
                     >
                         <option>Select an Intake Employee</option>
                         <> {employees.map(employee => <option value={employee.employee_id}>{employee.employee_first_name} {employee.employee_last_name}</option>)} </>
@@ -197,12 +219,12 @@ function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal
                         value={job.receiver_zip}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                        required>
+                    >
                     </Form.Control>
                 </Form.Group>
 
                 {cars ?
-                    <> {cars.map((car, index) => <Car car={car} index={index + 1} changeCarVal={changeCarVal} updateLineDrawing={updateLineDrawing} />)} </>
+                    <> {cars.map((car, index) => <Car car={car} allCars={allCars} index={index + 1} changeCarVal={changeCarVal} updateLineDrawing={updateLineDrawing} />)} </>
                     : <>  </>
                 }
                 <Button variant="primary" type="button" className="m-4" onClick={addCar}>Add Car</Button>

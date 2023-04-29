@@ -94,7 +94,7 @@ class TransportJob {
         try {
             let client = await sql.connect();
             let data1 = await client.query(
-                'INSERT INTO Job(Shipper_ID, Receiver_ID, Truck_ID, Driver_ID, Intake_ID, Driver_signature, Shipper_Signature, Receiver_Signature, Job_Status, Special_Instructions, Date_of_Order) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, NOW()) RETURNING Invoice_ID',
+                'INSERT INTO Job(Shipper_ID, Receiver_ID, Truck_ID, Driver_ID, Intake_ID, Driver_signature, Shipper_Signature, Receiver_Signature, Sort_Job_Status, Special_Instructions, Date_of_Order) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, NOW()) RETURNING Invoice_ID',
                 [job.shipper_id, job.receiver_id, job.truck_id, job.driver_id, job.intake_id, job.driver_signature, job.shipper_signature, job.receiver_signature, job.job_status, job.special_instructions]
             );
             client.release();
