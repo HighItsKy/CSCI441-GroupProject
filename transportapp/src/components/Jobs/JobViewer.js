@@ -54,64 +54,65 @@ function JobViewer({ user }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [errMsg, setErrMsg] = useState("");
 
-    useEffect(() => {
+    const fetchItems = async () => {
 
-        const fetchItems = async () => {
+        setIsLoading(true);
+        //get jobs
+        let jobsVal;
+        try {
+            const response = await axios.get(`/job`);
+            jobsVal = response.data;
 
-            setIsLoading(true);
-            //get jobs
-            let jobsVal;
-            try {
-                const response = await axios.get(`/job`);
-                jobsVal = response.data;
-
-            } catch (err) {
-                setErrMsg(`getJobs error: ` + JSON.stringify(err));
-                return;
-            }
-
-            jobsVal.map(async (jobVal) => {
-
-
-                try {
-                    const response = await axios.get(`/carLineItem/?invoice_id=${jobVal.invoice_id}`);
-                    if (response.data)
-                        jobVal.cars = response.data;
-
-                } catch (err) {
-                    setErrMsg(`getCarLineItem error: ` + JSON.stringify(err));
-
-                }
-
-            });
-
-            setJobs(jobsVal);
-
-            //get Trucks
-            try {
-                const response = await axios.get(`/truck`);
-                setTrucks(response.data);
-
-            } catch (err) {
-                setErrMsg(`getTruck error: ` + JSON.stringify(err));
-                return;
-            }
-
-            //get Employees
-            try {
-                const response = await axios.get(`/employee`);
-                setEmployees(response.data);
-
-            } catch (err) {
-                setErrMsg(`getEmployees error: ` + JSON.stringify(err));
-                return;
-            }
-
+        } catch (err) {
+            setErrMsg(`getJobs error: ` + JSON.stringify(err));
+            return;
         }
+
+        jobsVal.map(async (jobVal) => {
+
+
+            try {
+                const response = await axios.get(`/carLineItem/?invoice_id=${jobVal.invoice_id}`);
+                if (response.data)
+                    jobVal.cars = response.data;
+
+            } catch (err) {
+                setErrMsg(`getCarLineItem error: ` + JSON.stringify(err));
+
+            }
+
+        });
+
+        setJobs(jobsVal);
+
+        //get Trucks
+        try {
+            const response = await axios.get(`/truck`);
+            setTrucks(response.data);
+
+        } catch (err) {
+            setErrMsg(`getTruck error: ` + JSON.stringify(err));
+            return;
+        }
+
+        //get Employees
+        try {
+            const response = await axios.get(`/employee`);
+            setEmployees(response.data);
+
+        } catch (err) {
+            setErrMsg(`getEmployees error: ` + JSON.stringify(err));
+            return;
+        }
+
+        setIsLoading(false);
+
+    }
+
+    useEffect(() => {
 
         fetchItems();
 
-        setIsLoading(false);
 
     }, [])
 
@@ -173,13 +174,43 @@ function JobViewer({ user }) {
         setCars(newArr);
     }
 
+    const updateSignature = (data, key) => {
+        console.log(data);
+        setJob(job => ({ ...job, [key]: data }));
+    }
+
     const updateJob = async (e) => {
 
         e.preventDefault();
 
         const form = e.target;
 
-        if (job.invoice_id) {
+        if (!job.invoice_id) {
+
+            try {
+                const jobVal = {
+                    shipper_id: 2,
+                    receiver_id: 1,
+                    truck_id: 11,
+                    driver_id: job.driver_id,
+                    intake_id: 6,
+                    driver_signature: job.driver_signature,
+                    shipper_signature: job.shipper_signature,
+                    receiver: job.receiver_signature,
+                    special_instructions: job.special_instructions
+                };
+                let data = JSON.stringify(jobVal);
+                const response = await axios.post('/job', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                );
+
+            } catch (err) {
+                setErrMsg(JSON.stringify(err));
+                return;
+            }
 
         } else {
 
@@ -198,6 +229,8 @@ function JobViewer({ user }) {
                 return;
             }
         }
+
+        fetchItems();
 
         form.reset();
 
@@ -227,10 +260,13 @@ function JobViewer({ user }) {
                         user={currentUser}
                         job={job}
                         cars={cars}
+                        trucks={trucks}
+                        employees={employees}
                         changeCarVal={changeCarVal}
                         changeVal={changeVal}
                         addCar={addCar}
                         updateLineDrawing={updateLineDrawing}
+                        updateSignature={updateSignature}
                         updateJob={updateJob}
                         resetJob={resetJob}
                     />

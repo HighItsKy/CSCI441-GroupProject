@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Form, Button, Row } from 'react-bootstrap';
 import Car from './Car';
+import Drawing from './Drawing';
 
 
-function JobForm({ job, cars, addCar, changeVal, changeCarVal, updateLineDrawing, updateJob, resetJob, jobForm }) {
+function JobForm({ job, cars, trucks, employees, addCar, changeVal, changeCarVal, updateLineDrawing, updateJob, resetJob, updateSignature }) {
 
     return (
         <>
@@ -161,6 +162,44 @@ function JobForm({ job, cars, addCar, changeVal, changeCarVal, updateLineDrawing
                         required>
                     </Form.Control>
                 </Form.Group>
+                <Form.Group>
+                    <Form.Label htmlFor="truck_id">Truck</Form.Label>
+                    <Form.Select
+                        id="truck_id"
+                        value={job.truck_id}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                    >
+                        <option>Select a Truck</option>
+                        <> {trucks.map(truck => <option value={truck.truck_id}>{truck.truck_vin}</option>)} </>
+                    </Form.Select>
+                    <Form.Label htmlFor="intake_id">Intake Employee</Form.Label>
+                    <Form.Select
+                        id="intake_id"
+                        value={job.intake_id}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                    >
+                        <option>Select an Intake Employee</option>
+                        <> {employees.map(employee => <option value={employee.employee_id}>{employee.employee_first_name} {employee.employee_last_name}</option>)} </>
+                    </Form.Select>
+                    <Form.Label htmlFor="driver_id">Driver</Form.Label>
+                    <Form.Select
+                        id="driver_id"
+                        value={job.driver_id}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                    >
+                        <option>Select a Driver</option>
+                        <> {employees.filter(employee => employee.is_driver).map(employee => <option value={employee.employee_id}>{employee.employee_first_name} {employee.employee_last_name}</option>)} </>
+                    </Form.Select>
+                    <Form.Label htmlFor="special_instructions">Special Instructions</Form.Label>
+                    <Form.Control
+                        id="special_instructions"
+                        type="input"
+                        value={job.receiver_zip}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        placeholder=""
+                        required>
+                    </Form.Control>
+                </Form.Group>
 
                 {cars ?
                     <> {cars.map((car, index) => <Car car={car} index={index + 1} changeCarVal={changeCarVal} updateLineDrawing={updateLineDrawing} />)} </>
@@ -170,22 +209,20 @@ function JobForm({ job, cars, addCar, changeVal, changeCarVal, updateLineDrawing
 
                 <Form.Group>
                     <Form.Label>Driver's Signature: </Form.Label>
-
-                </Form.Group>
-
-                <Form.Group>
-                    <p>CONSIGNEE AGREES TO THE CONDITION OF THE VEHICLE, RATE, TERMS & CONDITIONS</p>
+                    <Drawing width="500" height="125" imageData={job.driver_signature} setImageData={updateSignature} backgroundImage={null} field={'driver_signature'} />
                 </Form.Group>
 
                 <Form.Group>
                     <p>THE SHIPPER HAS SHIPPED THE ABOVE LISTED VEHICLE WITH THE ABOVE NOTED DAMAGE OR HAS
                         MADE SUCH EXCEPTIONS ON INSPECTION SHEETS</p>
                     <Form.Label>Shipper's Signature: </Form.Label>
+                    <Drawing width="500" height="125" imageData={job.shipper_signature} setImageData={updateSignature} backgroundImage={null} field={'shipper_signature'} />
                 </Form.Group>
 
                 <Form.Group>
                     <p>THE RECEIVER HAS RECIEVED THE ABOVE LISTED VEHICLE WITH NO TRANSPORTATION DAMAGE NOTED OR HAS
                         MADE SUCH EXCEPTIONS ON INSPECTION SHEETS</p>
+                    {/*<Drawing width="600" height="125" imageData={job.receiver_signature} setImageData={updateSignature} field={'receiver_signature'}/>*/}
                 </Form.Group>
 
                 <Button className="m-2" type="submit" varient="primary">Submit</Button>

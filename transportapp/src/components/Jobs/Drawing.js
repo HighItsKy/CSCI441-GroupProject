@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { Button, Row, Col, Container } from 'react-bootstrap';
 
-function Drawing({ height, width, imageData, setImageData, backgroundImage, index }) {
+function Drawing({ height, width, imageData, setImageData, backgroundImage, index, field }) {
 
     const canvasRef = useRef(null);
     const canvasBackgroundRef = useRef(null);
@@ -11,8 +11,10 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage, inde
 
     useEffect(() => {
         const context = canvasRef.current.getContext("2d");
+        const drawImg = new Image();
         if (imageData) {
-            context.drawImage(imageData, 0, 0);
+            drawImg.src = imageData;
+            drawImg.onload = () => { context.drawImage(drawImg, 0, 0) };
         }
     }, [imageData]);
 
@@ -77,7 +79,7 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage, inde
             if (index) {
                 setImageData(canvasRef.current.toDataURL(), index);
             } else {
-                setImageData(canvasRef.current.toDataURL());
+                setImageData(canvasRef.current.toDataURL(), field);
             }
         }
     }, [setImageData]);
