@@ -9,6 +9,9 @@ function JobForm({ job, cars, trucks, employees, customers, allCars, addCar, cha
     return (
         <>
             <Form onSubmit={updateJob} onReset={resetJob}>
+
+            <Button className="m-2" type="reset" varient="primary">Start New Job</Button>
+
                 <Form.Group>
                     <Form.Label htmlFor="invoice_id">Invoice No.</Form.Label>
                     <Form.Control

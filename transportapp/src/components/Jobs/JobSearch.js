@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap"
 
-function JobSearch({ user, searchTerm, setSearchTerm }) {
+function JobSearch({ user, job, searchTerm, setSearchTerm }) {
     return (
         <>
             <Form>
