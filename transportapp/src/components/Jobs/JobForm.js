@@ -91,17 +91,16 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                     >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_company">Company</Form.Label>
-                    <Form.Control
+                    <Form.Text
                         id="shipper_company"
                         value={job.shipper_company}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         plaintext readOnly
                     >
-                    </Form.Control>
+                    </Form.Text>
                     <Form.Label htmlFor="shipper_first_name">Contact First Name</Form.Label>
                     <Form.Control
                         id="shipper_first_name"
-                        type="input"
                         value={job.shipper_first_name}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
@@ -110,7 +109,6 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                     <Form.Label htmlFor="shipper_last_name">Contact Last Name</Form.Label>
                     <Form.Control
                         id="shipper_last_name"
-                        type="input"
                         value={job.shipper_last_name}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
