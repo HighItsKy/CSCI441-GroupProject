@@ -108,12 +108,14 @@ function UserForm({ user, setUser }) {
                                     <Form.Check
                                         type={'checkbox'}
                                         onChange={() => {
-                                            if (isAdmin === "false" && isDriver === "true") { //If the checkbox is already checked, user is Admin. 
-
+                                            if (isAdmin === "false" && isDriver === "true"){ //If the checkbox is already checked, user is Admin. 
+                                                setDriver("false");
+                                                setAdmin("true");
                                             }
                                             else { //If the checkbox is already checked, user is Driver.
-                                            }
-                                        }
+                                                setDriver("true");
+                                                setAdmin("false");
+                                            }}
                                         }
                                         id={`default-checkbox`}
                                         label={`Is Driver`}
