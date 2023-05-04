@@ -1,16 +1,53 @@
 import { Link } from 'react-router-dom'
 import { Form, Button, Row } from 'react-bootstrap';
+import { useState } from 'react';
 import Car from './Car';
 import Drawing from './Drawing';
 
 
-function JobForm({ job, cars, trucks, employees, customers, allCars, addCar, changeVal, changeCarVal, updateLineDrawing, updateJob, resetJob, updateSignature }) {
+function JobForm({ job, cars, trucks, employees, companies, customers, shipperBranches, receiverBranches, allCars, addCar, changeVal, changeCarVal, updateLineDrawing, updateJob, resetJob, updateSignature }) {
+
+    const selectShipperCompany = (e) => {
+
+        changeVal(e.currentTarget.id, e.currentTarget.value);
+        console.log(e.currentTarget.value);
+        console.log(companies.find(company => company.company_id == e.currentTarget.value));
+        changeVal('shipper_company', companies.find(company => company.company_id == e.currentTarget.value).company_name);
+        changeVal('shipper_branch_id', "");
+
+    }
+
+    const selectShipperBranch = (e) => {
+        changeVal(e.currentTarget.id, e.currentTarget.value);
+        const branchVal = shipperBranches.find(branch => branch.company_branch_id == e.currentTarget.value)
+        changeVal('shipper_street', branchVal.branch_street_address);
+        changeVal('shipper_city', branchVal.branch_city);
+        changeVal('shipper_state', branchVal.branch_state);
+    }
+
+    const selectReceiverCompany = (e) => {
+
+        changeVal(e.currentTarget.id, e.currentTarget.value);
+        console.log(e.currentTarget.value);
+        console.log(companies.find(company => company.company_id == e.currentTarget.value));
+        changeVal('receiver_company', companies.find(company => company.company_id == e.currentTarget.value).company_name);
+        changeVal('receiver_branch_id', "");
+
+    }
+
+    const selectReceiverBranch = (e) => {
+        changeVal(e.currentTarget.id, e.currentTarget.value);
+        const branchVal = receiverBranches.find(branch => branch.company_branch_id == e.currentTarget.value)
+        changeVal('receiver_street', branchVal.branch_street_address);
+        changeVal('receiver_city', branchVal.branch_city);
+        changeVal('receiver_state', branchVal.branch_state);
+    }
 
     return (
         <>
             <Form onSubmit={updateJob} onReset={resetJob}>
 
-            <Button className="m-2" type="reset" varient="primary">Start New Job</Button>
+                <Button className="m-2" type="reset" varient="primary">Start New Job</Button>
 
                 <Form.Group>
                     <Form.Label htmlFor="invoice_id">Invoice No.</Form.Label>
@@ -28,7 +65,6 @@ function JobForm({ job, cars, trucks, employees, customers, allCars, addCar, cha
                         type="date"
                         value={job.date_of_order}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
-                        placeholder=""
                         autoFocus
                         required>
                     </Form.Control>
@@ -36,22 +72,30 @@ function JobForm({ job, cars, trucks, employees, customers, allCars, addCar, cha
                 <br />
                 <Form.Group>
                     <h4>Ship From:</h4>
-                    <Form.Label htmlFor="shipper_id">Shipper</Form.Label>
+                    <Form.Label htmlFor="shipper_company_id">Shipper</Form.Label>
                     <Form.Select
-                        id="shipper_id"
-                        value={job.shipper_id}
-                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        id="shipper_company_id"
+                        value={job.shipper_company_id}
+                        onChange={(e) => selectShipperCompany(e)}
                         required
                     >
-                        <option>Select a Customer</option>
-                        <> {customers.map(customer => <option value={customer.customer_id}>{customer.customer_first_name} {customer.customer_last_name}</option>)} </>
+                        <option>Select a Company</option>
+                        <> {companies.map(company => <option value={company.company_id}>{company.company_name}</option>)} </>
                     </Form.Select>
+                    <Form.Control
+                        id="shipper_id"
+                        type="hidden"
+                        value={job.shipper_id}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        placeholder=""
+                    >
+                    </Form.Control>
                     <Form.Label htmlFor="shipper_company">Company</Form.Label>
                     <Form.Control
                         id="shipper_company"
-                        type="input"
                         value={job.shipper_company}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        plaintext readOnly
                     >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_first_name">Contact First Name</Form.Label>
@@ -72,60 +116,69 @@ function JobForm({ job, cars, trucks, employees, customers, allCars, addCar, cha
                         placeholder=""
                     >
                     </Form.Control>
+                    <Form.Label htmlFor="shipper_branch_id">Shipper Branch</Form.Label>
+                    <Form.Select
+                        id="shipper_branch_id"
+                        value={job.shipper_branch_id}
+                        onChange={(e) => selectShipperBranch(e)}
+                        required
+                    >
+                        <option>Select a Branch</option>
+                        <>  {shipperBranches ? shipperBranches.map(branch => <option value={branch.company_branch_id}>{branch.branch_street_address} {branch.branch_city} {branch.branch_state}</option>) : <> </>} </>
+                    </Form.Select>
                     <Form.Label htmlFor="shipper_street">Address</Form.Label>
                     <Form.Control
                         id="shipper_street"
-                        type="input"
                         value={job.shipper_street}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
-                        placeholder=""
+                        plaintext readOnly
                     >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_city">City</Form.Label>
                     <Form.Control
                         id="shipper_city"
-                        type="input"
                         value={job.shipper_city}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
+                        plaintext readOnly
                     >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_state">State</Form.Label>
                     <Form.Control
                         id="shipper_state"
-                        type="input"
                         value={job.shipper_state}
-                        placeholder=""
-                    >
-                    </Form.Control>
-                    <Form.Label htmlFor="shipper_zip">Zip</Form.Label>
-                    <Form.Control
-                        id="shipper_zip"
-                        type="input"
-                        value={job.shipper_zip}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
+                        plaintext readOnly
                     >
                     </Form.Control>
                 </Form.Group>
                 <br />
                 <Form.Group>
                     <h4>Ship To:</h4>
-                    <Form.Label htmlFor="receiver_id">Receiver</Form.Label>
+                    <Form.Label htmlFor="receiver_company_id">Receiver</Form.Label>
                     <Form.Select
-                        id="receiver_id"
-                        value={job.receiver_id}
-                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        id="receiver_company_id"
+                        value={job.receiver_company_id}
+                        onChange={(e) => selectReceiverCompany(e)}
                         required
                     >
-                        <option>Select a Customer</option>
-                        <> {customers.map(customer => <option value={customer.customer_id}>{customer.customer_first_name} {customer.customer_last_name}</option>)} </>
+                        <option>Select a Company</option>
+                        <> {companies.map(company => <option value={company.company_id}>{company.company_name}</option>)} </>
                     </Form.Select>
                     <Form.Label htmlFor="receiver_company">Company</Form.Label>
                     <Form.Control
                         id="receiver_company"
-                        type="input"
                         value={job.receiver_company}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        plaintext readOnly
+                        placeholder=""
+                    >
+                    </Form.Control>
+                    <Form.Control
+                        id="receiver_id"
+                        type="hidden"
+                        value={job.receiver_id}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
                     >
@@ -148,40 +201,41 @@ function JobForm({ job, cars, trucks, employees, customers, allCars, addCar, cha
                         placeholder=""
                     >
                     </Form.Control>
+                    <Form.Label htmlFor="receiver_branch_id">Shipper Branch</Form.Label>
+                    <Form.Select
+                        id="receiver_branch_id"
+                        value={job.receiver_branch_id}
+                        onChange={(e) => selectReceiverBranch(e)}
+                        required
+                    >
+                        <option>Select a Branch</option>
+                        <>  {receiverBranches ? receiverBranches.map(branch => <option value={branch.company_branch_id}>{branch.branch_street_address} {branch.branch_city} {branch.branch_state}</option>) : <> </>} </>
+                    </Form.Select>
                     <Form.Label htmlFor="receiver_street">Address</Form.Label>
                     <Form.Control
                         id="receiver_street"
-                        type="input"
                         value={job.receiver_street}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
+                        plaintext readOnly
                     >
                     </Form.Control>
                     <Form.Label htmlFor="receiver_city">City</Form.Label>
                     <Form.Control
                         id="receiver_city"
-                        type="input"
                         value={job.receiver_city}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
+                        plaintext readOnly
                     >
                     </Form.Control>
                     <Form.Label htmlFor="receiver_state">State</Form.Label>
                     <Form.Control
                         id="receiver_state"
-                        type="input"
                         value={job.receiver_state}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
-                    >
-                    </Form.Control>
-                    <Form.Label htmlFor="receiver_zip">Zip</Form.Label>
-                    <Form.Control
-                        id="receiver_zip"
-                        type="input"
-                        value={job.receiver_zip}
-                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
-                        placeholder=""
+                        plaintext readOnly
                     >
                     </Form.Control>
                 </Form.Group>

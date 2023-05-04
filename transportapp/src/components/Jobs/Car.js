@@ -23,35 +23,35 @@ function Car({ car, index, allCars, changeCarVal, updateLineDrawing }) {
                         <Form.Label htmlFor={`vehicle_year`}>Year</Form.Label>
                         <Form.Control
                             id={`vehicle_year`}
-                            type="text"
+                            plaintext readOnly
                             value={car.vehicle_year}
                             onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, index)}
                         ></Form.Control>
                         <Form.Label htmlFor={`vehicle_make`}>Make</Form.Label>
                         <Form.Control
                             id={`vehicle_make`}
-                            type="text"
+                            plaintext readOnly
                             value={car.vehicle_make}
                             onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, index)}
                         ></Form.Control>
                         <Form.Label htmlFor={`vehicle_model`}>Model</Form.Label>
                         <Form.Control
                             id={`vehicle_model`}
-                            type="text"
+                            plaintext readOnly
                             value={car.vehicle_model}
                             onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, index)}
                         ></Form.Control>
                         <Form.Label htmlFor={`vehicle_color`}>Color</Form.Label>
                         <Form.Control
                             id={`vehicle_color`}
-                            type="text"
+                            plaintext readOnly
                             value={car.vehicle_color}
                             onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, index)}
                         ></Form.Control>
                         <Form.Label htmlFor={`vin`}>Serial No. (Last 8)</Form.Label>
                         <Form.Control
                             id={`vin`}
-                            type="text"
+                            plaintext readOnly
                             value={car.vin}
                         ></Form.Control>
                         <Form.Label htmlFor={`notes`}>Notes</Form.Label>

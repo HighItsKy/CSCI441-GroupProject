@@ -47,6 +47,22 @@ class CarLineItem {
         }
     }
 
+    static async update(cli) {
+        try {
+            let client = await sql.connect();
+            let data1 = await client.query(
+                'UPDATE Car_Line_Item SET Vehicle_ID=$1, Invoice_ID=$2, Line_drawing=$3, Shipping_Cost=$4, Notes=$5 WHERE Car_Line_Item_Id=$6 RETURNING Car_Line_Item_ID',
+                [cli.vehicle_id, cli.invoice_id, cli.line_drawing, cli.shipping_cost, cli.notes, cli.car_line_item_id]
+            );
+            client.release();
+            return data1.rows;
+        }
+        catch (err) {
+            throw err;
+        }
+    }
+
+
 }
 
 module.exports = CarLineItem;

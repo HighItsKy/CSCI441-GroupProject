@@ -50,7 +50,8 @@ function JobViewer({ user }) {
     const [employees, setEmployees] = useState([]);
     const [trucks, setTrucks] = useState([]);
     const [companies, setCompanies] = useState([]);
-    const [locations, setLocations] = useState([]);
+    const [shipperBranches, setShipperBranches] = useState([]);
+    const [receiverBranches, setReceiverBranches] = useState([]);
     const [allCars, setAllCars] = useState([]);
     const [customers, setCustomers] = useState([]);
 
@@ -121,7 +122,7 @@ function JobViewer({ user }) {
             return;
         }
 
-        //get Companies
+        //get Customers
         try {
             const response = await axios.get(`/customer`);
             setCustomers(response.data);
@@ -130,16 +131,6 @@ function JobViewer({ user }) {
             setErrMsg(`getCustomer error: ` + JSON.stringify(err));
             return;
         }
-
-        //get Locations
-        /*try {
-           const response = await axios.get(`/branch`);
-           setLocations(response.data);
-
-       } catch (err) {
-           setErrMsg(`getLocations error: ` + JSON.stringify(err));
-           return;
-       }*/
 
         //get All Cars
         try {
@@ -197,9 +188,27 @@ function JobViewer({ user }) {
 
         }
 
+        const shipperBranchesVal = await getBranches(jobVal.shipper_company_id);
+        const receiverBranchesVal = await getBranches(jobVal.receiver_company_id);
+
+        setShipperBranches(shipperBranchesVal);
+        setReceiverBranches(receiverBranchesVal);
         setJob(jobVal);
         setAreCarsEdited(false);
         setIsJobEdited(false);
+    }
+
+    const getBranches = async (id) => {
+
+        try {
+            const response = await axios.get(`/company/${id}/branches`);
+
+            return response.data;
+
+        } catch (err) {
+            setErrMsg(`getJob error: ` + JSON.stringify(err));
+            return [];
+        }
     }
 
     const addCar = () => {
@@ -208,15 +217,33 @@ function JobViewer({ user }) {
         setCars(newCars => ([...cars, newCar]));
     }
 
-    const changeVal = (key, value) => {
+    const changeVal = async (key, value) => {
         setIsJobEdited(true);
         setJob(job => ({ ...job, [key]: value }));
+        if (key === 'shipper_company_id') {
+            const shipperBranchesVal = await getBranches(value);
+            setShipperBranches(shipperBranchesVal);
+        }
+        if (key === 'reciever_company_id') {
+            const receiverBranchesVal = await getBranches(value);
+            setReceiverBranches(receiverBranchesVal);
+        }
     }
+
 
     const changeCarVal = (key, value, index) => {
         setAreCarsEdited(true);
         let newArr = [...cars];
         newArr[index - 1] = ({ ...newArr[index - 1], [key]: value });
+        if (key === 'vehicle_id') {
+            const carVal = allCars.find(vehicle => vehicle.vehicle_id == value);
+            newArr[index - 1] = ({ ...newArr[index - 1], 'vehicle_year': carVal.vehicle_year });
+            newArr[index - 1] = ({ ...newArr[index - 1], 'vehicle_make': carVal.vehicle_make });
+            newArr[index - 1] = ({ ...newArr[index - 1], 'vehicle_model': carVal.vehicle_model });
+            newArr[index - 1] = ({ ...newArr[index - 1], 'vehicle_color': carVal.vehicle_color });
+            newArr[index - 1] = ({ ...newArr[index - 1], 'vin': carVal.vin });
+
+        }
         setCars(newArr);
     }
 
@@ -237,10 +264,62 @@ function JobViewer({ user }) {
         e.preventDefault();
 
         const form = e.target;
+        try {
 
-        if (!job.invoice_id) {
+            //shipper customer
+            //update
+            if (job.shipper_id) {
+                //not implemented yet
+            } else {
+                //create
+                const customerVal = {
+                    customer_first_name: job.shipper_first_name,
+                    customer_last_name: job.customer_last_name,
+                    branch_id: job.shipper_branch_id
+                }
 
-            try {
+                let data = JSON.stringify(customerVal);
+
+                const response = await axios.put('/customer', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                );
+
+                job.shipper_id = response.data[0].customer_id;
+            }
+
+            //receiver customer
+            //update
+
+            if (job.receiver_id) {
+                //not implemented yet
+            } else {
+                //create
+                const customerVal = {
+                    customer_first_name: job.shipper_first_name,
+                    customer_last_name: job.customer_last_name,
+                    branch_id: job.shipper_branch_id
+                }
+
+                let data = JSON.stringify(customerVal);
+
+                const response = await axios.put('/customer', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                );
+
+                job.receiver_id = response.data[0].customer_id;
+            }
+
+
+            let invoice = job.invoice_id
+
+            //update job
+            if (!job.invoice_id) {
 
                 const jobVal = {
                     shipper_id: job.shipper_id,
@@ -261,12 +340,37 @@ function JobViewer({ user }) {
                 }
                 );
 
-                let invoice = response.data[0].invoice_id;
+                invoice = response.data[0].invoice_id;
 
-                console.log(invoice)
+            } else {
 
-                if (cars) {
-                    cars.map(async (vehicle) => {
+                //Update Job not implemented yet
+            }
+
+            // line item
+            if (cars) {
+                cars.map(async (vehicle) => {
+
+                    //update
+                    if (vehicle.car_line_item_id) {
+                        const vehicleVal = {
+                            car_line_item_id: vehicle.car_line_item_id,
+                            vehicle_id: vehicle.vehicle_id,
+                            invoice_id: invoice,
+                            line_drawing: vehicle.line_drawing,
+                            shipping_cost: vehicle.shipping_cost,
+                            notes: vehicle.notes
+                        }
+
+                        let data = JSON.stringify(vehicleVal);
+                        const response = await axios.put('/carlineitem', data, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }
+                        );
+                    } else {
+                        //create
                         const vehicleVal = {
                             vehicle_id: vehicle.vehicle_id,
                             invoice_id: invoice,
@@ -274,6 +378,7 @@ function JobViewer({ user }) {
                             shipping_cost: vehicle.shipping_cost,
                             notes: vehicle.notes
                         }
+
                         let data = JSON.stringify(vehicleVal);
                         console.log(data);
                         const response = await axios.post('/carlineitem', data, {
@@ -282,30 +387,14 @@ function JobViewer({ user }) {
                             }
                         }
                         );
-                    })
-                }
-
-            } catch (err) {
-                setErrMsg(JSON.stringify(err));
-                return;
-            }
-
-        } else {
-
-            try {
-                const jobVal = {};
-                let data = JSON.stringify(jobVal);
-                const response = await axios.put('/job', data, {
-                    headers: {
-                        'Content-Type': 'application/json'
                     }
-                }
-                );
+                });
 
-            } catch (err) {
-                setErrMsg(JSON.stringify(err));
-                return;
             }
+
+        } catch (err) {
+            setErrMsg(JSON.stringify(err));
+            return;
         }
 
         fetchItems();
@@ -318,7 +407,7 @@ function JobViewer({ user }) {
     }
 
     const resetJob = (e) => {
-        const jobVal = {}
+        const jobVal = {};
         setJob(jobVal);
         setCars([]);
         setAreCarsEdited(false);
@@ -346,6 +435,9 @@ function JobViewer({ user }) {
                         trucks={trucks}
                         employees={employees}
                         customers={customers}
+                        companies={companies}
+                        shipperBranches={shipperBranches}
+                        receiverBranches={receiverBranches}
                         allCars={allCars}
                         changeCarVal={changeCarVal}
                         changeVal={changeVal}

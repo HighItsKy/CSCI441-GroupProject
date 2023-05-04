@@ -47,8 +47,32 @@ const createCarLineItem = async (req, res) => {
     }
 };
 
+
+const updateCarLineItem = async (req, res) => {
+    // Validate request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+    }
+    // Create a Property
+    const newCLI = new CLI(req.body);
+    try {
+        let data = await CLI.update(newCLI);
+        res.send(data);
+    }
+    catch (err) {
+        res.status(500).send({
+            message:
+                err.message ||
+                "Some error occurred while creating the car line item."
+        });
+    }
+}
+
 module.exports = {
     getAll,
     getCarLineItem,
-    createCarLineItem
+    createCarLineItem,
+    updateCarLineItem
 }

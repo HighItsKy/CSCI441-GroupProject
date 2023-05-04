@@ -52,9 +52,9 @@ class TransportJob {
         try {
             const stmt = `SELECT j.invoice_id, j.shipper_id, j.receiver_id, j.truck_id, j.driver_id, j.intake_id, j.driver_signature, j.shipper_signature, to_char(j.date_of_order, 'YYYY-MM-DD') AS date_of_order, j.date_complete, j.special_instructions,
                             t.truck_vin, t.truck_capacity, t.truck_mileage, 
-                            s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name, s.branch_id AS shipper_branch_id, sc.Company_Name AS shipper_company,
+                            s.customer_id AS shipper_customer_id, sb.company_id AS shipper_company_id, s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name, s.branch_id AS shipper_branch_id, sc.Company_Name AS shipper_company,
                             sb.branch_name AS shipper_branch_name, sb.branch_contact_no AS shipper_contact_no, sb.branch_street_address AS shipper_street, sb.branch_city AS shipper_city, sb.branch_state AS shipper_state, sb.branch_email AS shipper_email,
-                            r.customer_first_name AS receiver_first_name, r.customer_last_name AS receiver_last_name, r.branch_id AS receiver_branch_id, rc.Company_Name AS receiver_company,
+                            rb.company_id AS receiver_company_id, r.customer_id AS receiver_customer_id, r.customer_first_name AS receiver_first_name, r.customer_last_name AS receiver_last_name, r.branch_id AS receiver_branch_id, rc.Company_Name AS receiver_company,
                             rb.branch_name AS receiver_branch_name, rb.branch_contact_no AS receiver_contact_no, rb.branch_street_address AS receiver_street, rb.branch_city AS receiver_city, rb.branch_state AS receiver_state, rb.branch_email AS receiver_email
                             FROM Job j
                             LEFT JOIN Truck t ON j.Truck_Id = t.Truck_Id
@@ -65,17 +65,10 @@ class TransportJob {
                             LEFT JOIN Company sc on sb.Company_ID = sc.Company_ID
                             LEFT JOIN Company rc on rb.Company_ID = rc.Company_ID
                             WHERE j.invoice_id = $1`
-            const stmt2 = `SELECT 
-                                cli.Car_Line_Item_ID, cli.Vehicle_ID, cli.Invoice_ID, cli.Line_drawing, cli.Shipping_Cost, cli.Notes,
-                                v.VIN, v.Vehicle_Make, V.Vehicle_Model, V.Vehicle_Year, v.Vehicle_color
-                                FROM Car_Line_Item cli
-                                LEFT JOIN Vehicle v on v.Vehicle_ID = cli.Vehicle_ID
-                                WHERE Invoice_ID = $1`
 
             //'SELECT * FROM Job WHERE invoice_id = $1'
             const res = await sql.query(stmt, [jobId]);
-            const res2 = await sql.query(stmt2, [jobId])
-            return res.rows.concat(res2.rows);
+            return res.rows;
         } catch (err) {
             throw err;
         }
