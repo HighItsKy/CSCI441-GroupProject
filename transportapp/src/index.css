@@ -87,6 +87,11 @@ Nav div{
 		transition: background-color .20s ease-in-out;
   }
 
+ #default-checkbox{
+	box-shadow: none!important; /*Makes the blue outline go away when the form is clicked*/
+	background-color: #333;
+  }
+
   /*Makes the border in the form black*/
   .form-group input:hover, .employee-id input:hover{
 	border-color: black!important;
