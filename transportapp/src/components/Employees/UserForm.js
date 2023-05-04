@@ -45,13 +45,14 @@ function UserForm({ user, setUser }) {
         } else {
             try {
                 const newUser = {
-                    is_admin: isAdmin, is_driver: isDriver, employee_first_name: user.employee_first_name, employee_last_name: user.employee_last_name,
-                    employee_username: user.employee_username, employee_contact_no: user.employee_contact_no,
+                    employee_id: user.employee_id, is_admin: isAdmin, is_driver: isDriver, employee_first_name: user.employee_first_name, employee_last_name: user.employee_last_name,
+                    employee_username: user.employee_username, employee_password: user.employee_password, employee_contact_no: user.employee_contact_no,
                     employee_street_address: user.employee_street_address,
                     employee_city: user.employee_city, employee_state: user.employee_state, employee_zip_code: user.employee_zip_code,
                     employee_email: user.employee_email
                 };
                 let data = JSON.stringify(newUser);
+                console.log(data);
                 const response = await axios.put('/employee', data, {
                     headers: {
                         'Content-Type': 'application/json'
