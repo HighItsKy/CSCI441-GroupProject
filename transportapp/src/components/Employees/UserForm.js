@@ -56,7 +56,7 @@ function UserForm({ user, setUser }) {
                         <label htmlFor='UserZip'>* ZIP CODE</label>
                         <input className="form-control" id="UserZip" required value={user.employee_zip_code}></input>
                         <label htmlFor='UserEmail'>* EMAIL</label>
-                        <input type="email" placeholder="example@gmail/yahoo.com" pattern="@(gmail|yahoo)\.com$" className="form-control" id="UserEmail" required value={user.employee_email}></input>
+                        <input type="email" placeholder="example@gmail/yahoo.com" pattern=".+@(gmail|yahoo)\.com" className="form-control" id="UserEmail" required value={user.employee_email}></input>
                     </div>
                     <button type="save" className={"btn btn-primary"} onClick={handleForm}>SAVE</button>
                     <button type="reset" className={"btn btn-primary"}>RESET</button>
