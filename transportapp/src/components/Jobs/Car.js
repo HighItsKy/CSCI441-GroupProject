@@ -10,7 +10,7 @@ function Car({ car, index, allCars, changeCarVal, updateLineDrawing }) {
                 <Accordion.Item eventKey={index}>
                     <Accordion.Header>Car {index}</Accordion.Header>
                     <Accordion.Body>
-                        <Form.Label htmlFor="vehicle_id">Driver</Form.Label>
+                        <Form.Label htmlFor="vehicle_id">*Car</Form.Label>
                         <Form.Select
                             id="vehicle_id"
                             value={car.vehicle_id}
@@ -62,7 +62,7 @@ function Car({ car, index, allCars, changeCarVal, updateLineDrawing }) {
                             onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, index)}
 
                         ></Form.Control>
-                        <Form.Label htmlFor={`shipping_cost`}>Price</Form.Label>
+                        <Form.Label htmlFor={`shipping_cost`}>*Price</Form.Label>
                         <Form.Control
                             id={`shipping_cost`}
                             type="input"

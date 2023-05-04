@@ -59,7 +59,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                         disabled
                         readOnly
                     />
-                    <Form.Label htmlFor="orderDate">Date</Form.Label>
+                    <Form.Label htmlFor="orderDate">*Date</Form.Label>
                     <Form.Control
                         id="date_of_order"
                         type="date"
@@ -72,7 +72,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                 <br />
                 <Form.Group>
                     <h4>Ship From:</h4>
-                    <Form.Label htmlFor="shipper_company_id">Shipper</Form.Label>
+                    <Form.Label htmlFor="shipper_company_id">*Shipper</Form.Label>
                     <Form.Select
                         id="shipper_company_id"
                         value={job.shipper_company_id}
@@ -116,7 +116,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                         placeholder=""
                     >
                     </Form.Control>
-                    <Form.Label htmlFor="shipper_branch_id">Shipper Branch</Form.Label>
+                    <Form.Label htmlFor="shipper_branch_id">*Shipper Branch</Form.Label>
                     <Form.Select
                         id="shipper_branch_id"
                         value={job.shipper_branch_id}
@@ -156,7 +156,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                 <br />
                 <Form.Group>
                     <h4>Ship To:</h4>
-                    <Form.Label htmlFor="receiver_company_id">Receiver</Form.Label>
+                    <Form.Label htmlFor="receiver_company_id">*Receiver</Form.Label>
                     <Form.Select
                         id="receiver_company_id"
                         value={job.receiver_company_id}
@@ -201,7 +201,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                         placeholder=""
                     >
                     </Form.Control>
-                    <Form.Label htmlFor="receiver_branch_id">Shipper Branch</Form.Label>
+                    <Form.Label htmlFor="receiver_branch_id">*Shipper Branch</Form.Label>
                     <Form.Select
                         id="receiver_branch_id"
                         value={job.receiver_branch_id}
@@ -240,7 +240,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                     </Form.Control>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label htmlFor="truck_id">Truck</Form.Label>
+                    <Form.Label htmlFor="truck_id">*Truck</Form.Label>
                     <Form.Select
                         id="truck_id"
                         value={job.truck_id}
@@ -250,7 +250,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                         <option>Select a Truck</option>
                         <> {trucks.map(truck => <option value={truck.truck_id}>{truck.truck_vin}</option>)} </>
                     </Form.Select>
-                    <Form.Label htmlFor="intake_id">Intake Employee</Form.Label>
+                    <Form.Label htmlFor="intake_id">*Intake Employee</Form.Label>
                     <Form.Select
                         id="intake_id"
                         value={job.intake_id}
