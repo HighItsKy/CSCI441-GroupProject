@@ -24,7 +24,7 @@ function UserForm({ user, setUser }) {
                 const newUser = {
                     is_admin: isAdmin, is_driver: isDriver, employee_first_name: user.employee_first_name, employee_last_name: user.employee_last_name,
                     employee_username: user.employee_username, employee_contact_no: user.employee_contact_no,
-                    employee_street_address: user.employee_street_address,
+                    employee_street_address: user.employee_street_address, employee_password: 'testing123',
                     employee_city: user.employee_city, employee_state: user.employee_state, employee_zip_code: user.employee_zip_code,
                     employee_email: user.employee_email
                 };
