@@ -29,6 +29,7 @@ function UserForm({ user, setUser }) {
                     employee_email: user.employee_email
                 };
                 let data = JSON.stringify(newUser);
+                console.log(data);
                 const response = await axios.post('/employee', data, {
                     headers: {
                         'Content-Type': 'application/json'

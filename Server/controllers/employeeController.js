@@ -57,9 +57,31 @@ const createEmployee = async (req, res) => {
     }
 }
 
+const updateEmployee = async (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+    }
+    const newEmp = new Employee(req.body)
+    try {
+        let data = await Employee.update(newEmp);
+        res.send(data);
+    }
+    catch (err) {
+        res.status(500).send({
+            error: err,
+            message:
+                err.message ||
+                "Some error occurred while creating the employee."
+        });
+    }
+}
+
 module.exports = {
     getAll,
     getEmployee,
     getDriverJobs,
-    createEmployee
+    createEmployee,
+    updateEmployee
 }

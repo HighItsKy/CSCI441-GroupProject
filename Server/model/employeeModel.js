@@ -77,6 +77,23 @@ class Employee {
         }
     }
 
+    static async update(newEmp) {
+
+        try {
+            let client = await sql.connect();
+            let data1 = await client.query(
+                'UPDATE Employee SET Is_Admin=$1, Is_Driver=$2, Employee_First_Name=$3, Employee_Last_Name=$4, Employee_Username=$5, Employee_Password=$6, Employee_Contact_No=$7, Employee_Street_Address=$8, Employee_City=$9, Employee_State=$10, Employee_Zip_Code=$11, Employee_Email=$12 WHERE Employee_ID = $13 RETURNING Employee_ID',
+                [newEmp.is_admin, newEmp.is_driver, newEmp.employee_first_name, newEmp.employee_last_name, newEmp.employee_username, newEmp.employee_password, newEmp.employee_contact_no, newEmp.employee_street_address, newEmp.employee_city, newEmp.employee_state, newEmp.employee_zip_code, newEmp.employee_email, newEmp.employee_id]
+            );
+            client.release();
+            return data1.rows;
+        }
+        catch (err) {
+            throw err;
+        }
+    }
+
+
 }
 
 module.exports = Employee;
