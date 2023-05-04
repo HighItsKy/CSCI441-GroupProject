@@ -27,6 +27,29 @@ const getCompany = async (req, res) => {
     }
 }
 
+const updateCompany = async (req, res) => {
+    // Validate Request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+    }
+    const updateComp = new Company(req.body);
+    try {
+        let data = await Company.update(updateComp);
+        if (data === 0)
+            res.status(404).send({
+                message: `Not found Company with id ${req.body.company_id}.`
+            });
+        else
+            res.send('{"message": "success"}');
+    } catch (err) {
+        res.status(500).send({
+            message: `Error updating Company with id ${req.body.company_id}`
+        });
+    }
+};
+
 const getCompanyBranches = async (req, res) => {
     try {
         data = await Company.getCompanyBranches(req.params.companyId);
@@ -115,6 +138,7 @@ const createBranch= async (req, res) => {
 module.exports = {
     getCompanies,
     getCompany,
+    updateCompany,
     getCompanyBranches,
     getBranchCustomers,
     getBranch,

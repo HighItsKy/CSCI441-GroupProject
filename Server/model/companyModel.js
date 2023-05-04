@@ -49,6 +49,22 @@ class Company {
         }
     }
 
+    static async update(updateComp) {
+
+        try {
+            let client = await sql.connect();
+            let data1 = await client.query(
+                'UPDATE Company SET company_name = $1 WHERE company_id = $2',
+                [updateComp.company_name, updateComp.company_id]
+            );
+            client.release();
+            return data1.rowCount;
+        }
+        catch (err) {
+            throw err;
+        }
+    }
+
     
 }
 

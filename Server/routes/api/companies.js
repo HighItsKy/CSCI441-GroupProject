@@ -5,7 +5,8 @@ const customerController = require('../../controllers/customerController')
 
 router.route("/")
     .get(companyController.getCompanies)
-    .post(companyController.createCompany);
+    .post(companyController.createCompany)
+    .put(companyController.updateCompany);
 
 router.route("/:companyId")
     .get(companyController.getCompany);
