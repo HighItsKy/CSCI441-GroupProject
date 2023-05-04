@@ -47,6 +47,8 @@ function TruckForm({ showTruckForm, setShowTruckForm, truckId, setTruckId }) {
             }
         }
 
+        handleClose();
+
     }
 
     const fetchItem = async () => {

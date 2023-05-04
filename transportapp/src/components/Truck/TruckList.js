@@ -73,14 +73,14 @@ function TruckList({ user }) {
                                             ID
                                         </td>
                                         <td>
-                                            VIN
+                                            Truck Code
                                         </td>
                                         <td>
                                             Max Load
                                         </td>
 
                                         <td>
-                                            Capacity
+                                            Car Capacity
                                         </td>
                                         <td>
                                             Mileage
