@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import axios from '../../api/axios';
 import Form from 'react-bootstrap/Form';
+import UserList from './UserList';
 
 function UserForm({ user, setUser }) {
     const [errMsg, setErrMsg] = useState("");
@@ -102,6 +103,7 @@ function UserForm({ user, setUser }) {
                             <label htmlFor='UserEmail'>EMAIL</label>
                             <input type="email" placeholder="example@gmail/yahoo.com" pattern=".+@(gmail|yahoo)\.com" className="form-control" id="employee_email" value={user.employee_email} onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}></input>
                         </div>
+
                         <Form>
                             {
                                 <div key={`default-checkbox`} className="mb-3" >
@@ -116,16 +118,15 @@ function UserForm({ user, setUser }) {
                                                 setDriver("true");
                                                 setAdmin("false");
                                             }}
-                                        }
+                                        } 
                                         id={`default-checkbox`}
-                                        label={`Is Driver`}
+                                        label={`Is Driver`}  
                                     />
                                 </div>
                             }
                         </Form>
                         <button type="save" className={"btn btn-primary"} onClick={(e) => handleForm(e)}>SAVE</button>
-                        <button type="reset" className={"btn btn-primary"}>RESET</button>
-                        <button type="deleteUser" className={"btn btn-primary"}>DELETE USER</button>
+                        <button type="reset" className={"btn btn-primary"} onClick={() =>window.location.reload()}>BACK</button>
                     </form>
                 </div>
 
@@ -137,4 +138,4 @@ function UserForm({ user, setUser }) {
     )
 }
 
-export default UserForm; 
+export default UserForm;
