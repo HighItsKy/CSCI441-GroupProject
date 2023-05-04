@@ -115,7 +115,7 @@ function UserList({ changeBtnState, setUser, user }) {
                                             </td>
 
                                             <td>
-                                                {employee.is_driver}
+                                                {employee.is_driver ? <span>&#x2713;</span> : ""}
                                             </td>
                                         </tr>
                                     ))}
