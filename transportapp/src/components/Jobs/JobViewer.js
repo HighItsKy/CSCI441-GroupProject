@@ -408,6 +408,8 @@ function JobViewer({ user }) {
 
     const resetJob = (e) => {
         const jobVal = {};
+        jobVal.driver_signature = null;
+        jobVal.shipper_signature = null;
         setJob(jobVal);
         setCars([]);
         setAreCarsEdited(false);

@@ -11,6 +11,7 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage, inde
 
     useEffect(() => {
         const context = canvasRef.current.getContext("2d");
+        if (imageData === null) { clearCanvas(); }
         const drawImg = new Image();
         if (imageData) {
             drawImg.src = imageData;
@@ -28,6 +29,11 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage, inde
         }
 
     }, [backgroundImage]);
+
+    const clearCanvas = () => {
+        const context = canvasRef.current.getContext("2d");
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    }
 
     const startPaint = useCallback((event) => {
         const coordinates = getCoordinates(event);
@@ -145,6 +151,7 @@ function Drawing({ height, width, imageData, setImageData, backgroundImage, inde
             <br />
             <Button id="draw" onClick={() => setStrokeVal('draw')}>Draw</Button>
             <Button id="erase" onClick={() => setStrokeVal('erase')}>Erase</Button>
+            <Button id="clear" onClick={clearCanvas}>Clear</Button>
             <br />
             <div style={{ position: 'relative' }}>
                 <canvas
