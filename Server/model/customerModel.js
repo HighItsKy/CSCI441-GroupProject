@@ -46,6 +46,21 @@ class Customer {
         }
     }
 
+    static async update(customer) {
+        try {
+            let client = await sql.connect();
+            let data1 = await client.query(
+                'UPDATE Customer SET customer_first_name = $1, customer_last_name = $2, branch_id = $3 WHERE Customer_ID = $4 RETURNING Customer_ID',
+                [customer.customer_first_name, customer.customer_last_name, customer.branchId, customer.customerId]
+            );
+            client.release();
+            return data1.rows;
+        }
+        catch (err) {
+            throw err;
+        }
+    }
+
 
 
 }

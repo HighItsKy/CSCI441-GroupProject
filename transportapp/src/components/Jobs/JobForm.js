@@ -1,46 +1,86 @@
 import { Link } from 'react-router-dom'
-import { Form, Button, Row } from 'react-bootstrap';
-import { useState } from 'react';
+import { Form, Button, Row, OverlayTrigger } from 'react-bootstrap';
+import { useState, useRef } from 'react';
 import Car from './Car';
 import Drawing from './Drawing';
+import AddCompany from './AddCompany';
+import AddBranch from './AddBranch';
 
 
-function JobForm({ job, cars, trucks, employees, companies, customers, shipperBranches, receiverBranches, allCars, addCar, changeVal, changeCarVal, updateLineDrawing, updateJob, resetJob, updateSignature }) {
+function JobForm({
+    job, cars,
+    trucks, employees,
+    companies, customers,
+    shipperBranches, receiverBranches,
+    allCars, addCar,
+    changeVal, changeCarVal,
+    updateLineDrawing,
+    updateJob, resetJob,
+    updateSignature, addCompanyValues,
+    updateShipperBranches, updateReceiverBranches }) {
+
+    //flags to show modal forms
+    const [shipperAddCompany, setShipperAddCompany] = useState(false);
+    const [shipperAddBranch, setShipperAddBranch] = useState(false);
+
+    const [receiverAddCompany, setReceiverAddCompany] = useState(false);
+    const [receiverAddBranch, setReceiverAddBranch] = useState(false);
+
 
     const selectShipperCompany = (e) => {
 
+        if (e.currentTarget.value === "add") {
+            setShipperAddCompany(true);
+            return
+        }
+
         changeVal(e.currentTarget.id, e.currentTarget.value);
-        console.log(e.currentTarget.value);
-        console.log(companies.find(company => company.company_id == e.currentTarget.value));
-        changeVal('shipper_company', companies.find(company => company.company_id == e.currentTarget.value).company_name);
+        if (e.currentTarget.value) {
+            changeVal('shipper_company', companies.find(company => company.company_id == e.currentTarget.value).company_name);
+        }
         changeVal('shipper_branch_id', "");
 
     }
 
     const selectShipperBranch = (e) => {
+        if (e.currentTarget.value === "add") {
+            setShipperAddBranch(true);
+            return
+        }
         changeVal(e.currentTarget.id, e.currentTarget.value);
-        const branchVal = shipperBranches.find(branch => branch.company_branch_id == e.currentTarget.value)
-        changeVal('shipper_street', branchVal.branch_street_address);
-        changeVal('shipper_city', branchVal.branch_city);
-        changeVal('shipper_state', branchVal.branch_state);
+        if (e.currentTarget.value != 'add') {
+            const branchVal = shipperBranches.find(branch => branch.company_branch_id == e.currentTarget.value)
+            changeVal('shipper_street', branchVal.branch_street_address);
+            changeVal('shipper_city', branchVal.branch_city);
+            changeVal('shipper_state', branchVal.branch_state);
+        }
     }
 
     const selectReceiverCompany = (e) => {
-
+        if (e.currentTarget.value === "add") {
+            setReceiverAddCompany(true);
+            return
+        }
         changeVal(e.currentTarget.id, e.currentTarget.value);
-        console.log(e.currentTarget.value);
-        console.log(companies.find(company => company.company_id == e.currentTarget.value));
-        changeVal('receiver_company', companies.find(company => company.company_id == e.currentTarget.value).company_name);
+        if (e.currentTarget.value) {
+            changeVal('receiver_company', companies.find(company => company.company_id == e.currentTarget.value).company_name);
+        }
         changeVal('receiver_branch_id', "");
 
     }
 
     const selectReceiverBranch = (e) => {
+        if (e.currentTarget.value === "add") {
+            setReceiverAddBranch(true);
+            return
+        }
         changeVal(e.currentTarget.id, e.currentTarget.value);
-        const branchVal = receiverBranches.find(branch => branch.company_branch_id == e.currentTarget.value)
-        changeVal('receiver_street', branchVal.branch_street_address);
-        changeVal('receiver_city', branchVal.branch_city);
-        changeVal('receiver_state', branchVal.branch_state);
+        if (e.currentTarget.value != 'add') {
+            const branchVal = receiverBranches.find(branch => branch.company_branch_id == e.currentTarget.value)
+            changeVal('receiver_street', branchVal.branch_street_address);
+            changeVal('receiver_city', branchVal.branch_city);
+            changeVal('receiver_state', branchVal.branch_state);
+        }
     }
 
     return (
@@ -72,14 +112,22 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                 <br />
                 <Form.Group>
                     <h4>Ship From:</h4>
+
                     <Form.Label htmlFor="shipper_company_id">*Shipper</Form.Label>
+                    <AddCompany showAddCompany={shipperAddCompany}
+                        setShowAddCompany={setShipperAddCompany}
+                        addCompanyValues={addCompanyValues}
+                        changeVal={changeVal}
+                        keyVal="shipper_company_id"
+                    />
                     <Form.Select
                         id="shipper_company_id"
                         value={job.shipper_company_id}
                         onChange={(e) => selectShipperCompany(e)}
                         required
                     >
-                        <option>Select a Company</option>
+                        <option value="">Select a Company</option>
+                        <> <option value="add">ADD NEW COMPANY</option></>
                         <> {companies.map(company => <option value={company.company_id}>{company.company_name}</option>)} </>
                     </Form.Select>
                     <Form.Control
@@ -115,6 +163,14 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                     >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_branch_id">*Shipper Branch</Form.Label>
+                    <AddBranch
+                        showAddBranch={shipperAddBranch}
+                        setShowAddBranch={setShipperAddBranch}
+                        updateBranchInfo={updateShipperBranches}
+                        changeVal={changeVal}
+                        keyVal="shipper_branch_id"
+                        jobVal={job.shipper_company_id}
+                    />
                     <Form.Select
                         id="shipper_branch_id"
                         value={job.shipper_branch_id}
@@ -155,6 +211,12 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                 <Form.Group>
                     <h4>Ship To:</h4>
                     <Form.Label htmlFor="receiver_company_id">*Receiver</Form.Label>
+                    <AddCompany showAddCompany={receiverAddCompany}
+                        setShowAddCompany={setReceiverAddCompany}
+                        addCompanyValues={addCompanyValues}
+                        changeVal={changeVal}
+                        keyVal="receiver_company_id"
+                    />
                     <Form.Select
                         id="receiver_company_id"
                         value={job.receiver_company_id}
@@ -162,6 +224,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                         required
                     >
                         <option>Select a Company</option>
+                        <> <option value="add">ADD NEW COMPANY</option></>
                         <> {companies.map(company => <option value={company.company_id}>{company.company_name}</option>)} </>
                     </Form.Select>
                     <Form.Label htmlFor="receiver_company">Company</Form.Label>
@@ -199,7 +262,15 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                         placeholder=""
                     >
                     </Form.Control>
-                    <Form.Label htmlFor="receiver_branch_id">*Shipper Branch</Form.Label>
+                    <Form.Label htmlFor="receiver_branch_id">*Receiver Branch</Form.Label>
+                    <AddBranch
+                        showAddBranch={receiverAddBranch}
+                        setShowAddBranch={setReceiverAddBranch}
+                        updateBranchInfo={updateReceiverBranches}
+                        changeVal={changeVal}
+                        keyVal="receiver_branch_id"
+                        jobVal={job.receiver_company_id}
+                    />
                     <Form.Select
                         id="receiver_branch_id"
                         value={job.receiver_branch_id}
@@ -207,6 +278,7 @@ function JobForm({ job, cars, trucks, employees, companies, customers, shipperBr
                         required
                     >
                         <option>Select a Branch</option>
+                        <option value="add">ADD NEW BRANCH</option>
                         <>  {receiverBranches ? receiverBranches.map(branch => <option value={branch.company_branch_id}>{branch.branch_street_address} {branch.branch_city} {branch.branch_state}</option>) : <> </>} </>
                     </Form.Select>
                     <Form.Label htmlFor="receiver_street">Address</Form.Label>

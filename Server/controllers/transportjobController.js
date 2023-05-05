@@ -59,7 +59,27 @@ const createNewJob = async (req, res) => {
     }
 };
 
-const updateJob = (req, res) => {
+const updateJob = async (req, res) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+    }
+    const newJob = new Job(req.body)
+    //newJob.date_of_order = Date.now().toISOString();
+    newJob.job_status = "Pending";
+    try {
+        let data = await Job.update(newJob);
+        res.send(data);
+    }
+    catch (err) {
+        res.status(500).send({
+            error: err,
+            message:
+                err.message ||
+                "Some error occurred while creating the company."
+        });
+    }
 };
 
 const updateJobStatus = async (req, res) => {
@@ -69,12 +89,12 @@ const updateJobStatus = async (req, res) => {
             message: "Content can not be empty!"
         });
     }
-    if (!req.body.invoice_id){
+    if (!req.body.invoice_id) {
         res.status(400).send({
             message: "Content must include an invoice_id"
         })
     }
-    if (!req.body.current_job_status){
+    if (!req.body.current_job_status) {
         res.status(400).send({
             message: "Content must include a current_job_status"
         })
@@ -83,9 +103,9 @@ const updateJobStatus = async (req, res) => {
         const jobId = req.body.invoice_id;
         const currentJobStatus = req.body.current_job_status;
         const newJobStatus = currentJobStatus == 'Pending' ? 'Loading' :
-                currentJobStatus == 'Loading' ? 'Arrived' :
+            currentJobStatus == 'Loading' ? 'Arrived' :
                 currentJobStatus == 'Arrived' ? 'Unloaded' : 'Complete';
-        let data = await Job.updateJobStatus(jobId, newJobStatus);        
+        let data = await Job.updateJobStatus(jobId, newJobStatus);
         if (data === 0)
             res.status(404).send({
                 message: `Not found Job with id ${jobId}.`

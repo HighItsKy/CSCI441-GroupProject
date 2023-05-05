@@ -38,14 +38,8 @@ const createCustomer = async (req, res) => {
     //         message: "companyId required to create new customer."
     //     })
     // }
-    if (!req.params?.branchId) {
-        res.status(400).send({
-            message: "branchId required to create new customer"
-        })
-    }
 
     const newCustomer = new Customer(req.body);
-    newCustomer.branchId = req.params.branchId;
 
     try {
         let data = await Customer.create(newCustomer);
@@ -61,8 +55,38 @@ const createCustomer = async (req, res) => {
     }
 };
 
+const updateCustomer = async (req, res) => {
+    // Validate request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
+        });
+    }
+    // if (!req?.params?.companyId) {
+    //     res.status(400).send({
+    //         message: "companyId required to create new customer."
+    //     })
+    // }
+
+    const newCustomer = new Customer(req.body);
+
+    try {
+        let data = await Customer.update(newCustomer);
+        res.send(data);
+    }
+    catch (err) {
+        res.status(500).send({
+            error: err,
+            message:
+                err.message ||
+                "Some error occurred while creating the customer."
+        });
+    }
+};
+
 module.exports = {
     getAll,
     getCustomer,
-    createCustomer
+    createCustomer,
+    updateCustomer
 }

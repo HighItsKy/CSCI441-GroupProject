@@ -224,12 +224,21 @@ function JobViewer({ user }) {
             const shipperBranchesVal = await getBranches(value);
             setShipperBranches(shipperBranchesVal);
         }
-        if (key === 'reciever_company_id') {
+        if (key === 'receiver_company_id') {
             const receiverBranchesVal = await getBranches(value);
             setReceiverBranches(receiverBranchesVal);
         }
     }
 
+    const updateShipperBranches = async () => {
+        const shipperBranchesVal = await getBranches(job.shipper_company_id);
+        setShipperBranches(shipperBranchesVal);
+    }
+
+    const updateReceiverBranches = async (value) => {
+        const receiverBranchesVal = await getBranches(job.receiver_company_id);
+        setReceiverBranches(receiverBranchesVal);
+    }
 
     const changeCarVal = (key, value, index) => {
         setAreCarsEdited(true);
@@ -254,6 +263,10 @@ function JobViewer({ user }) {
         setCars(newArr);
     }
 
+    const addCompanyValues = (companyId, companyName) => {
+        setCompanies(companies => ([...companies, { company_id: companyId, company_name: companyName }]));
+    }
+
     const updateSignature = (data, key) => {
         setIsJobEdited(true);
         setJob(job => ({ ...job, [key]: data }));
@@ -264,23 +277,37 @@ function JobViewer({ user }) {
         e.preventDefault();
 
         const form = e.target;
+
         try {
 
             //shipper customer
             //update
             if (job.shipper_id) {
-                //not implemented yet
-            } else {
-                //create
                 const customerVal = {
-                    customer_first_name: job.shipper_first_name,
-                    customer_last_name: job.customer_last_name,
+                    customer_id: job.shipper_id, customer_first_name: job.shipper_first_name,
+                    customer_last_name: job.shipper_last_name,
                     branch_id: job.shipper_branch_id
                 }
 
                 let data = JSON.stringify(customerVal);
 
                 const response = await axios.put('/customer', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                );
+            } else {
+                //create
+                const customerVal = {
+                    customer_first_name: job.shipper_first_name,
+                    customer_last_name: job.shipper_last_name,
+                    branch_id: job.shipper_branch_id
+                }
+
+                let data = JSON.stringify(customerVal);
+
+                const response = await axios.post('/customer', data, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -294,18 +321,33 @@ function JobViewer({ user }) {
             //update
 
             if (job.receiver_id) {
-                //not implemented yet
-            } else {
-                //create
                 const customerVal = {
-                    customer_first_name: job.shipper_first_name,
-                    customer_last_name: job.customer_last_name,
-                    branch_id: job.shipper_branch_id
+                    customer_id: job.receiver_id, customer_first_name: job.receiver_first_name,
+                    customer_last_name: job.receiver_last_name,
+                    branch_id: job.receiver_branch_id
                 }
 
                 let data = JSON.stringify(customerVal);
 
                 const response = await axios.put('/customer', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                );
+
+                job.receiver_id = response.data[0].customer_id;
+            } else {
+                //create
+                const customerVal = {
+                    customer_first_name: job.receiver_first_name,
+                    customer_last_name: job.receiver_last_name,
+                    branch_id: job.receiver_branch_id
+                }
+
+                let data = JSON.stringify(customerVal);
+
+                const response = await axios.post('/customer', data, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -319,6 +361,7 @@ function JobViewer({ user }) {
             let invoice = job.invoice_id
 
             //update job
+            //create
             if (!job.invoice_id) {
 
                 const jobVal = {
@@ -344,7 +387,27 @@ function JobViewer({ user }) {
 
             } else {
 
-                //Update Job not implemented yet
+                const jobVal = {
+                    invoice_id: job.invoice_id,
+                    shipper_id: job.shipper_id,
+                    receiver_id: job.receiver_id,
+                    truck_id: job.truck_id,
+                    driver_id: job.driver_id,
+                    intake_id: job.intake_id,
+                    driver_signature: job.driver_signature,
+                    shipper_signature: job.shipper_signature,
+                    receiver: job.receiver_signature,
+                    special_instructions: job.special_instructions
+                };
+
+                let data = JSON.stringify(jobVal);
+                const response = await axios.put('/job', data, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+                );
+
             }
 
             // line item
@@ -448,6 +511,9 @@ function JobViewer({ user }) {
                         updateSignature={updateSignature}
                         updateJob={updateJob}
                         resetJob={resetJob}
+                        addCompanyValues={addCompanyValues}
+                        updateReceiverBranches={updateReceiverBranches}
+                        updateShipperBranches={updateShipperBranches}
                     />
                 </Col>
                 <Col md={5}>
