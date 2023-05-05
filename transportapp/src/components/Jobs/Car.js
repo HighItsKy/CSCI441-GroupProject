@@ -1,8 +1,21 @@
 import { Form, Accordion } from 'react-bootstrap';
 import Drawing from "./Drawing";
 import carImage from "./CarDiagram.jpeg";
+import { useState } from 'react';
+import AddVehicle from './addVehicle';
 
-function Car({ car, index, allCars, changeCarVal, updateLineDrawing }) {
+function Car({ car, index, allCars, getAllCars, changeCarVal, updateLineDrawing }) {
+
+    const [showAddVehicle, setShowAddVehicle] = useState(false);
+
+    const selectVehicle = (e) => {
+        if (e.currentTarget.value === "add") {
+            setShowAddVehicle(true);
+            return
+        }
+
+        changeCarVal(e.currentTarget.id, e.currentTarget.value, index)
+    }
 
     return (
         <>
@@ -10,14 +23,22 @@ function Car({ car, index, allCars, changeCarVal, updateLineDrawing }) {
                 <Accordion.Item eventKey={index}>
                     <Accordion.Header>Car {index}</Accordion.Header>
                     <Accordion.Body>
+                        <AddVehicle
+                            showAddVehicle={showAddVehicle}
+                            setShowAddVehicle={setShowAddVehicle}
+                            getAllCars={getAllCars}
+                            changeCarVal={changeCarVal}
+                            index={index}
+                        />
                         <Form.Label htmlFor="vehicle_id">*Car</Form.Label>
                         <Form.Select
                             id="vehicle_id"
                             value={car.vehicle_id}
-                            onChange={(e) => changeCarVal(e.currentTarget.id, e.currentTarget.value, index)}
+                            onChange={(e) => selectVehicle(e)}
                             required
                         >
                             <option>Select a Car</option>
+                            <option value="add">Add New Vehicle</option>
                             <> {allCars.map(vehicle => <option value={vehicle.vehicle_id}>{vehicle.vin} {vehicle.vehicle_year} {vehicle.vehicle_make} {vehicle.vehicle_model}</option>)} </>
                         </Form.Select>
                         <Form.Label htmlFor={`vehicle_year`}>Year</Form.Label>

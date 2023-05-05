@@ -17,7 +17,8 @@ function JobForm({
     updateLineDrawing,
     updateJob, resetJob,
     updateSignature, addCompanyValues,
-    updateShipperBranches, updateReceiverBranches }) {
+    updateShipperBranches, updateReceiverBranches,
+    getAllCars }) {
 
     //flags to show modal forms
     const [shipperAddCompany, setShipperAddCompany] = useState(false);
@@ -146,20 +147,22 @@ function JobForm({
                         plaintext readOnly
                     >
                     </Form.Text>
-                    <Form.Label htmlFor="shipper_first_name">Contact First Name</Form.Label>
+                    <Form.Label htmlFor="shipper_first_name">*Contact First Name</Form.Label>
                     <Form.Control
                         id="shipper_first_name"
                         value={job.shipper_first_name}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
+                        required
                     >
                     </Form.Control>
-                    <Form.Label htmlFor="shipper_last_name">Contact Last Name</Form.Label>
+                    <Form.Label htmlFor="shipper_last_name">*Contact Last Name</Form.Label>
                     <Form.Control
                         id="shipper_last_name"
                         value={job.shipper_last_name}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
+                        required
                     >
                     </Form.Control>
                     <Form.Label htmlFor="shipper_branch_id">*Shipper Branch</Form.Label>
@@ -244,22 +247,24 @@ function JobForm({
                         placeholder=""
                     >
                     </Form.Control>
-                    <Form.Label htmlFor="receiver_first_name">Contact First Name</Form.Label>
+                    <Form.Label htmlFor="receiver_first_name">*Contact First Name</Form.Label>
                     <Form.Control
                         id="receiver_first_name"
                         type="input"
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         value={job.receiver_first_name}
                         placeholder=""
+                        required
                     >
                     </Form.Control>
-                    <Form.Label htmlFor="receiver_last_name">Contact Last Name</Form.Label>
+                    <Form.Label htmlFor="receiver_last_name">*Contact Last Name</Form.Label>
                     <Form.Control
                         id="receiver_last_name"
                         type="input"
                         value={job.receiver_last_name}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
                         placeholder=""
+                        required
                     >
                     </Form.Control>
                     <Form.Label htmlFor="receiver_branch_id">*Receiver Branch</Form.Label>
@@ -339,6 +344,20 @@ function JobForm({
                         <option>Select a Driver</option>
                         <> {employees.filter(employee => employee.is_driver).map(employee => <option value={employee.employee_id}>{employee.employee_first_name} {employee.employee_last_name}</option>)} </>
                     </Form.Select>
+                    <Form.Label htmlFor="intake_id">*Job Status</Form.Label>
+                    <Form.Select
+                        id="job_status"
+                        value={job.job_status}
+                        onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
+                        required
+                    >
+                        <option>Pending</option>
+                        <option>Loading</option>
+                        <option>Enroute</option>
+                        <option>Arrived</option>
+                        <option>Unloaded</option>
+                        <option>Complete</option>
+                    </Form.Select>
                     <Form.Label htmlFor="special_instructions">Special Instructions</Form.Label>
                     <Form.Control
                         id="special_instructions"
@@ -351,7 +370,8 @@ function JobForm({
                 </Form.Group>
 
                 {cars ?
-                    <> {cars.map((car, index) => <Car car={car} allCars={allCars} index={index + 1} changeCarVal={changeCarVal} updateLineDrawing={updateLineDrawing} />)} </>
+                    <> {cars.map((car, index) => <Car car={car} allCars={allCars} index={index + 1} changeCarVal={changeCarVal}
+                        updateLineDrawing={updateLineDrawing} getAllCars={getAllCars} />)} </>
                     : <>  </>
                 }
                 <Button variant="primary" type="button" className="m-4" onClick={addCar}>Add Car</Button>

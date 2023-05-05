@@ -132,6 +132,14 @@ function JobViewer({ user }) {
             return;
         }
 
+        getAllCars();
+
+
+        setIsLoading(false);
+
+    }
+
+    const getAllCars = async () => {
         //get All Cars
         try {
             const response = await axios.get(`/vehicle`);
@@ -141,10 +149,6 @@ function JobViewer({ user }) {
             setErrMsg(`getCars error: ` + JSON.stringify(err));
             return;
         }
-
-
-        setIsLoading(false);
-
     }
 
     useEffect(() => {
@@ -166,6 +170,8 @@ function JobViewer({ user }) {
                     aCar.notes.toLowerCase().includes(searchTerm.toLowerCase())
             }));
     }
+
+
 
     const getJob = async (id) => {
         let jobVal = {};
@@ -244,7 +250,8 @@ function JobViewer({ user }) {
         setAreCarsEdited(true);
         let newArr = [...cars];
         newArr[index - 1] = ({ ...newArr[index - 1], [key]: value });
-        if (key === 'vehicle_id') {
+        if (key === 'vehicle_id' && value != "add") {
+            console.log(value);
             const carVal = allCars.find(vehicle => vehicle.vehicle_id == value);
             newArr[index - 1] = ({ ...newArr[index - 1], 'vehicle_year': carVal.vehicle_year });
             newArr[index - 1] = ({ ...newArr[index - 1], 'vehicle_make': carVal.vehicle_make });
@@ -306,7 +313,7 @@ function JobViewer({ user }) {
                 }
 
                 let data = JSON.stringify(customerVal);
-
+                console.log(data);
                 const response = await axios.post('/customer', data, {
                     headers: {
                         'Content-Type': 'application/json'
@@ -366,6 +373,7 @@ function JobViewer({ user }) {
 
                 const jobVal = {
                     shipper_id: job.shipper_id,
+                    date_of_order: job.date_of_order,
                     receiver_id: job.receiver_id,
                     truck_id: job.truck_id,
                     driver_id: job.driver_id,
@@ -389,6 +397,7 @@ function JobViewer({ user }) {
 
                 const jobVal = {
                     invoice_id: job.invoice_id,
+                    date_of_order: job.date_of_order,
                     shipper_id: job.shipper_id,
                     receiver_id: job.receiver_id,
                     truck_id: job.truck_id,
@@ -397,6 +406,7 @@ function JobViewer({ user }) {
                     driver_signature: job.driver_signature,
                     shipper_signature: job.shipper_signature,
                     receiver: job.receiver_signature,
+                    job_status: job.job_status,
                     special_instructions: job.special_instructions
                 };
 
@@ -514,6 +524,7 @@ function JobViewer({ user }) {
                         addCompanyValues={addCompanyValues}
                         updateReceiverBranches={updateReceiverBranches}
                         updateShipperBranches={updateShipperBranches}
+                        getAllCars={getAllCars}
                     />
                 </Col>
                 <Col md={5}>

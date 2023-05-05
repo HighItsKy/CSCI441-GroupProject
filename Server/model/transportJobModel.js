@@ -34,13 +34,13 @@ class TransportJob {
                     rc.Company_Name AS receiver_company                    
                 FROM 
                     Job j 
-                INNER JOIN Employee e ON j.driver_id = e.employee_id
-                JOIN Customer s ON j.Shipper_ID = s.Customer_ID
-                JOIN Company_Branch sb on s.branch_id = sb.company_branch_id
-                JOIN Company sc on sb.Company_ID = sc.Company_ID
-                JOIN Customer r ON j.Receiver_ID = r.Customer_ID
-                JOIN Company_Branch rb on r.branch_id = rb.company_branch_id
-                JOIN Company rc on rb.Company_ID = rc.Company_ID
+                LEFT JOIN Employee e ON j.driver_id = e.employee_id
+                LEFT JOIN Customer s ON j.Shipper_ID = s.Customer_ID
+                LEFT JOIN Company_Branch sb on s.branch_id = sb.company_branch_id
+                LEFT JOIN Company sc on sb.Company_ID = sc.Company_ID
+                LEFT JOIN Customer r ON j.Receiver_ID = r.Customer_ID
+                LEFT JOIN Company_Branch rb on r.branch_id = rb.company_branch_id
+                LEFT JOIN Company rc on rb.Company_ID = rc.Company_ID
                 ORDER BY j.sort_job_status, j.Invoice_id`);
             return res.rows;
         } catch (err) {
@@ -50,7 +50,7 @@ class TransportJob {
 
     static async getJob(jobId) {
         try {
-            const stmt = `SELECT j.invoice_id, j.shipper_id, j.receiver_id, j.truck_id, j.driver_id, j.intake_id, j.driver_signature, j.shipper_signature, to_char(j.date_of_order, 'YYYY-MM-DD') AS date_of_order, j.date_complete, j.special_instructions,
+            const stmt = `SELECT j.invoice_id, j.shipper_id, j.receiver_id, j.truck_id, j.driver_id, j.intake_id, j.driver_signature, j.shipper_signature, to_char(j.date_of_order, 'YYYY-MM-DD') AS date_of_order, j.date_complete, j.sort_job_status AS job_status, j.special_instructions,
                             t.truck_vin, t.truck_capacity, t.truck_mileage, 
                             s.customer_id AS shipper_customer_id, sb.company_id AS shipper_company_id, s.customer_first_name AS shipper_first_name, s.customer_last_name AS shipper_last_name, s.branch_id AS shipper_branch_id, sc.Company_Name AS shipper_company,
                             sb.branch_name AS shipper_branch_name, sb.branch_contact_no AS shipper_contact_no, sb.branch_street_address AS shipper_street, sb.branch_city AS shipper_city, sb.branch_state AS shipper_state, sb.branch_email AS shipper_email,
@@ -105,14 +105,14 @@ class TransportJob {
                 `UPDATE Job 
                 SET 
                     Shipper_ID = $1, Receiver_ID = $2, Truck_ID = $3, Driver_ID = $4, Intake_ID = $5, 
-                    Driver_signature = $6, Shipper_Signature = $7, Receiver_Signature = $8, Job_Status = $9, 
-                    Special_Instructions = $10, Date_of_Order = $11 WHERE invoice_id = $12`,
+                    Driver_signature = $6, Shipper_Signature = $7, Receiver_Signature = $8, Sort_Job_Status = $9, 
+                    Special_Instructions = $10, Date_of_Order = $11 WHERE invoice_id = $12 RETURNING Invoice_ID`,
                 [updateJob.shipper_id, updateJob.receiver_id, updateJob.truck_id, updateJob.driver_id, updateJob.intake_id,
                 updateJob.driver_signature, updateJob.shipper_signature, updateJob.receiver_signature, updateJob.job_status,
                 updateJob.special_instructions, updateJob.date_of_order, updateJob.invoice_id]
             );
             client.release();
-            return data1.rowCount;
+            return data1.rows;
         }
         catch (err) {
             throw err;
