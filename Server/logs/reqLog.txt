@@ -9113,3 +9113,17 @@
 20230505	17:49:30	ce36dcf1-28ea-452f-9d00-74378355e4e2	GET	http://localhost:3000	/company
 20230505	17:49:31	ca062b38-3672-415c-a120-da17ae2ee93d	GET	http://localhost:3000	/customer
 20230505	17:49:31	44a8d5be-321c-4875-a8c9-40ae65aad3ce	GET	http://localhost:3000	/vehicle
+20230507	14:53:40	a9820726-04e4-495f-9db9-44f4ee80173a	GET	http://localhost:3000	/job
+20230507	14:53:41	a87c5f9e-b297-4c7c-99b8-b6f32c2c26bc	GET	http://localhost:3000	/carLineItem/?invoice_id=3
+20230507	14:53:41	3ab4e8b7-d3f3-441d-b1d5-6a4f05acd807	GET	http://localhost:3000	/carLineItem/?invoice_id=13
+20230507	14:53:41	ca9fa818-567e-47c5-a445-2eea4e5e339a	GET	http://localhost:3000	/carLineItem/?invoice_id=19
+20230507	14:53:41	60c3bd14-4ada-4bf0-93ac-571f8a75269c	GET	http://localhost:3000	/carLineItem/?invoice_id=21
+20230507	14:53:41	592a7739-d02d-4fc3-9f21-222e67f63f37	GET	http://localhost:3000	/carLineItem/?invoice_id=22
+20230507	14:53:41	a220e556-19bf-4236-91a9-3ed219ac79a7	GET	http://localhost:3000	/carLineItem/?invoice_id=28
+20230507	14:53:41	89c76bc1-7b68-4fc2-82a3-bd0fa777eee1	GET	http://localhost:3000	/carLineItem/?invoice_id=31
+20230507	14:53:41	e1e2c70e-851e-4687-8b2c-d8c31d244730	GET	http://localhost:3000	/carLineItem/?invoice_id=2
+20230507	14:53:41	631c0ad2-d4bc-4bb4-93ce-0cd3da7eb56e	GET	http://localhost:3000	/truck
+20230507	14:53:41	07b40b86-ebe1-4c8e-8970-341fbd967102	GET	http://localhost:3000	/employee
+20230507	14:53:41	aafd57cd-589a-4352-9851-8fc791426bef	GET	http://localhost:3000	/company
+20230507	14:53:41	13e904d1-eee2-43ff-ab78-05bb5f8b250d	GET	http://localhost:3000	/customer
+20230507	14:53:41	a436b757-87e9-4191-a5ea-69481e9053de	GET	http://localhost:3000	/vehicle

@@ -86,7 +86,7 @@ function JobForm({
 
     return (
         <>
-            <Form onSubmit={updateJob} onReset={resetJob}>
+            <Form onSubmit={(e) => updateJob(e)} onReset={(e) => resetJob(e)}>
 
                 <Button className="m-2" type="reset" varient="primary">Start New Job</Button>
 

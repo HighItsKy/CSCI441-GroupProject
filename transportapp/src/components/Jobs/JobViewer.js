@@ -484,6 +484,9 @@ function JobViewer({ user }) {
     }
 
     const resetJob = (e) => {
+        const form = e.target;
+
+        form.date_of_order.focus();
 
         const jobVal = {};
         jobVal.driver_signature = null;
