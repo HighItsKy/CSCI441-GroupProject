@@ -7,26 +7,26 @@ html  {
 
 body {
   	margin: 0;
+	height: 100%;
   	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    	'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    	sans-serif;
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   	-webkit-font-smoothing: antialiased;
  	-moz-osx-font-smoothing: grayscale;
-	background-color: #a2b6c8!important;
+	background-color: #a2b6c8 !important;
   	overflow-y: scroll; /*Makes the scroll always visible*/
 	overflow-x: hidden;
 }
 
 code {
   	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    	monospace;
+    monospace;
 }
 
 html, body{
 	margin:0;
 	height:100%;
 }
-
 /*Sets the entire background color to #a2b6c8*/
 *{
 	background-color: #a2b6c8  ; /*Sets the background color to the same blue color*/
@@ -45,11 +45,10 @@ html, body{
   	background-color: rgba(0,0,0, 0); /* Black w/opacity/see-through */
   	color: #acc6cb;
   	font-family: 'Eczar', 'Times New Roman', sans-serif;
-	text-shadow: -3px -3px 0 #000, 0   -3px 0 #000, 3px -3px 0 #000, 3px 0 0 #000, 3px  3px 0 #000, 0 3px 0 #000, -3px  3px 0 #000, -3px  0   0 #000; /*Lines the text with black to create a shadow effect*/
+	text-shadow: -3px -3px 0 #000, 0   -3px 0 #000, 3px -3px 0 #000, 3px 0 0 #000, 3px  3px 0 #000, 0 3px 0 #000, -3px  3px 0 #000, -3px  0   0 #000;; /*Lines the text with black to create a shadow effect*/
 	font-weight: bolder;
 	font-size: 50px;
 }
-
 
 /*NAV*/
 /*Background color fixed*/
@@ -87,7 +86,7 @@ Nav div{
 		transition: background-color .20s ease-in-out;
   }
 
- #default-checkbox{
+  #default-checkbox{
 	box-shadow: none!important; /*Makes the blue outline go away when the form is clicked*/
 	background-color: #333;
   }
@@ -206,11 +205,6 @@ body h1 a{
 	justify-content: center;
 }
 
-/*Centers the truck list*/
-.row{
-	justify-content: center;
-}
-
 /*Border around tables*/
 .usersList{
 	border-top: 12px solid #333!important;
@@ -228,21 +222,22 @@ body h1 a{
 }
 
 
+
 /* On all screen types with a window width of between 1024px and 1280px:
 Nest Hub, Nest Hub Max*/
 @media all and (min-width: 1024px) and (max-width: 1280px){
+	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
 		font-size: 50px;
-		color: red; 
 	}
 	nav a{
 		font-size: 250%;
 	}
 	body h2{
-		padding-top: 45px;
-		padding-left: 50px;
-		padding-right: 50px;
-		font-size: 200%;
+	padding-top: 45px;
+	padding-left: 50px;
+	padding-right: 50px;
+	font-size: 200%;
 	}
 
 	body h1{
@@ -254,8 +249,8 @@ Nest Hub, Nest Hub Max*/
 iPhone SE, iPhone XR, iPhone 12 Pro, Pixel 5, Samsung Galaxy S8+, Samsung Galaxy S20 Ultra, iPad Air, iPad Mini, Surface Pro 7, Surface Duo, Galaxy Fold,
 Samsung Galaxy A51/71*/
 @media all and (orientation: portrait){
+	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
-		color: yellow;
 		font-size: 20px;
 		text-align: center;
 		text-shadow: -1px 1px 2px #000, 1px 1px 2px #000, 1px -1px 0 #000, -1px -1px 0 #000; /*Lines the text with black to create a shadow effect*/
@@ -263,7 +258,7 @@ Samsung Galaxy A51/71*/
 	body h1{
 		font-size: 40px;
 	}
-	/*Manage Users form*/
+	 /*Manage Users form*/
 	 .form-container{
 		display: flex;
 		flex-direction: row;
@@ -279,14 +274,13 @@ Samsung Galaxy A51/71*/
 		margin-left: 10px;
 		margin-right: 10px;
 		font-size: 19px;
-	}		 
+	}	
 }
 
 @media all and (min-width: 520px) and (max-width: 555px){
 	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
 		font-size: 30px;
-		color: indianred;
 	}
 	body h1{
 		font-size: 30px;
@@ -310,7 +304,6 @@ Samsung Galaxy A51/71*/
 	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
 		font-size: 40px;
-		color: green;
 	}
 	body h1{
 		font-size: 45px;
@@ -334,7 +327,6 @@ Samsung Galaxy A51/71*/
 	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
 		font-size: 40px;
-		color: darkblue;
 	}
 	/*Manage Users form*/
 	.form-container{
@@ -346,7 +338,6 @@ Samsung Galaxy A51/71*/
 	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
 		font-size: 50px;
-		color: darkolivegreen;
 	}
 	body h1{
 		font-size: 48px;
@@ -377,7 +368,6 @@ Samsung Galaxy A51/71*/
 	/*Changes the font size for these particular screen sizes*/
 	.overlay-text{
 		font-size: 15px;
-		color: pink;
 	}
 	body h1{
 		font-size: 30px;
