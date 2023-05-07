@@ -30,12 +30,12 @@ function Car({ car, index, allCars, getAllCars, changeCarVal, updateLineDrawing 
                             changeCarVal={changeCarVal}
                             index={index}
                         />
-                        <Form.Label htmlFor="vehicle_id">*Car</Form.Label>
+                        <Form.Label htmlFor="vehicle_id">Car</Form.Label>
                         <Form.Select
                             id="vehicle_id"
                             value={car.vehicle_id}
                             onChange={(e) => selectVehicle(e)}
-                            required
+
                         >
                             <option>Select a Car</option>
                             <option value="add">Add New Vehicle</option>

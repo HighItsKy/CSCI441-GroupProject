@@ -477,7 +477,6 @@ function JobViewer({ user }) {
         setAreCarsEdited(false);
         setIsJobEdited(false);
 
-        startRef.focus();
 
         form.reset();
 
