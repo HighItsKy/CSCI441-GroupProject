@@ -80,7 +80,7 @@ function UserForm({ user, setUser }) {
                         <label htmlFor='ID'>EMPLOYEE #</label>
                         <input className="form-control" id="ID" readOnly value={user.employee_id}></input>
                     </div>
-                    <form className='employee-details' data-transport-order="form">
+                    <form onSubmit = {handleForm} className='employee-details' data-transport-order="form">
                         <div className='form-group'>
                             <label htmlFor='UserFName'>* FIRST NAME</label>
                             <input type="text" className="form-control" id="employee_first_name" required value={user.employee_first_name} onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}></input>
@@ -104,7 +104,7 @@ function UserForm({ user, setUser }) {
                             <input type="email" placeholder="example@gmail/yahoo.com" pattern=".+@(gmail|yahoo)\.com" className="form-control" id="employee_email" value={user.employee_email} onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}></input>
                         </div>
 
-                        <Form>
+                        
                             {
                                 <div key={`default-checkbox`} className="mb-3" >
                                     <Form.Check
@@ -124,8 +124,8 @@ function UserForm({ user, setUser }) {
                                     />
                                 </div>
                             }
-                        </Form>
-                        <button type="save" className={"btn btn-primary"} onClick={(e) => handleForm(e)}>SAVE</button>
+                        
+                        <button type="submit" className={"btn btn-primary"}>SAVE</button>
                         <button type="reset" className={"btn btn-primary"} onClick={() =>window.location.reload()}>BACK</button>
                     </form>
                 </div>
