@@ -4,7 +4,7 @@ import JobForm from './JobForm';
 import TransportHeader from '../header';
 import JobList from './JobList';
 import JobSearch from './JobSearch';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import React from 'react';
 import axios from "../../api/axios";
@@ -60,6 +60,8 @@ function JobViewer({ user }) {
     const [areCarsEdited, setAreCarsEdited] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [errMsg, setErrMsg] = useState("");
+
+    const startRef = useRef(null);
 
     const fetchItems = async () => {
 
@@ -475,11 +477,14 @@ function JobViewer({ user }) {
         setAreCarsEdited(false);
         setIsJobEdited(false);
 
+        startRef.focus();
+
         form.reset();
 
     }
 
     const resetJob = (e) => {
+
         const jobVal = {};
         jobVal.driver_signature = null;
         jobVal.shipper_signature = null;
@@ -487,6 +492,7 @@ function JobViewer({ user }) {
         setCars([]);
         setAreCarsEdited(false);
         setIsJobEdited(false);
+
     }
 
     return (
@@ -525,6 +531,7 @@ function JobViewer({ user }) {
                         updateReceiverBranches={updateReceiverBranches}
                         updateShipperBranches={updateShipperBranches}
                         getAllCars={getAllCars}
+                        startRef={startRef}
                     />
                 </Col>
                 <Col md={5}>

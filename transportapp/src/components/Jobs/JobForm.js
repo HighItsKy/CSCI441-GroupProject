@@ -18,7 +18,7 @@ function JobForm({
     updateJob, resetJob,
     updateSignature, addCompanyValues,
     updateShipperBranches, updateReceiverBranches,
-    getAllCars }) {
+    getAllCars, startRef }) {
 
     //flags to show modal forms
     const [shipperAddCompany, setShipperAddCompany] = useState(false);
@@ -102,11 +102,12 @@ function JobForm({
                     />
                     <Form.Label htmlFor="orderDate">*Date</Form.Label>
                     <Form.Control
+                        autofocus
+                        ref={startRef}
                         id="date_of_order"
                         type="date"
                         value={job.date_of_order}
                         onChange={(e) => changeVal(e.currentTarget.id, e.currentTarget.value)}
-                        autoFocus
                         required>
                     </Form.Control>
                 </Form.Group>
